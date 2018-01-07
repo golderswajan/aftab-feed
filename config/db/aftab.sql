@@ -1,0 +1,422 @@
+-- phpMyAdmin SQL Dump
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Jan 07, 2018 at 11:35 AM
+-- Server version: 10.1.25-MariaDB
+-- PHP Version: 7.1.7
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `aftab`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bankdeposite`
+--
+
+CREATE TABLE `bankdeposite` (
+  `id` int(11) NOT NULL,
+  `tokenNo` varchar(100) NOT NULL,
+  `bankName` varchar(200) NOT NULL,
+  `netAmount` float NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `category`
+--
+
+CREATE TABLE `category` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`id`, `name`) VALUES
+(2, 'Chicken'),
+(3, 'Feed'),
+(1, 'Medicine');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `creditsale`
+--
+
+CREATE TABLE `creditsale` (
+  `id` int(11) NOT NULL,
+  `pcs` int(11) NOT NULL,
+  `unitPrice` float NOT NULL,
+  `netAmount` float NOT NULL,
+  `date` date NOT NULL,
+  `partyId` int(11) NOT NULL,
+  `subCategoryId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer`
+--
+
+CREATE TABLE `customer` (
+  `id` int(11) NOT NULL,
+  `name` int(11) NOT NULL,
+  `address` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `expense`
+--
+
+CREATE TABLE `expense` (
+  `id` int(11) NOT NULL,
+  `details` text NOT NULL,
+  `netAmount` float NOT NULL,
+  `date` date NOT NULL,
+  `expenseCategoryId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `expensecategory`
+--
+
+CREATE TABLE `expensecategory` (
+  `id` int(11) NOT NULL,
+  `name` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `expensecategory`
+--
+
+INSERT INTO `expensecategory` (`id`, `name`) VALUES
+(2, 'House rent'),
+(3, 'Stationary'),
+(1, 'Transport');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `party`
+--
+
+CREATE TABLE `party` (
+  `id` int(11) NOT NULL,
+  `quota` float NOT NULL,
+  `customerId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `price`
+--
+
+CREATE TABLE `price` (
+  `id` int(11) NOT NULL,
+  `buy` float NOT NULL,
+  `sale` float NOT NULL,
+  `subCategoryId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `price`
+--
+
+INSERT INTO `price` (`id`, `buy`, `sale`, `subCategoryId`) VALUES
+(1, 1, 1, 1),
+(2, 1, 1, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sale`
+--
+
+CREATE TABLE `sale` (
+  `id` int(11) NOT NULL,
+  `pcs` int(11) NOT NULL,
+  `unitPrice` float NOT NULL,
+  `netAmount` float NOT NULL,
+  `date` date NOT NULL,
+  `customerId` int(11) NOT NULL,
+  `subCategoryId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stock`
+--
+
+CREATE TABLE `stock` (
+  `id` int(11) NOT NULL,
+  `pcs` int(11) NOT NULL,
+  `unitPrice` float NOT NULL,
+  `netAmount` float NOT NULL,
+  `date` date NOT NULL,
+  `subCategoryId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `subcategory`
+--
+
+CREATE TABLE `subcategory` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `categoryId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `subcategory`
+--
+
+INSERT INTO `subcategory` (`id`, `name`, `categoryId`) VALUES
+(1, 'Whatever', 2),
+(2, 'Chiken 2 days', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `userName` varchar(60) NOT NULL,
+  `password` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `bankdeposite`
+--
+ALTER TABLE `bankdeposite`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `category`
+--
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `title` (`name`);
+
+--
+-- Indexes for table `creditsale`
+--
+ALTER TABLE `creditsale`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `subCategoryId` (`subCategoryId`),
+  ADD KEY `customerId` (`partyId`);
+
+--
+-- Indexes for table `customer`
+--
+ALTER TABLE `customer`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `expense`
+--
+ALTER TABLE `expense`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `expenseCategoryId` (`expenseCategoryId`);
+
+--
+-- Indexes for table `expensecategory`
+--
+ALTER TABLE `expensecategory`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `title` (`name`);
+
+--
+-- Indexes for table `party`
+--
+ALTER TABLE `party`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `customerId` (`customerId`);
+
+--
+-- Indexes for table `price`
+--
+ALTER TABLE `price`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `subCategoryId_2` (`subCategoryId`),
+  ADD KEY `subCategoryId` (`subCategoryId`);
+
+--
+-- Indexes for table `sale`
+--
+ALTER TABLE `sale`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `subCategoryId` (`subCategoryId`),
+  ADD KEY `customerId` (`customerId`);
+
+--
+-- Indexes for table `stock`
+--
+ALTER TABLE `stock`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `subCategoryId` (`subCategoryId`);
+
+--
+-- Indexes for table `subcategory`
+--
+ALTER TABLE `subcategory`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `title` (`name`),
+  ADD KEY `categoryId` (`categoryId`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `userName` (`userName`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `bankdeposite`
+--
+ALTER TABLE `bankdeposite`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `category`
+--
+ALTER TABLE `category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `creditsale`
+--
+ALTER TABLE `creditsale`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `customer`
+--
+ALTER TABLE `customer`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `expense`
+--
+ALTER TABLE `expense`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `expensecategory`
+--
+ALTER TABLE `expensecategory`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `party`
+--
+ALTER TABLE `party`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `price`
+--
+ALTER TABLE `price`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `sale`
+--
+ALTER TABLE `sale`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `stock`
+--
+ALTER TABLE `stock`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `subcategory`
+--
+ALTER TABLE `subcategory`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `creditsale`
+--
+ALTER TABLE `creditsale`
+  ADD CONSTRAINT `creditsale_ibfk_1` FOREIGN KEY (`subCategoryId`) REFERENCES `subcategory` (`id`),
+  ADD CONSTRAINT `creditsale_ibfk_2` FOREIGN KEY (`partyId`) REFERENCES `party` (`id`);
+
+--
+-- Constraints for table `expense`
+--
+ALTER TABLE `expense`
+  ADD CONSTRAINT `expense_ibfk_1` FOREIGN KEY (`expenseCategoryId`) REFERENCES `expensecategory` (`id`);
+
+--
+-- Constraints for table `party`
+--
+ALTER TABLE `party`
+  ADD CONSTRAINT `party_ibfk_1` FOREIGN KEY (`customerId`) REFERENCES `customer` (`id`);
+
+--
+-- Constraints for table `price`
+--
+ALTER TABLE `price`
+  ADD CONSTRAINT `price_ibfk_1` FOREIGN KEY (`subCategoryId`) REFERENCES `subcategory` (`id`);
+
+--
+-- Constraints for table `sale`
+--
+ALTER TABLE `sale`
+  ADD CONSTRAINT `sale_ibfk_1` FOREIGN KEY (`subCategoryId`) REFERENCES `subcategory` (`id`),
+  ADD CONSTRAINT `sale_ibfk_2` FOREIGN KEY (`customerId`) REFERENCES `customer` (`id`);
+
+--
+-- Constraints for table `stock`
+--
+ALTER TABLE `stock`
+  ADD CONSTRAINT `stock_ibfk_1` FOREIGN KEY (`subCategoryId`) REFERENCES `subcategory` (`id`);
+
+--
+-- Constraints for table `subcategory`
+--
+ALTER TABLE `subcategory`
+  ADD CONSTRAINT `subcategory_ibfk_1` FOREIGN KEY (`categoryId`) REFERENCES `category` (`id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
