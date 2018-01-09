@@ -5,8 +5,8 @@
 		<icon>pe-7s-graph</icon>
 	</items>
 	<items>
-		<title>Inventory Report</title>
-		<link>inventoryreport.php</link>
+		<title>Stock Report</title>
+		<link>stock.php</link>
 		<icon>pe-7s-graph3</icon>
 	</items>
 	<items>
