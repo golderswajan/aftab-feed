@@ -33,5 +33,12 @@ class BLLDemo
 		}
 		return $data;
 	}
+
+	public function getAllUsers()
+    {
+        $dalDemo = new DALDemo;
+        $result = $dalDemo->getAllUsers();
+        return $result;
+    }
 }
 ?>

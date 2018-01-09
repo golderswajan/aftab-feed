@@ -16,5 +16,11 @@
 			$result = $this->dbQuery($sql);
 			return $result;
 		}
-	}
+		public function getAllUsers()
+        {
+            $sql = "SELECT * FROM user";
+            $result = $this->dbQuery($sql);
+            return $result;
+        }
+    }
 ?>
