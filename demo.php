@@ -53,6 +53,10 @@ if (isset($_SESSION['message']))
 					 <?php
 					 	$bllDemo = new BLLDemo;
 					 	echo $bllDemo->getUsers();
+
+					 	var_dump($bllDemo->getAllUsers());
+
+
 					 ?>
 					</tbody>
 	            </tbody>
