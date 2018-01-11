@@ -1,30 +1,44 @@
 <?php
-include('./templates/head.php');
 
 require_once('./bll/bll.productcategory.php');
+include_once './templates/topper-customized.php';
+?>
 
-?>
-<div class="wrapper">
-    <!--Sidebar here-->
-<?php
-    // Dashboard Sidebar
-include('./templates/sidebar.php');
-   
-?>
-<div class="main-panel">
+<script>
+    $(document).ready(function($){
+        $('#categoryTable').editableGrid({
+            primaryTable: "category",
+            identity: "categoryTable"
+        });
+        $('#subCategoryTable').editableGrid({
+            primaryTable: "subCategory",
+            identity: "subCategoryTable",
+            selectQuery: "select subcategory.id,subcategory.name,category.name as parent from subcategory,category where subcategory.categoryId=category.id",
+            editMethods : {
+                parent : "UPDATE `subcategory` SET `categoryId` = '*' WHERE `subcategory`.`id` = '*'",
+            },
+            format : {
+                parent : {
+                    type : "ddl",
+                    selectQuery : "select * from category"
+                }
+            }
 
-<?php
-// Top Navbar
-include('./templates/navbar.php');
-?>
+        });
+
+        window.setTimeout(function(){
+            $('#msgDiv').hide();
+
+        }, 2000);
+    });
+</script>
 <!--Page contend starts here .. seperated in each file -->
-        <div class="content">
-            <div class="container-fluid">
+
                <div class="row">
                  <?php
                     if (isset($_SESSION['message']))
                         {
-                            $info= '<div class="alert alert-info">';
+                            $info= '<div id="msgDiv" class="alert alert-info">';
                             $info.='<span>'.$_SESSION['message'].'</span>';
                             $info.='</div>';
                             echo $info;
@@ -41,51 +55,24 @@ include('./templates/navbar.php');
                             <div class="content">
                                 <form action="bll/bll.productcategory.php" method="POST">
                                     <div class="row">
-                                    <input type="text" name="id" value="<?php
-                                    if(isset($_GET['edit']))
-                                       echo $_GET['edit'];
-                                    ?>" style="display: none">
                                        
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Category Name</label>
-                                                <input type="text" name="categoryName" class="form-control" placeholder="Category Name" required value="<?php
-                                                if(isset($_GET['edit']))
-                                                   echo $GLOBALS['name'];
-                                                ?>">
+                                                <input type="text" name="categoryName" class="form-control" placeholder="Category Name" required >
                                             </div>
                                         </div>
 
                                     </div>
-                                    <input type="submit" class="btn btn-info btn-fill pull-right" name="<?php
-                                                if(isset($_GET['edit']))
-                                                   echo "update_category";
-                                                else 
-                                                    echo "insert_category";
-                                                ?>"" value="<?php
-                                                if(isset($_GET['edit']))
-                                                   echo "Update";
-                                                else
-                                                    echo "Save";
-                                                ?>">
+                                    <input type="submit" class="btn btn-info btn-fill pull-right" name="insert_category" value="Save">
                                     <div class="clearfix"></div>
                                 </form>
 
                                  <!-- Data display -->
                             <br>
                             <div class="content table-responsive table-full-width">
-                                <table class="table table-hover table-striped">
-                                    <thead>
-                                        <th>SL.</th>
-                                        <th>Title</th>
-                                        <th>Edit</th>
-                                        <th>Delete</th>
-                                    </thead>
-                                    <tbody>
-                                    <?php
-                                        echo $bllProductCategory->showCategory();
-                                    ?>
-                                    </tbody>
+                                <table id="categoryTable" class="table table-hover table-striped">
+
                                 </table>
                             </div>
                             <!-- Data display end -->
@@ -128,38 +115,16 @@ include('./templates/navbar.php');
                                         </div>
 
                                     </div>
-                                    <input type="submit" class="btn btn-info btn-fill pull-right" name="<?php
-                                                if(isset($_GET['editSub']))
-                                                   echo "update_sub_category";
-                                                else 
-                                                    echo "insert_sub_category";
-                                                ?>"" value="<?php
-                                                if(isset($_GET['editSub']))
-                                                   echo "Update";
-                                                else
-                                                    echo "Save";
-                                                ?>">
+                                    <input type="submit" class="btn btn-info btn-fill pull-right" name="insert_sub_category" value="Save">
                                     <div class="clearfix"></div>
                                 </form>
 
                                  <!-- Data display -->
                             <br>
-                            <div class="content table-responsive table-full-width">
-                                <table class="table table-hover table-striped">
-                                    <thead>
-                                        <th>SL.</th>
-                                        <th>Title</th>
-                                        <th>Parent</th>
-                                        <th>Edit</th>
-                                        <th>Delete</th>
-                                    </thead>
-                                    <tbody>
-                                    <?php
-                                        echo $bllProductCategory->showSubCategory();
-                                    ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                                <div class="content table-responsive table-full-width">
+                                    <table id="subCategoryTable" class="table table-hover table-striped">
+                                    </table>
+                                </div>
                             <!-- Data display end -->
 
                             </div>
@@ -169,9 +134,8 @@ include('./templates/navbar.php');
 
                 </div>
 
-            </div>
-        </div>
+
 
  <?php
-    include('./templates/footer.php');
+    include_once './templates/footer-customized.php';
 ?>

@@ -30,7 +30,11 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
 
-    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="/assets/plugin/jquery-3.2.1.min.js"></script>
+    <script src="/assets/plugin/jquery.editable-grid_Swajan.js"></script>
+    <script src="/assets/js/myFunction.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   
 
 </head>
