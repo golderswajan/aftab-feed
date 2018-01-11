@@ -1,21 +1,20 @@
 <?php
-    // Head and body starting
+// Head and body starting
 include('./templates/head.php');
 
 include('./bll/bll.user.php');
-
 ?>
 <div class="wrapper">
-    <!--Sidebar here-->
+<!--Sidebar here-->
 <?php
-    // Dashboard Sidebar
+// Dashboard Sidebar
 include('./templates/sidebar.php');
 
 ?>
 <div class="main-panel">
 
 <?php
-            // Top Navbar
+// Top Navbar
 include('./templates/navbar.php');
 ?>
 <!--Page contend starts here .. seperated in each file -->
@@ -35,7 +34,7 @@ include('./templates/navbar.php');
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title"><b>Add New Sales Executive</b></h4>
+                                <h4 class="title"><b>Add New User</b></h4>
                             </div>
                             <div class="content">
                                 <form action="bll/bll.user.php" method="POST">
@@ -46,8 +45,8 @@ include('./templates/navbar.php');
                                                 ?>" style="display: none">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Full Name</label>
-                                                <input type="text" name="fullName" class="form-control" placeholder="Full Name" required value="<?php
+                                                <label>Name</label>
+                                                <input type="text" name="name" class="form-control" placeholder="Name" required value="<?php
                                                 if(isset($_GET['edit']))
                                                    echo $GLOBALS['name'];
                                                 ?>">
@@ -56,21 +55,21 @@ include('./templates/navbar.php');
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Phone No</label>
-                                                <input type="text" name="phoneNo" class="form-control" placeholder="Phone No" required value="<?php
+                                                <input type="text" name="phone" class="form-control" placeholder="Phone No" required value="<?php
                                                 if(isset($_GET['edit']))
-                                                   echo $GLOBALS['phoneNo'];
+                                                   echo $GLOBALS['phone'];
                                                 ?>">
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Address</label>
-                                                <input type="text" name="address" class="form-control" placeholder="Address" required value="<?php
+                                                <label>Password</label>
+                                                <input type="text" name="password" class="form-control" placeholder="Password" required value="<?php
                                                 if(isset($_GET['edit']))
-                                                   echo $GLOBALS['address'];
+                                                   echo $GLOBALS['password'];
                                                 ?>">
                                             </div>
                                         </div>
@@ -78,9 +77,9 @@ include('./templates/navbar.php');
 
                                     <input type="submit" class="btn btn-info btn-fill pull-right" name="<?php
                                                 if(isset($_GET['edit']))
-                                                   echo "update_se";
+                                                   echo "update_user";
                                                 else 
-                                                    echo "insert_se";
+                                                    echo "insert_user";
                                                 ?>"" value="<?php
                                                 if(isset($_GET['edit']))
                                                    echo "Update";
@@ -97,8 +96,8 @@ include('./templates/navbar.php');
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title"><b>List of Sales Executive</b></h4>
-                                <p class="category">Kazi Mobile Home</p>
+                                <h4 class="title"><b>List of Users</b></h4>
+                                <p class="category">Aftab Feed Products</p>
                             </div>
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
@@ -106,13 +105,13 @@ include('./templates/navbar.php');
                                         <th>SL.</th>
                                         <th>Name</th>
                                         <th>Phone No</th>
-                                        <th>Address</th>
                                         <th>Edit</th>
                                         <th>Delete</th>
                                     </thead>
                                     <tbody>
                                     <?php
-                                        echo $bllUser->showSE();
+                                        $bllUser = new BLLUser;
+                                        echo $bllUser->showUser();
                                     ?>
                                     </tbody>
                                 </table>
