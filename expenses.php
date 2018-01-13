@@ -109,8 +109,6 @@ if (isset($_SESSION['message']))
                     </div>
 
                   <!-- Control user -->
-
-                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Date</label>
@@ -129,16 +127,6 @@ if (isset($_SESSION['message']))
                         </div>
                     </div>
                 </div>
-
-                <div class="col-md-6">
-                    <input type="date" name="dateOfSale" class="form-control" value="<?php
-                        $time = time();
-                        echo date('Y-m-d',$time);
-                    ?>" style="display: none;">
-                </div>
-
-
-</div>
 <!-- Control user end-->                
 
                 <input type="submit" class="btn btn-info btn-fill pull-right" name="<?php

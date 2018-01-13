@@ -105,8 +105,6 @@ if (isset($_SESSION['message']))
                         </div>
                     </div>
 
-
-                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Date</label>
@@ -124,8 +122,6 @@ if (isset($_SESSION['message']))
                             ?>" required>
                         </div>
                     </div>
-                </div>
-
             </div>
                 
 
