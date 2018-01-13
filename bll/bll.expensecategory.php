@@ -170,7 +170,7 @@ class BLLExpenseCategory
 	public function showCategory()
 	{
 		$dalExpenseCategory = new DALExpenseCategory;
-		$result = $dalExpenseCategory->showCategory();
+		$result = $dalExpenseCategory->getCategory();
 		$data = "";
 		$i  = 1;
 		while ($res = mysqli_fetch_assoc($result))
@@ -198,7 +198,7 @@ class BLLExpenseCategory
 	public function getCategoryAsOptions()
 	{
 		$dalExpenseCategory = new DALExpenseCategory;
-		$result = $dalExpenseCategory->showCategory();
+		$result = $dalExpenseCategory->getCategory();
 		$data ='<select name="parent" class="form-control">';
 		$i  = 1;
 		while ($res = mysqli_fetch_assoc($result))
@@ -223,7 +223,7 @@ class BLLExpenseCategory
 	public function showSubCategory()
 	{
 		$dalExpenseCategory = new DALExpenseCategory;
-		$result = $dalExpenseCategory->showSubCategory();
+		$result = $dalExpenseCategory->getSubCategory();
 		$data = "";
 		$i  = 1;
 		while ($res = mysqli_fetch_assoc($result))

@@ -24,7 +24,7 @@ class DALExpenseCategory
 		return $result;
 
 	}
-	public function showCategory()
+	public function getCategory()
 	{
 		$utility = new Utility;
 		$sql = "SELECT * FROM `expensecategory` WHERE 1 ORDER BY name ASC";

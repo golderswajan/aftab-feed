@@ -192,5 +192,42 @@
 			return $rows;
 		}
 
+		//***********************************************
+		// Product Pricing
+		//***********************************************
+		public function getBuyPrice($subCategoryId)
+		{
+			global $con;
+			$sql = "SELECT * FROM price WHERE price.subCategoryId = $subCategoryId";
+			$result = mysqli_query($con,$sql);
+			$price=0;
+			while ($res = mysqli_fetch_assoc($result))
+			{
+				$price += $res['buy'];
+			}
+			if($price==null)
+			{
+				$price = 1;
+			}
+			return $price;
+		}
+		public function getSalePrice($subCategoryId)
+		{
+			global $con;
+			$sql = "SELECT * FROM price WHERE price.subCategoryId = $subCategoryId";
+			$result = mysqli_query($con,$sql);
+			$price;
+			while ($res = mysqli_fetch_assoc($result))
+			{
+				$price = $res['sale'];
+			}
+			if($price==null)
+			{
+				$price = 1;
+			}
+			return $price;
+		}
+
+
 	}
 ?>
