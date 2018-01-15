@@ -32,7 +32,6 @@
 
     <script src="/assets/plugin/jquery-3.2.1.min.js"></script>
     <script src="/assets/plugin/jquery.editable-grid_Swajan.js"></script>
-    <script src="/assets/js/myFunction.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   

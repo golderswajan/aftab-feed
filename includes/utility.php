@@ -170,6 +170,24 @@
 				echo mysqli_error($con);
 			}
 		}
+        function db_select($query){
+//          $con = db_connect();
+            global $con;
+            $rows = $con->query($query);
+            $data = [];
+            if($rows==null){
+                echo "database query failed";
+            }else {
+                $rows = $rows->fetch_all(MYSQLI_ASSOC);
+                foreach ($rows as $row){
+                    array_push($data,$row);
+                }
+            }
+            //$con->close();
+            return $data;
+        }
+
+
 		public function getRows($result)
 		{
 			$rows = array();

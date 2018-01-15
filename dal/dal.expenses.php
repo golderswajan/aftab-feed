@@ -1,6 +1,6 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'].'/includes/utility.php');
-
+include_once ($_SERVER['DOCUMENT_ROOT'].'/includes/database.php');
 
 class DALExpense
 {
@@ -9,6 +9,11 @@ class DALExpense
 	{
 
 	}
+	public function getExpenseCategory(){
+        $utility = new Utility;
+	    $query = "SELECT * FROM `expensecategory`";
+	    return $utility->db_select($query);
+    }
 	public function insertExpense($categoryId,$details,$netAmount,$date)
 	{
 		$utility = new Utility;
@@ -49,6 +54,16 @@ class DALExpense
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
+
+	public function getTotalExpense($dateFrom,$dateTo,$category){
+        if($category!=0) $category = " and expense.expenseCategoryId='".category."'";
+        else $category = '';
+        $utility = new Utility;
+	    $query = "select sum(expense.netAmount) as cost from expense where expense.date between '".$dateFrom."' and '".$dateTo."'".$category;
+        $result = $utility->db_select($query);
+        return $result[0]['cost'];
+
+    }
 
 }
 ?>
