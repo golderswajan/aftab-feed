@@ -1,4 +1,4 @@
-(function () {
+(function ($) {
 
     $.fn.editableGrid = function (options) {
         this.on('click','td a span',doDeleteFunction);
@@ -10,7 +10,8 @@
             selectQuery:'select * from ',
             columns:'',
             editMethods:'',
-            format:''
+            format:'',
+            editAble:''
 
         },options);
         if(settings.selectQuery=="select * from ")settings.selectQuery += settings.primaryTable;
@@ -37,10 +38,12 @@
                 }
 
 
+                var ddlCheck = false;
                 if(settings.format!=''){
                     for(var i=0;i<columns.length;i++){
                         if(settings.format[columns[i]]!=null){
                             if(settings.format[columns[i]].type=="ddl"){
+                                ddlCheck = true;
                                 var query = settings.format[columns[i]].selectQuery;
                                 $.post('/assets/plugin/j-process.php',{generalSelect:query},function (data) {
                                     ddlData = JSON.parse(data);
@@ -52,6 +55,7 @@
                             }
                         }
                     }
+                    if(!ddlCheck) formTable();
                 }else{
                     formTable();
                 }
@@ -65,7 +69,6 @@
 
 
         function formTable(){
-
             var rowHtml = "<thead>";
             var tempColumns;
             if(settings.columns.length!=0){
@@ -74,9 +77,9 @@
                 tempColumns = columns.slice();
                 tempColumns.splice(0,1);
                 $.each(tempColumns,function (index,value) {
-                    tempColumns[index] =
-                        jsUcFirst(value);
+                    tempColumns[index] = jsUcFirst(value);
                 });
+                console.log(tempColumns);
             }
 
 
@@ -90,7 +93,6 @@
             rowHtml +="</thead>";
 
             rowHtml +="<tbody>";
-            console.log(ddlData);
             for(var i=0;i<infoLength;i++){
                 rowHtml += "<tr>";
                 rowHtml += "<td>"+(i+1)+"</td>"
@@ -106,13 +108,36 @@
                                 }
 
                                 rowHtml += "</select></td>";
+                            }else if(settings.format[columns[j]].type=="date"){
+                                rowHtml += "<td id='"+identity+columns[j]+"Td"+info[i][columns[0]]+"'><span id=\""+identity+columns[j]+"Label"+info[i][columns[0]]+"\">"+info[i][columns[j]]+"</span><input type='date' id=\""+identity+columns[j]+"Input"+info[i][columns[0]]+"\"  class=\"form-control\" style='display: none' value='"+info[i][columns[j]]+"'></td>";
+                            }else if(settings.format[columns[j]].type=="number"){
+                                rowHtml += "<td id='"+identity+columns[j]+"Td"+info[i][columns[0]]+"'><span id=\""+identity+columns[j]+"Label"+info[i][columns[0]]+"\">"+info[i][columns[j]]+"</span><input type='number' id=\""+identity+columns[j]+"Input"+info[i][columns[0]]+"\"  class=\"form-control\" style='display: none' value='"+info[i][columns[j]]+"' min='0'></td>";
                             }
+
                         }else{
-                            rowHtml += "<td id='"+identity+columns[j]+"Td"+info[i][columns[0]]+"'><span id=\""+identity+columns[j]+"Label"+info[i][columns[0]]+"\">"+info[i][columns[j]]+"</span><textarea id=\""+identity+columns[j]+"Input"+info[i][columns[0]]+"\"  class=\"myTextArea\" rows='1' style='display: none;overflow: hidden'>"+info[i][columns[j]]+"</textarea></td>";
+                            //before adding editAble//rowHtml += "<td id='"+identity+columns[j]+"Td"+info[i][columns[0]]+"'><span id=\""+identity+columns[j]+"Label"+info[i][columns[0]]+"\">"+info[i][columns[j]]+"</span><textarea id=\""+identity+columns[j]+"Input"+info[i][columns[0]]+"\"  class=\"form-control\" rows='1' style='display: none;overflow: hidden'>"+info[i][columns[j]]+"</textarea></td>";
+                            if(settings.editAble!=''){
+                                if(settings.editAble[columns[j]]==null){
+                                    rowHtml += "<td id='"+identity+columns[j]+"Td"+info[i][columns[0]]+"'><span id=\""+identity+columns[j]+"Label"+info[i][columns[0]]+"\">"+info[i][columns[j]]+"</span><textarea id=\""+identity+columns[j]+"Input"+info[i][columns[0]]+"\"  class=\"form-control\" rows='1' style='display: none;overflow: hidden'>"+info[i][columns[j]]+"</textarea></td>";
+                                }else{
+                                    rowHtml += "<td><span>"+info[i][columns[j]]+"</span></td>";
+                                }
+                            }else{
+                                rowHtml += "<td id='"+identity+columns[j]+"Td"+info[i][columns[0]]+"'><span id=\""+identity+columns[j]+"Label"+info[i][columns[0]]+"\">"+info[i][columns[j]]+"</span><textarea id=\""+identity+columns[j]+"Input"+info[i][columns[0]]+"\"  class=\"form-control\" rows='1' style='display: none;overflow: hidden'>"+info[i][columns[j]]+"</textarea></td>";
+                            }
                         }
 
                     }else {
-                        rowHtml += "<td id='"+identity+columns[j]+"Td"+info[i][columns[0]]+"'><span id=\""+identity+columns[j]+"Label"+info[i][columns[0]]+"\">"+info[i][columns[j]]+"</span><textarea id=\""+identity+columns[j]+"Input"+info[i][columns[0]]+"\"  class=\"myTextArea\" rows='1' style='display: none;overflow: hidden'>"+info[i][columns[j]]+"</textarea></td>";
+                        //before adding editable//rowHtml += "<td id='"+identity+columns[j]+"Td"+info[i][columns[0]]+"'><span id=\""+identity+columns[j]+"Label"+info[i][columns[0]]+"\">"+info[i][columns[j]]+"</span><textarea id=\""+identity+columns[j]+"Input"+info[i][columns[0]]+"\"  class=\"form-control\" rows='1' style='display: none;overflow: hidden'>"+info[i][columns[j]]+"</textarea></td>";
+                        if(settings.editAble!=''){
+                            if(settings.editAble[columns[j]]==null){
+                                rowHtml += "<td id='"+identity+columns[j]+"Td"+info[i][columns[0]]+"'><span id=\""+identity+columns[j]+"Label"+info[i][columns[0]]+"\">"+info[i][columns[j]]+"</span><textarea id=\""+identity+columns[j]+"Input"+info[i][columns[0]]+"\"  class=\"form-control\" rows='1' style='display: none;overflow: hidden'>"+info[i][columns[j]]+"</textarea></td>";
+                            }else{
+                                rowHtml += "<td><span>"+info[i][columns[j]]+"</span></td>";
+                            }
+                        }else{
+                            rowHtml += "<td id='"+identity+columns[j]+"Td"+info[i][columns[0]]+"'><span id=\""+identity+columns[j]+"Label"+info[i][columns[0]]+"\">"+info[i][columns[j]]+"</span><textarea id=\""+identity+columns[j]+"Input"+info[i][columns[0]]+"\"  class=\"form-control\" rows='1' style='display: none;overflow: hidden'>"+info[i][columns[j]]+"</textarea></td>";
+                        }
                     }
 
 
@@ -174,6 +199,7 @@
 
             if (clickControl) {
                 if (event.target.id != (identity+primaryKey.col+"Input"+primaryKey.row)) {
+                    console.log("you touched");
                     doEditFunction();
                 }
             }
@@ -182,6 +208,7 @@
         $(document).keypress(function (e) {
             if (clickControl) {
                 if (e.which == 13) {
+                    console.log("you pressed enter");
                     doEditFunction();
                 }
 
@@ -225,7 +252,5 @@
 
 
     }
-
-
 
 }(jQuery));

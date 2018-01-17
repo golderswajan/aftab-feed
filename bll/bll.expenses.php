@@ -176,6 +176,19 @@ class BLLExpense
 
 
 	}
+
+	public function getTotalExpense($dateFrom,$dateTo,$category){
+        $dalExpense = new DALExpense;
+        $cost = $dalExpense->getTotalExpense($dateFrom,$dateTo,$category);
+        $data='<div class="col-md-12">';
+        $data.='<div class="card">';
+        $data.='<div class="alert alert-info">';
+        $data.='<span class="h3">Grand Total Cost:'.$cost.' BDT</span>';
+        $data.='</div>';
+        $data.='</div>';
+        $data.='</div>';
+        return $data;
+    }
 	public function getExpenseById($id)
 	{
 		$dalExpense = new DALExpense;
@@ -190,6 +203,25 @@ class BLLExpense
 			$GLOBALS['date'] =$res['date'];
 		}
 	}
+
+    public function getExpenseCategoryAsOptions($value)
+    {
+        $dalExpenseCategory = new DALExpense;
+        $result = $dalExpenseCategory->getExpenseCategory();
+        $data ='<select id="expenseCategory" name="expenseCategory" class="form-control">';
+        $data .= "<option value='0'>All</option>";
+        foreach ($result as $res)
+        {
+            if($value==$res['id'])$data .='<option value='.$res['id'].' selected>';
+            else $data .='<option value='.$res['id'].'>';
+            $data .=$res['name'];
+            $data .='</option>';
+        }
+        $data .='</select>';
+
+        return $data;
+
+    }
 
 }
 ?>
