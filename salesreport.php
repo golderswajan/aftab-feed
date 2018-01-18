@@ -39,7 +39,7 @@ if (isset($_SESSION['message']))
     <div class="col-md-12">
     <div class="card">
         <div class="header">
-            <h4 class="title"><b>Expense Report</b> 
+            <h4 class="title"><b>Sales Report</b> 
             </h4>
         </div>
         <div class="content">
@@ -74,7 +74,7 @@ if (isset($_SESSION['message']))
              <div class="col-md-8">
                 <div class="form-group">
                    
-                    <input type="submit" name="dateRange" class="btn btn-info btn-fill pull-right" value="Load Expenses">
+                    <input type="submit" name="dateRange" class="btn btn-info btn-fill pull-right" value="Load Sales">
                 </div>
             </div>
 
@@ -88,7 +88,7 @@ if (isset($_SESSION['message']))
     <div class="col-md-12">
         <div class="card">
             <div class="header">
-                <h3 class="title text-center"><b>Expense Report</b></h3>
+                <h3 class="title text-center"><b>Sales Report</b></h3>
                 <p class="h5 text-center"><i><?php
                     $time = time();
                     if(isset($_GET['dateRange']))
@@ -99,7 +99,7 @@ if (isset($_SESSION['message']))
             </div>
 
             <div class="content table-responsive table-full-width">
-                <table class="table table-hover table-striped" id="ExpenseReport">
+                <table class="table table-hover table-striped" id="SalesReport">
                     <thead>
                         <th>SL.</th>
                         <th>Product</th>
@@ -112,13 +112,13 @@ if(isset($_GET['dateRange']))
 {
     $dateFrom = $_GET['dateFrom'];
     $dateTo = $_GET['dateTo'];
-    echo $bllSales->showExpenseReport($dateFrom,$dateTo);
+    echo $bllSales->showSalesReport($dateFrom,$dateTo);
 }
 else
 {
     $time = time();
     $today = date('Y-m-d',$time);
-    echo $bllSales->showExpenseReport($today,$today);
+    echo $bllSales->showSalesReport($today,$today);
 }
 ?>
                     </tbody>
@@ -140,7 +140,7 @@ else
 <script type="text/javascript" src="assets/js/tableexport.min.js"></script>
 
 <!-- <script>
-    $('#ExpenseReport').tableExport();
+    $('#SalesReport').tableExport();
 </script> -->
 <!-- Report csv,xlsx,txt plugins -->
 

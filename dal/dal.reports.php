@@ -21,7 +21,7 @@ class DALReports
 	public function getSalesReport($dateFrom,$dateTo)
 	{
 		$utility = new Utility;
-		$sql = "SELECT category.name as categoryName, SUM(sales.netAmount) as total FROM sales,subcategory,category WHERE sales.subCategoryId = subcategory.id && subcategory.categoryId = category.id && sales.date BETWEEN '$dateFrom' AND '$dateTo' GROUP BY categoryName";
+		$sql = "SELECT category.name as categoryName, SUM(sale.netAmount) as total FROM sale,subcategory,category WHERE sale.subCategoryId = subcategory.id && subcategory.categoryId = category.id && sale.date BETWEEN '$dateFrom' AND '$dateTo' GROUP BY categoryName";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
@@ -29,14 +29,14 @@ class DALReports
 	public function getSalesReportBySubCategoryName($subCategoryName,$date)
 	{
 		$utility = new Utility;
-		$sql = "SELECT SUM(sales.pcs) as pcs, SUM(sales.netAmount) as netAmount FROM sales,subcategory WHERE sales.subCategoryId = subcategory.id && subcategory.name =  '$subCategoryName' && sales.date ='$date'";
+		$sql = "SELECT SUM(sale.pcs) as pcs, SUM(sale.netAmount) as netAmount FROM sale,subcategory WHERE sale.subCategoryId = subcategory.id && subcategory.name =  '$subCategoryName' && sale.date ='$date'";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
 	public function getOnHandBySubCategoryName($subCategoryName,$date)
 	{
 		$utility = new Utility;
-		$sql = "SELECT SUM(mfs.pcs) as pcs, SUM(mfs.netAmount) as netAmount FROM mfs,subcategory WHERE mfs.subCategoryId = subcategory.id && subcategory.name =  '$subCategoryName' && mfs.date ='$date'";
+		$sql = "SELECT SUM(creditsale.pcs) as pcs, SUM(creditsale.netAmount) as netAmount FROM creditsale,subcategory WHERE creditsale.subCategoryId = subcategory.id && subcategory.name =  '$subCategoryName' && creditsale.date ='$date'";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
@@ -51,17 +51,17 @@ class DALReports
 
 // Closing goods of yesterday 
 // Closings are calcualted by corn job.
-	public function getOpeningInventory($subCatName,$yesterday)
+	public function getOpeningStock($subCatName,$yesterday)
 	{
 		$utility = new Utility;
 		$sql = "SELECT * FROM `closinginventory`,`subcategory` WHERE closinginventory.subCategoryId = subcategory.id && subcategory.name = '$subCatName' && closinginventory.date = '$yesterday'";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
-	public function getTodayInventory($subCatName,$today)
+	public function getTodayStock($subCatName,$today)
 	{
 		$utility = new Utility;
-		$sql = "SELECT inventory.* FROM `inventory`,`subcategory` WHERE inventory.subCategoryId = subcategory.id && subcategory.name = '$subCatName' && inventory.date = '$today'";
+		$sql = "SELECT stock.* FROM `stock`,`subcategory` WHERE stock.subCategoryId = subcategory.id && subcategory.name = '$subCatName' && stock.date = '$today'";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
@@ -84,9 +84,9 @@ class DALReports
 	}
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%S%%%
-# Corn Job: Closing Inventory
+# Corn Job: Closing Stock
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	public function cornClosingInventory($subCategoryId,$explanation,$pcs,$unitPrice,$netAmount,$date)
+	public function cornClosingStock($subCategoryId,$explanation,$pcs,$unitPrice,$netAmount,$date)
 	{
 		$utility = new Utility;
 		$sql = "INSERT INTO `closinginventory`(`id`, `subCategoryId`, `explanation`, `pcs`, `unitPrice`, `netAmount`, `date`) VALUES ('',$subCategoryId,'$explanation',$pcs,$unitPrice,$netAmount,$date)";
@@ -94,19 +94,19 @@ class DALReports
 		return $result;
 	}
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%S%%%
-# Final Inventory Report
+# Final Stock Report
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	public function getTotalOpeningInventory($yesterday)
+	public function getTotalOpeningStock($yesterday)
 	{
 		$utility = new Utility;
 		$sql = "SELECT * FROM closinginventory WHERE closinginventory.date = '$yesterday'";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
-	public function getTotalArrivedInventory($today)
+	public function getTotalArrivedStock($today)
 	{
 		$utility = new Utility;
-		$sql = "SELECT * FROM inventory WHERE inventory.date = '$today'";
+		$sql = "SELECT * FROM stock WHERE stock.date = '$today'";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
@@ -114,11 +114,11 @@ class DALReports
 	public function getTotalSales($today)
 	{
 		$utility = new Utility;
-		$sql = "SELECT * FROM sales WHERE sales.date = '$today'";
+		$sql = "SELECT * FROM sale WHERE sale.date = '$today'";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
-	/// only mfs returns
+	/// only creditsale returns
 	public function getTotalReturns($today)
 	{
 		$utility = new Utility;

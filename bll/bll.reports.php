@@ -66,12 +66,12 @@ class BLLReports
         return $data;
 
     }
-// Report Inventory 
-    public function showInventoryReport($yesterday,$today)
+// Report Stock 
+    public function showStockReport($yesterday,$today)
     {
         $dalReports  = new DALReports;
         $resultSubCat = $dalReports->getSubCategories();
-        $totalInventory = 0;
+        $totalStock = 0;
         $data = "";
         $SL = 1;
 
@@ -80,38 +80,38 @@ class BLLReports
             $subCatId = $resSubCat['id'];
             $subCatName = $resSubCat['name'];
 
-            // Inventory Opening
-            $resultInventoryOpening = $dalReports->getOpeningInventory($subCatName,$yesterday);
+            // Stock Opening
+            $resultStockOpening = $dalReports->getOpeningStock($subCatName,$yesterday);
             // variables
-            $totalInventoryOpening = 0;
-            $totalInventoryValueOpening = 0;
-            while ($resInventoryOpening = mysqli_fetch_assoc($resultInventoryOpening))
+            $totalStockOpening = 0;
+            $totalStockValueOpening = 0;
+            while ($resStockOpening = mysqli_fetch_assoc($resultStockOpening))
             {
                 // More than 1 row returns :-) ;-)
-               $totalInventoryOpening += $resInventoryOpening['pcs'];
-               $totalInventoryValueOpening += $resInventoryOpening['netAmount'];
+               $totalStockOpening += $resStockOpening['pcs'];
+               $totalStockValueOpening += $resStockOpening['netAmount'];
             }
-            if($totalInventoryOpening == NULL)
+            if($totalStockOpening == NULL)
             {
-                $totalInventoryOpening = 0;
-                $totalInventoryValueOpening = 0;
+                $totalStockOpening = 0;
+                $totalStockValueOpening = 0;
             }
 
-            // Inventory Today: Today actually
-            $resultInventoryToday = $dalReports->getTodayInventory($subCatName,$today);
+            // Stock Today: Today actually
+            $resultStockToday = $dalReports->getTodayStock($subCatName,$today);
             // variables
-            $totalInventoryToday = 0;
-            $totalInventoryValueToday = 0;
-            while ($resInventoryToday = mysqli_fetch_assoc($resultInventoryToday))
+            $totalStockToday = 0;
+            $totalStockValueToday = 0;
+            while ($resStockToday = mysqli_fetch_assoc($resultStockToday))
             {
                 // More than 1 row returns :-) ;-)
-               $totalInventoryToday += $resInventoryToday['pcs'];
-               $totalInventoryValueToday += $resInventoryToday['netAmount'];
+               $totalStockToday += $resStockToday['pcs'];
+               $totalStockValueToday += $resStockToday['netAmount'];
             }
-            if($totalInventoryToday == NULL)
+            if($totalStockToday == NULL)
             {
-                $totalInventoryToday = 0;
-                $totalInventoryValueToday = 0;
+                $totalStockToday = 0;
+                $totalStockValueToday = 0;
             }
 
             // OnHand goods
@@ -164,9 +164,9 @@ class BLLReports
 
             // Normalize
             // $precision = 2;
-            // $totalInventoryValueOpening = number_format($totalInventoryValueOpening,$precision);
+            // $totalStockValueOpening = number_format($totalStockValueOpening,$precision);
 
-            // $totalInventoryValueToday = number_format($totalInventoryValueToday,$precision);
+            // $totalStockValueToday = number_format($totalStockValueToday,$precision);
             
             // $totalSalesValue = number_format($totalSalesValue,$precision);
             
@@ -176,10 +176,10 @@ class BLLReports
             $data .= '<tr>';
             $data .= '<td>'.$SL++.'</td>';
             $data .= '<td>'.$subCatName.'</td>';
-            $data .= '<td>'.$totalInventoryOpening.'('.$totalInventoryValueOpening.')</td>';
-            $data .= '<td>'.$totalInventoryToday.'('.$totalInventoryValueToday.')</td>';
+            $data .= '<td>'.$totalStockOpening.'('.$totalStockValueOpening.')</td>';
+            $data .= '<td>'.$totalStockToday.'('.$totalStockValueToday.')</td>';
             // Closing calculation
-            $closingPcs = $totalInventoryOpening+$totalInventoryToday+$totalReturns-$totalOnHand;
+            $closingPcs = $totalStockOpening+$totalStockToday+$totalReturns-$totalOnHand;
 
             // Jhamela
             $utility = new Utility;
@@ -199,11 +199,11 @@ class BLLReports
                 $data .= '<td>'.$closingValue.'</td>';
             }
             $data .= '</tr>';
-            $totalInventory += $closingValue;
+            $totalStock += $closingValue;
 
         }
         $data .= '<tr><td colspan="8">Total = </td><td>';
-        $data .= floor($totalInventory);
+        $data .= floor($totalStock);
         $data .= '</td></tr>';
 
         return $data;
@@ -217,16 +217,16 @@ class BLLReports
     {
         $dalReports  = new DALReports;
         $data = "";
-        // Total Opening Inventory
-        $resultOpening = $dalReports->getTotalOpeningInventory($yesterday);
+        // Total Opening Stock
+        $resultOpening = $dalReports->getTotalOpeningStock($yesterday);
         $valueOpening = 0;
         while ($resOpening = mysqli_fetch_assoc($resultOpening))
         {
            $valueOpening += $resOpening['netAmount'];
         }
 
-        // Total Inventory Arrived today
-        $resultArrived= $dalReports->getTotalArrivedInventory($today);
+        // Total Stock Arrived today
+        $resultArrived= $dalReports->getTotalArrivedStock($today);
         $valueArrived = 0;
         while ($resArrived = mysqli_fetch_assoc($resultArrived))
         {
@@ -505,16 +505,16 @@ class BLLReports
     {
         $dalReports  = new DALReports;
 
-        // Total Opening Inventory
-        $resultOpening = $dalReports->getTotalOpeningInventory($yesterday);
+        // Total Opening Stock
+        $resultOpening = $dalReports->getTotalOpeningStock($yesterday);
         $valueOpening = 0;
         while ($resOpening = mysqli_fetch_assoc($resultOpening))
         {
            $valueOpening += $resOpening['netAmount'];
         }
 
-        // Total Inventory Arrived today
-        $resultArrived= $dalReports->getTotalArrivedInventory($today);
+        // Total Stock Arrived today
+        $resultArrived= $dalReports->getTotalArrivedStock($today);
         $valueArrived = 0;
         while ($resArrived = mysqli_fetch_assoc($resultArrived))
         {
@@ -634,26 +634,26 @@ class BLLReports
 
 
 
-            // Inventory Today
-            $resultInventoryToday = $dalReports->getTodayInventory($subCatName,$today);
+            // Stock Today
+            $resultStockToday = $dalReports->getTodayStock($subCatName,$today);
             // variables
-            $totalInventoryToday = 0;
-            $totalInventoryValueToday = 0;
-            while ($resInventoryToday = mysqli_fetch_assoc($resultInventoryToday))
+            $totalStockToday = 0;
+            $totalStockValueToday = 0;
+            while ($resStockToday = mysqli_fetch_assoc($resultStockToday))
             {
                 // More than 1 row returns :-) ;-)
-               $totalInventoryToday += $resInventoryToday['pcs'];
-               $totalInventoryValueToday += $resInventoryToday['netAmount'];
+               $totalStockToday += $resStockToday['pcs'];
+               $totalStockValueToday += $resStockToday['netAmount'];
             }
-            if($totalInventoryToday == NULL)
+            if($totalStockToday == NULL)
             {
-                $totalInventoryToday = 0;
-                $totalInventoryValueToday = 0;
+                $totalStockToday = 0;
+                $totalStockValueToday = 0;
             }
 
              
         
-            $commissionPcs = $totalInventoryToday;
+            $commissionPcs = $totalStockToday;
 
             // Jhamela
             $utility = new Utility;

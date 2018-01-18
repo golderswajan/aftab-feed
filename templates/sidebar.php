@@ -8,7 +8,7 @@
 
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="http://www.kazimobilehome.com" class="simple-text">
+                <a href="http://www.aftab.com" class="simple-text">
                     Aftab Feed Products
                 </a>
                 <h6>Amtola ,Khulna</h6>

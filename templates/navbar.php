@@ -22,7 +22,7 @@
                               <ul class="dropdown-menu">
                                 <li><a href="changepassword.php">Change Password</a></li>
                                 
-                                <li><a href="newuser.php">Add new user</a></li>
+                                <li><a href="user.php">Add new user</a></li>
                             
                                 <li class="divider"></li>
                                 <li><a href="logout.php">Log Out</a></li>
