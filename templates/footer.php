@@ -23,7 +23,6 @@
     
     <!--   Core JS Files   -->
     <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
-   
 
 	<!--  Checkbox, Radio & Switch Plugins -->
 	<script src="assets/js/bootstrap-checkbox-radio-switch.js"></script>
@@ -34,17 +33,9 @@
     <!--  Notifications Plugin    -->
     <script src="assets/js/bootstrap-notify.js"></script>
 
-    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+    <!--Table Core javascript and methods for Demo purpose -->
 	<script src="assets/js/light-bootstrap-dashboard.js"></script>
 
-	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 	<script src="assets/js/demo.js"></script>
-
-	<script type="text/javascript">
-        $(document).ready(function(){
-
-            demo.initChartist();
-        });
-    </script>
 
 </html>

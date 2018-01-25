@@ -1,10 +1,7 @@
 <div class="sidebar" data-color="blue" data-image="assets/img/sidebar-4.jpg">
-    <!--
 
-        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
-        Tip 2: you can also add an image using data-image tag
+<!-- Color support: "blue | azure | green | orange | red | purple" -->
 
-    -->
 
     	<div class="sidebar-wrapper">
             <div class="logo">

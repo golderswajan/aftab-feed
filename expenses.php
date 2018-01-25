@@ -70,7 +70,7 @@ include_once './templates/topper-customized.php';
 
 <!--        expense entry-->
         <div class="col-md-12">
-            <div class="card">
+            <div class="card" >
                 <div class="header">
                     <h4 class="title"><b>Add New Expense</b></h4>
                 </div>
