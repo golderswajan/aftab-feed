@@ -46,3 +46,22 @@ function db_update($query){
 function db_delete($query){
     db_update($query);
 }
+
+function db_insert($query){
+    db_update($query);
+    if (!isset($_SESSION))
+    {
+        session_start();
+    }
+    $_SESSION['message'] = "Added Successfully!";
+}
+
+// sales pages function
+function db_insert_get_customer($name){
+    $query = "INSERT INTO `customer` (`id`, `name`, `address`) VALUES (NULL, '".$name."', NULL);";
+    db_insert($query);
+    $query = "select max(id) as id from customer where name='".$name."'";
+    $id = db_select($query);
+    return $id[0]['id'];
+
+}

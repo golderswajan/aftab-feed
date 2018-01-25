@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 07, 2018 at 11:35 AM
--- Server version: 10.1.25-MariaDB
--- PHP Version: 7.1.7
+-- Generation Time: Jan 25, 2018 at 11:39 PM
+-- Server version: 10.1.24-MariaDB
+-- PHP Version: 7.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,16 @@ SET time_zone = "+00:00";
 --
 -- Database: `aftab`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `abcd`
+--
+
+CREATE TABLE `abcd` (
+  `d` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -80,9 +90,17 @@ CREATE TABLE `creditsale` (
 
 CREATE TABLE `customer` (
   `id` int(11) NOT NULL,
-  `name` int(11) NOT NULL,
-  `address` int(11) NOT NULL
+  `name` varchar(255) NOT NULL,
+  `address` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `customer`
+--
+
+INSERT INTO `customer` (`id`, `name`, `address`) VALUES
+(1, 'Swajan', 'Khulna'),
+(2, 'Shahidul', 'Gopalgonj');
 
 -- --------------------------------------------------------
 
@@ -97,6 +115,13 @@ CREATE TABLE `expense` (
   `date` date NOT NULL,
   `expenseCategoryId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `expense`
+--
+
+INSERT INTO `expense` (`id`, `details`, `netAmount`, `date`, `expenseCategoryId`) VALUES
+(1, 'chair buying', 400, '2018-01-19', 3);
 
 -- --------------------------------------------------------
 
@@ -130,6 +155,14 @@ CREATE TABLE `party` (
   `customerId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `party`
+--
+
+INSERT INTO `party` (`id`, `quota`, `customerId`) VALUES
+(1, 10, 1),
+(2, 20, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -149,7 +182,14 @@ CREATE TABLE `price` (
 
 INSERT INTO `price` (`id`, `buy`, `sale`, `subCategoryId`) VALUES
 (1, 1, 1, 1),
-(2, 1, 1, 2);
+(2, 20, 25, 2),
+(3, 10, 15, 3),
+(4, 4, 5, 4),
+(5, 2, 3, 5),
+(6, 1, 1, 6),
+(7, 1, 1, 7),
+(8, 1, 1, 8),
+(9, 1, 1, 9);
 
 -- --------------------------------------------------------
 
@@ -161,11 +201,20 @@ CREATE TABLE `sale` (
   `id` int(11) NOT NULL,
   `pcs` int(11) NOT NULL,
   `unitPrice` float NOT NULL,
-  `netAmount` float NOT NULL,
   `date` date NOT NULL,
   `customerId` int(11) NOT NULL,
   `subCategoryId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sale`
+--
+
+INSERT INTO `sale` (`id`, `pcs`, `unitPrice`, `date`, `customerId`, `subCategoryId`) VALUES
+(1, 3, 1, '2018-01-26', 2, 1),
+(2, 2, 25, '2018-01-26', 2, 2),
+(3, 1, 15, '2018-01-26', 2, 3),
+(4, 2, 15, '2018-01-25', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -177,10 +226,21 @@ CREATE TABLE `stock` (
   `id` int(11) NOT NULL,
   `pcs` int(11) NOT NULL,
   `unitPrice` float NOT NULL,
-  `netAmount` float NOT NULL,
   `date` date NOT NULL,
   `subCategoryId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `stock`
+--
+
+INSERT INTO `stock` (`id`, `pcs`, `unitPrice`, `date`, `subCategoryId`) VALUES
+(1, 200, 1, '2018-01-20', 3),
+(2, 300, 1, '2018-01-19', 3),
+(3, 45, 1, '2018-01-19', 2),
+(4, 45, 1, '2018-01-15', 1),
+(5, 50, 1, '2018-01-20', 3),
+(6, 100, 2, '2018-01-20', 3);
 
 -- --------------------------------------------------------
 
@@ -200,7 +260,14 @@ CREATE TABLE `subcategory` (
 
 INSERT INTO `subcategory` (`id`, `name`, `categoryId`) VALUES
 (1, 'Whatever', 2),
-(2, 'Chiken 2 days', 2);
+(2, 'Chiken 2 days', 2),
+(3, 'boiler', 3),
+(4, 'pantonix', 1),
+(5, 'napa', 1),
+(6, 'Chicken four days', 2),
+(7, 'abcd', 2),
+(8, 'xyz', 2),
+(9, 'chicken six days', 2);
 
 -- --------------------------------------------------------
 
@@ -327,12 +394,12 @@ ALTER TABLE `creditsale`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `expense`
 --
 ALTER TABLE `expense`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `expensecategory`
 --
@@ -342,27 +409,27 @@ ALTER TABLE `expensecategory`
 -- AUTO_INCREMENT for table `party`
 --
 ALTER TABLE `party`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `price`
 --
 ALTER TABLE `price`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `sale`
 --
 ALTER TABLE `sale`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `stock`
 --
 ALTER TABLE `stock`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `subcategory`
 --
 ALTER TABLE `subcategory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `user`
 --

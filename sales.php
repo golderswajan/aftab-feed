@@ -1,7 +1,6 @@
 <?php
 include_once './bll/bll.sales.php';
 include_once './templates/topper-customized.php';
-
 ?>
 <style>
 
@@ -25,6 +24,10 @@ include_once './templates/topper-customized.php';
     .row{
         padding-bottom: 5px;
     }
+    .product-category:hover{
+        cursor: pointer;
+    }
+
 
 </style>
 
@@ -36,6 +39,15 @@ include_once './templates/topper-customized.php';
         $('#category').on('change',function(){
             createSubCategoryField();
         });
+        $('#partyDDL').on('change',function(){
+            var partyId = $('#partyDDL').val();
+            if(partyId!=0)$('#customerName').prop('disabled',true);
+            else $('#customerName').prop('disabled',false);
+        })
+        window.setTimeout(function(){
+            $('#msgDiv').hide();
+
+        }, 2000);
     });
 
     function createSubCategoryField(){
@@ -69,6 +81,7 @@ include_once './templates/topper-customized.php';
                 cashMemoDiv.append(getHiddenRow(counter));
                 cashMemoDiv.append(getTotalCostHtml());
                 calculateTotalCost();
+                if(counter==2)  $('#confirmSale').show();
             });
         }else{
             removeAccordingToRow(cbId);
@@ -118,6 +131,7 @@ include_once './templates/topper-customized.php';
             calculateTotalCost();
         }
         saleArray.splice(saleArray.indexOf(parseInt(parentRowNo)),1);
+        if(counter==1)  $('#confirmSale').hide();
 
     }
 
@@ -135,9 +149,9 @@ include_once './templates/topper-customized.php';
     function getRowHtml(index,primaryId,name,price,quantity=1) {
         var rowHtml = "<div class=\"row\" id=\"div"+index+"\">\n"+
             "               <div class=\"col-md-1 col-lg-1 col-sm-1\"><h5>"+index+".</h5><input id='parentRowNo"+index+"' name='parentRowNo"+index+"' value='"+primaryId+"' hidden></div>\n"+
-            "               <div class=\"col-md-4 col-lg-4 col-sm-4\"><h5>"+name+"</h5><input id='name"+index+"' value='"+name+"' hidden></div>\n"+
-            "               <div class=\"col-md-3 col-lg-3 col-sm-3\"><h5>"+price+"</h5><input id='price"+index+"' value='"+price+"' hidden></div>\n"+
-            "               <div class=\"col-md-2 col-lg-2 col-sm-2\"><input id='amount"+index+"' type=\"number\" class=\"form-control\" value='"+quantity+"' min=\"1\" oninput='measureCost("+index+")'></div>\n" +
+            "               <div class=\"col-md-4 col-lg-4 col-sm-4\"><h5>"+name+"</h5><input id='name"+index+"'  value='"+name+"' hidden></div>\n"+
+            "               <div class=\"col-md-3 col-lg-3 col-sm-3\"><h5>"+price+"</h5><input id='price"+index+"' name='price"+index+"' value='"+price+"' hidden></div>\n"+
+            "               <div class=\"col-md-2 col-lg-2 col-sm-2\"><input id='amount"+index+"' name='amount"+index+"' type=\"number\" class=\"form-control\" value='"+quantity+"' min=\"1\" oninput='measureCost("+index+")'></div>\n" +
             "               <div class=\"col-md-1 col-lg-1 col-sm-1\"><h5 id='cost"+index+"'>"+price*quantity+"tk</h5></div>\n" +
             "               <div class=\"col-md-1 col-lg-1 col-sm-1\"><a onclick=\"removeRow("+index+")\"><span class=\"glyphicon glyphicon-remove\"></span></a></div>\n"+
             "          </div>";
@@ -170,8 +184,6 @@ include_once './templates/topper-customized.php';
         return html;
     }
 
-
-
     function measureCost(index){
         var price = $('#price'+index).val();
         var amount = $('#amount'+index).val();
@@ -192,88 +204,125 @@ include_once './templates/topper-customized.php';
         $('#totalCost').html(cost+" tk");
     }
 
+    function hideParty(){
+        var nameInput = $('#customerName').val().trim();
+        if(nameInput.length==0)$('#partyDDL').prop('disabled',false);
+        else $('#partyDDL').prop('disabled',true);
+    }
+
+
 
 
 </script>
 
 <div class="row">
-
-    <!-- Dproduct selection starts -->
-    <div class="col-md-12">
-        <div class="card">
-            <div class="header">
-                <h4 class="title"><b>Customer Sale</b>
-                </h4>
-            </div>
-            <div class="content">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Category</label>
-                            <?php
-                                echo $bllSales->getProductCategoryAsOptions();
-                            ?>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-md-offset-1">
-                        <div class="form-group">
-                            <label style="margin-left: 10px">Products</label>
-                            <div class="checkboxDiv">
-<!--                                <label><input type="checkbox">option 1</label>-->
-<!--                                <label><input type="checkbox">option 1</label>-->
-<!--                                <label><input type="checkbox">option is very large what are you thinking</label>-->
+    <?php
+    if (isset($_SESSION['message']))
+    {
+        $info= '<div id="msgDiv" class="alert alert-info">';
+        $info.='<span>'.$_SESSION['message'].'</span>';
+        $info.='</div>';
+        echo $info;
+        unset($_SESSION['message']);
+    }
+    ?>
+    <form action="sales-refresh.php" method="post">
+        <!-- Dproduct selection starts -->
+        <div class="col-md-12">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title"><b>Customer Sale</b>
+                    </h4>
+                </div>
+                <div class="content">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-lg-4" id="partyDiv">
+                            <div class="form-group">
+                                <label>Party</label>
+    <!--                            <select class="selectpicker form-control" data-live-search="true" id="partyDDL">-->
+                                    <?php
+                                    echo $bllSales->getProductPartiesAsOptions();
+                                    ?>
+    <!--                            </select>-->
                             </div>
-
+                        </div>
+                        <div class="col-md-4 col-md-offset-1 col-sm-4 col-sm-offset-1 col-lg-4 col-lg-offset-1" id="customerDiv">
+                            <div class="form-group">
+                                <label>Customer</label>
+                                <input class="form-control" id="customerName" name="customerName" oninput="hideParty()" required>
+                            </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-lg-4">
+                            <div class="form-group">
+                                <label>Category</label>
+                                <?php
+                                    echo $bllSales->getProductCategoryAsOptions();
+                                ?>
+                            </div>
+                        </div>
+                        <div class="col-md-7 col-md-offset-1 col-lg-7 col-lg-offset-1 col-sm-7 col-sm-offset-1">
+                            <div class="form-group">
+                                <label style="margin-left: 10px">Products</label>
+                                <div class="checkboxDiv">
+    <!--                                <label><input type="checkbox">option 1</label>-->
+    <!--                                <label><input type="checkbox">option 1</label>-->
+    <!--                                <label><input type="checkbox">option is very large what are you thinking</label>-->
+                                </div>
 
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-<!--    product selection ends-->
+    <!--    product selection ends-->
 
-<!--    cash memo parts start-->
-    <div class="col-md-12">
-        <div class="card">
-            <div class="header">
-                <h4><b>Cash Memo</b></h4>
-            </div>
-            <div class="content cash-memo" id="cashMemoDiv">
-                <div class="row">
-                    <div class="col-md-1 col-lg-1 col-sm-1"><h4>SL.</h4></div>
-                    <div class="col-md-4 col-lg-4 col-sm-4"><h4>Products</h4></div>
-                    <div class="col-md-3 col-lg-3 col-sm-3"><h4>Price</h4></div>
-                    <div class="col-md-2 col-lg-2 col-sm-2"><h4>Unit</h4></div>
-                    <div class="col-md-1 col-lg-1 col-sm-1"><h4>Cost</h4></div>
-                    <div class="col-md-1 col-lg-1 col-sm-1"></div>
+    <!--    cash memo parts start-->
+        <div class="col-md-12">
+            <div class="card">
+                <div class="header">
+                    <h4><b>Cash Memo</b></h4>
                 </div>
-                <hr>
-<!--                <div class="row" id="div1">-->
-<!--                    <div class="col-md-1 col-lg-1 col-sm-1">1.</div>-->
-<!--                    <div class="col-md-4 col-lg-4 col-sm-4">Chicken 2 days</div>-->
-<!--                    <div class="col-md-3 col-lg-3 col-sm-3">20</div>-->
-<!--                    <div class="col-md-2 col-lg-2 col-sm-2"><input type="number" class="form-control" value="1" min="1"></div>-->
-<!--                    <div class="col-md-1 col-lg-1 col-sm-1">100</div>-->
-<!--                    <div class="col-md-1 col-lg-1 col-sm-1"><a onclick="removeRow(1)"><span class="glyphicon glyphicon-remove"></span></a></div>-->
-<!--                </div>-->
-<!--                <div class="row" id="div2">-->
-<!--                    <div class="col-md-1 col-lg-1 col-sm-1">2.</div>-->
-<!--                    <div class="col-md-4 col-lg-4 col-sm-4">Chicken 2 days</div>-->
-<!--                    <div class="col-md-3 col-lg-3 col-sm-3">20</div>-->
-<!--                    <div class="col-md-2 col-lg-2 col-sm-2"><input type="number" class="form-control" value="1" min="1"></div>-->
-<!--                    <div class="col-md-1 col-lg-1 col-sm-1">100</div>-->
-<!--                    <div class="col-md-1 col-lg-1 col-sm-1"><a onclick="removeRow(1)"><span class="glyphicon glyphicon-remove"></span></a></div>-->
-<!--                </div>-->
-<!--                <div class="row">-->
-<!--                    <div class="col-md-8"></div>-->
-<!--                    <div class="col-md-2"><h4>Total Cost : </h4></div>-->
-<!--                    <div class="col-md-2"><h4 id="totalCost">800 tk </h4></div>-->
-<!--                </div>-->
+                <div class="content cash-memo" id="cashMemoDiv">
+                    <div class="row">
+                        <div class="col-md-1 col-lg-1 col-sm-1"><h4>SL.</h4></div>
+                        <div class="col-md-4 col-lg-4 col-sm-4"><h4>Products</h4></div>
+                        <div class="col-md-3 col-lg-3 col-sm-3"><h4>Price</h4></div>
+                        <div class="col-md-2 col-lg-2 col-sm-2"><h4>Unit</h4></div>
+                        <div class="col-md-1 col-lg-1 col-sm-1"><h4>Cost</h4></div>
+                        <div class="col-md-1 col-lg-1 col-sm-1"></div>
+                    </div>
+                    <hr>
+    <!--                <div class="row" id="div1">-->
+    <!--                    <div class="col-md-1 col-lg-1 col-sm-1">1.</div>-->
+    <!--                    <div class="col-md-4 col-lg-4 col-sm-4">Chicken 2 days</div>-->
+    <!--                    <div class="col-md-3 col-lg-3 col-sm-3">20</div>-->
+    <!--                    <div class="col-md-2 col-lg-2 col-sm-2"><input type="number" class="form-control" value="1" min="1"></div>-->
+    <!--                    <div class="col-md-1 col-lg-1 col-sm-1">100</div>-->
+    <!--                    <div class="col-md-1 col-lg-1 col-sm-1"><a onclick="removeRow(1)"><span class="glyphicon glyphicon-remove"></span></a></div>-->
+    <!--                </div>-->
+    <!--                <div class="row" id="div2">-->
+    <!--                    <div class="col-md-1 col-lg-1 col-sm-1">2.</div>-->
+    <!--                    <div class="col-md-4 col-lg-4 col-sm-4">Chicken 2 days</div>-->
+    <!--                    <div class="col-md-3 col-lg-3 col-sm-3">20</div>-->
+    <!--                    <div class="col-md-2 col-lg-2 col-sm-2"><input type="number" class="form-control" value="1" min="1"></div>-->
+    <!--                    <div class="col-md-1 col-lg-1 col-sm-1">100</div>-->
+    <!--                    <div class="col-md-1 col-lg-1 col-sm-1"><a onclick="removeRow(1)"><span class="glyphicon glyphicon-remove"></span></a></div>-->
+    <!--                </div>-->
+    <!--                <div class="row">-->
+    <!--                    <div class="col-md-8"></div>-->
+    <!--                    <div class="col-md-2"><h4>Total Cost : </h4></div>-->
+    <!--                    <div class="col-md-2"><h4 id="totalCost">800 tk </h4></div>-->
+    <!--                </div>-->
+                </div>
             </div>
         </div>
-    </div>
+        <input type="submit" id="confirmSale" name="confirmSale" class="btn btn-primary" style="margin-left: 40%;display: none" value="Confirm The Sale" >
+    </form>
 </div>
 
 <?php

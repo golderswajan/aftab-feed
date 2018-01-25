@@ -264,13 +264,30 @@ class BLLSales
 			$GLOBALS['date'] =$res['date'];
 		}
 	}
-
     public function getProductCategoryAsOptions()
     {
         $dalSales = new DALSales;
         $result = $dalSales->getCategory();
-        $data ='<select id="category" name="category" class="form-control">';
+        $data ='<select id="category" name="category" class="form-control product-category">';
         $data .= "<option value='0'>select category</option>";
+        foreach ($result as $res)
+        {
+            $data .='<option value='.$res['id'].'>';
+            $data .=$res['name'];
+            $data .='</option>';
+        }
+        $data .='</select>';
+
+        return $data;
+
+    }
+
+    public function getProductPartiesAsOptions()
+    {
+        $dalSales = new DALSales;
+        $result = $dalSales->getParties();
+        $data ='<select id="partyDDL" name="partyDDL" class="selectpicker form-control" data-live-search="true" required>';
+        $data .= "<option value=''>select party</option>";
         foreach ($result as $res)
         {
             $data .='<option value='.$res['id'].'>';
