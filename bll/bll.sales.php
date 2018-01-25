@@ -265,5 +265,23 @@ class BLLSales
 		}
 	}
 
+    public function getProductCategoryAsOptions()
+    {
+        $dalSales = new DALSales;
+        $result = $dalSales->getCategory();
+        $data ='<select id="category" name="category" class="form-control">';
+        $data .= "<option value='0'>select category</option>";
+        foreach ($result as $res)
+        {
+            $data .='<option value='.$res['id'].'>';
+            $data .=$res['name'];
+            $data .='</option>';
+        }
+        $data .='</select>';
+
+        return $data;
+
+    }
+
 }
 ?>
