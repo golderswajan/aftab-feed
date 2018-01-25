@@ -86,7 +86,7 @@ if (isset($_SESSION['message']))
     <!-- Date selection end -->
     <!-- Data Display -->
     <div class="col-md-12">
-        <div class="card">
+        <div class="card" id="datatable_wraper">
             <div class="header">
                 <h3 class="title text-center"><b>Expense Report</b></h3>
                 <p class="h5 text-center"><i><?php
@@ -96,10 +96,38 @@ if (isset($_SESSION['message']))
                     else
                     echo date('d-M-Y',$time);
                 ?></i></p>
+                <form action="bll/bll.makepdf.php">
+                <input type="text" name="dateFromHolder" value="<?php
+                    if(isset($_GET['dateRange']))
+                    {
+                       echo $_GET['dateFrom'];  
+                    }
+                    else
+                    {
+                        $time = time();
+                        $today = date('Y-m-d',$time);
+                        echo $today;
+                    }
+                ?>" style="display: none;">
+                <input type="text" name="dateToHolder" value="<?php
+                    if(isset($_GET['dateRange']))
+                    {
+                       echo $_GET['dateTo'];  
+                    }
+                    else
+                    {
+                        $time = time();
+                        $today = date('Y-m-d',$time);
+                        echo $today;
+                    }
+                ?>"  style="display: none;">
+                <input type="submit" class="btn btn-primary btn-xs pull-right" name="expensePDF" value="PDF">
+                    
+                </form>
             </div>
 
-            <div class="content table-responsive table-full-width">
-                <table class="table table-hover table-striped" id="ExpenseReport">
+            <div  class="content table-responsive table-full-width">
+                <table id="datatable" class="table table-hover table-striped" id="ExpenseReport">
                     <thead>
                         <th>SL.</th>
                         <th>Product</th>
