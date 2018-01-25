@@ -7,6 +7,15 @@ include_once('dal/dal.user.php');
 
 
 ?>
+<script>
+    $(document).ready(function($){
+        window.setTimeout(function(){
+            $('#msgDiv').hide();
+
+        }, 2000);
+    });
+
+</script>
 <div class="wrapper">
     <!--Sidebar here-->
 <?php
@@ -29,7 +38,7 @@ include('./templates/navbar.php');
 <?php
 if (isset($_SESSION['message']))
     {
-        $info= '<div class="alert alert-info">';
+        $info= '<div class="alert alert-info" id="msgDiv">';
         $info.='<span>'.$_SESSION['message'].'</span>';
         $info.='</div>';
         echo $info;

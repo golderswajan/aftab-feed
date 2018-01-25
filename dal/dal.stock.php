@@ -1,5 +1,6 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'].'/includes/utility.php');
+include_once ($_SERVER['DOCUMENT_ROOT'].'/includes/database.php');
 
 
 class DALStock
@@ -9,11 +10,16 @@ class DALStock
 	{
 
 	}
-	public function insertStock($subCategoryId,$pcs,$unitPrice,$netAmount,$date)
+    public function getSubCategory(){
+        $utility = new Utility;
+        $query = "select id,name from subcategory";
+        return $utility->db_select($query);
+    }
+	public function insertStock($subCategoryId,$pcs,$unitPrice,$date)
 	{
 		$utility = new Utility;
 
-		$sql = "INSERT INTO `stock`(`id`, `subCategoryId`, `pcs`, `unitPrice`, `netAmount`, `date`) VALUES ('',$subCategoryId,$pcs,$unitPrice,$netAmount,'$date')";
+		$sql = "INSERT INTO `stock`(`id`, `subCategoryId`, `pcs`, `unitPrice`, `date`) VALUES ('',$subCategoryId,$pcs,$unitPrice,'$date')";
 		$result = $utility->dbQuery($sql);
 		//echo $sql;
 		return $result;
@@ -104,6 +110,16 @@ class DALStock
 		return $result;
 
 	}
+
+    public function getTotalStock($dateFrom,$dateTo,$category){
+        if($category!=0) $category = " and stock.subCategoryId='".category."'";
+        else $category = '';
+        $utility = new Utility;
+        $query = "select sum(pcs*unitPrice) as amount from stock where date  between '".$dateFrom."' and '".$dateTo."'".$category;
+        $result = $utility->db_select($query);
+        return $result[0]['amount'];
+
+    }
 
 }
 ?>

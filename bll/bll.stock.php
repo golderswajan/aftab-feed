@@ -24,11 +24,11 @@ class BLLStock
 			$date = $utility->secureInput($_POST['dateOfSale']);
 
 			$unitPrice = $utility->getBuyPrice($subCategoryId);
-			$netAmount = $unitPrice*$pcs;
+			//$netAmount = $unitPrice*$pcs;
 
 			//echo $subCategoryId.$pcs.$unitPrice;
 
-			$result = $dalStock->insertStock($subCategoryId,$pcs,$unitPrice,$netAmount,$date);
+			$result = $dalStock->insertStock($subCategoryId,$pcs,$unitPrice,$date);
 			if($result)
 			{
 				$_SESSION['message'] = "Stock added Successfully!";
@@ -190,6 +190,38 @@ class BLLStock
 			$GLOBALS['date'] =$res['date'];
 		}
 	}
+
+    public function getTotalStock($dateFrom,$dateTo,$category){
+        $dalStock = new DALStock;
+        $cost = $dalStock->getTotalStock($dateFrom,$dateTo,$category);
+        $data='<div class="col-md-12">';
+        $data.='<div class="card">';
+        $data.='<div class="alert alert-info">';
+        $data.='<span class="h3">Grand Total Stock:'.$cost.' BDT</span>';
+        $data.='</div>';
+        $data.='</div>';
+        $data.='</div>';
+        return $data;
+    }
+
+    public function getSubCategoryAsOptions($value)
+    {
+        $dalSubCategory = new DALStock;
+        $result = $dalSubCategory->getSubCategory();
+        $data ='<select id="subCategory" name="subCategory" class="form-control">';
+        $data .= "<option value='0'>All</option>";
+        foreach ($result as $res)
+        {
+            if($value==$res['id'])$data .='<option value='.$res['id'].' selected>';
+            else $data .='<option value='.$res['id'].'>';
+            $data .=$res['name'];
+            $data .='</option>';
+        }
+        $data .='</select>';
+
+        return $data;
+
+    }
 
 }
 ?>

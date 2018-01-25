@@ -1,5 +1,6 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'].'/includes/utility.php');
+include_once ($_SERVER['DOCUMENT_ROOT'].'/includes/database.php');
 
 
 class DALSales
@@ -9,6 +10,11 @@ class DALSales
 	{
 
 	}
+    public function getCategory(){
+        $utility = new Utility;
+        $query = "select id,name from category";
+        return $utility->db_select($query);
+    }
 	public function insertSales($subCategoryId,$explanation,$pcs,$unitPrice,$netAmount,$seId,$date)
 	{
 		$utility = new Utility;
@@ -71,6 +77,14 @@ class DALSales
 		//echo $sql;
 		return $result;
 	}
+
+//    public function getCategory()
+//    {
+//        $utility = new Utility;
+//        $sql = "SELECT * FROM `category` WHERE 1 ORDER BY name ASC";
+//        $result = $utility->dbQuery($sql);
+//        return $result;
+//    }
 
 }
 ?>
