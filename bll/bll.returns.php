@@ -3,7 +3,7 @@ include($_SERVER['DOCUMENT_ROOT'].'/dal/dal.returns.php');
 include($_SERVER['DOCUMENT_ROOT'].'/dal/dal.user.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/includes/utility.php');
 
-$seId = "";
+$customerId = "";
 $returnsId = "";
 $categoryId = "";
 $subCategoryId = "";
@@ -23,19 +23,18 @@ class BLLReturns
 		if(isset($_POST['insert_returns']))
 		{
 
-			// SE = Returns Executive
+			// customerId = Returns Executive
 			$subCategoryId = $utility->secureInput($_POST['subCategoryId']);
-			$explanation = $utility->secureInput($_POST['explanation']);
 			$pcs = $utility->secureInput($_POST['pcs']);
-			$SE = $utility->secureInput($_POST['SE']);
+			$customerId = $utility->secureInput($_POST['customerId']);
 			$date = $utility->secureInput($_POST['dateOfSale']);
 
 			$unitPrice = $utility->getSalePrice($subCategoryId);
 			$netAmount = $unitPrice*$pcs;
 
-			//echo $subCategoryId.$explanation.$pcs.$unitPrice.$SE;
+			//echo $subCategoryId.$explanation.$pcs.$unitPrice.$customerId;
 
-			$result = $dalReturns->insertReturns($subCategoryId,$explanation,$pcs,$unitPrice,$netAmount,$SE,$date);
+			$result = $dalReturns->insertReturns($pcs,$unitPrice,$netAmount,$date,$customerId,$subCategoryId);
 			if($result)
 			{
 				$_SESSION['message'] = "Returned Products added Successfully!";
@@ -53,18 +52,17 @@ class BLLReturns
 		if(isset($_POST['update_returns']))
 		{
 
-			// SE = Returns Executive
+			// customerId = Returns Executive
 			$id = $utility->secureInput($_POST['returnsId']);
 			$subCategoryId = $utility->secureInput($_POST['subCategoryId']);
-			$explanation = $utility->secureInput($_POST['explanation']);
 			$pcs = $utility->secureInput($_POST['pcs']);
-			$SE = $utility->secureInput($_POST['SE']);
+			$customerId = $utility->secureInput($_POST['customerId']);
 			$date = $utility->secureInput($_POST['dateOfSale']);
 			
 			$unitPrice = $utility->getSalePrice($subCategoryId);
 			$netAmount = $unitPrice*$pcs;
 
-			$result = $dalReturns->updateReturns($id,$subCategoryId,$explanation,$pcs,$unitPrice,$netAmount,$SE,$date);
+			$result = $dalReturns->updateReturns($id,$pcs,$unitPrice,$netAmount,$date,$customerId,$subCategoryId);
 			if($result)
 			{
 				$_SESSION['message'] = "Returned Products updated Successfully!";
@@ -113,7 +111,7 @@ class BLLReturns
 		$subTotalReturns = 0;
 		$data = "";
 		$dalProductCategory = new DALProductCategory;
-		$resultProdCat = $dalProductCategory->showCategory();
+		$resultProdCat = $dalProductCategory->getCategory();
 		while ($resProdCat = mysqli_fetch_assoc($resultProdCat))
 		{
 			// Data display 
@@ -135,7 +133,7 @@ class BLLReturns
 
             $SL = 1;
             $total = 0;
-            $data.= '<thead><th>SL</th><th>SE Name</th><th>Details</th><th>SubCategory</th><th>Amount</th><th>Unit Price</th><th>Net Amount</th><th>Edit</th><th>Delete</th></thead>';
+            $data.= '<thead><th>SL</th><th>Customer Name</th><th>Details</th><th>SubCategory</th><th>Amount</th><th>Unit Price</th><th>Net Amount</th><th>Edit</th><th>Delete</th></thead>';
             $data.= '<tbody>';
             while ($resReturns = mysqli_fetch_assoc($resultReturns))
             {
@@ -189,64 +187,7 @@ class BLLReturns
 		return $data;
 
 	}
-	public function showSEReturns($seId,$dateFrom,$dateTo)
-	{
-		
-        $dalReturns  = new DALReturns;
-        $resultReturns = $dalReturns->getReturnsBySEId($seId,$dateFrom,$dateTo);
-
-        $SL = 1;
-        $data = "";
-        $total = 0;
-        // Data display 
-		$data.='<div class="col-md-12">';
-        $data.='<div class="card">';
-		// Title of the menu table
-		$data.='<div class="header">';
-        $data.='<h4 class="title"> Returned Products</h4>';
-        $data.='</div>';
-
-		// Table for each expense category
-		$data.='<div class="table-responsive table-bordered">';
-        $data.='<table class="table">';
-        $data.= '<thead><th>SL</th><th>Details</th><th>Product</th><th>Amount</th><th>Unit Price</th><th>Net Amount</th><th>Edit</th><th>Delete</th></thead>';
-        $data.= '<tbody>';
-        while ($resReturns = mysqli_fetch_assoc($resultReturns))
-        {
-        	$data .= '<tr>';
-        	$data .= '<td>'.$SL++.'</td>';
-        	$data .= '<td>'.$resReturns['explanation'].'</td>';
-        	$data .= '<td>'.$resReturns['subCategory'].'</td>';
-        	$data .= '<td>'.$resReturns['pcs'].'</td>';
-        	$data .= '<td>'.$resReturns['unitPrice'].'</td>';
-        	$data .= '<td>'.$resReturns['netAmount'].'</td>';
-        	$data .='<td><a href="returns.php?edit='.$resReturns['id'].'">Edit</a></td>';
-			$data .='<td><a href="returns.php?delete='.$resReturns['id'].'">Delete</a></td>';
-        	$data .= '</tr>';
-
-        	$total += $resReturns['netAmount'];
-        }
-        $data.= '</tbody>';
-
-        $data.= '<tfoot>';
-        $data.= '<tr>';
-        $data.= '<td></td><td></td><td></td><td></td><td>Total = </td><td>'.$total.'</td><td></td><td></td>';
-        $data.= '<tr>';
-        $data.= '</tfoot>';
-
-
-        // table for each expense category end
-        $data.='</table>';
-        $data.='</div>';
-
-        // Data display End
-        $data.='</div>';
-        $data.='</div>';
-
-		return $data;
-
-	}
-
+	
 	public function getReturnsById($id)
 	{
 		$dalReturns = new DALReturns;
@@ -255,13 +196,13 @@ class BLLReturns
 		while ($res = mysqli_fetch_assoc($result))
 		{
 			$GLOBALS['returnsId'] =$res['id'];
-			$GLOBALS['seId'] =$res['seId'];
+			$GLOBALS['customerId'] =$res['customerId'];
 			$GLOBALS['categoryId'] =$res['categoryId'];
-			$GLOBALS['subCategoryId'] =$res['subCategoryId'];
-			$GLOBALS['explanation'] =$res['explanation'];
 			$GLOBALS['pcs'] =$res['pcs'];
 			$GLOBALS['unitPrice'] =$res['unitPrice'];
 			$GLOBALS['date'] =$res['date'];
+			$GLOBALS['subCategoryId'] =$res['subCategoryId'];
+
 		}
 	}
 
