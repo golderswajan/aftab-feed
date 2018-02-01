@@ -65,3 +65,13 @@ function db_insert_get_customer($name){
     return $id[0]['id'];
 
 }
+
+function db_insert_get_saleId($comission=0,$customerId){
+    $time = time();
+    $date = date('Y-m-d',$time);
+    $query = "INSERT INTO `sale` (`id`, `comission`, `date`, `customerId`) VALUES (NULL, '".$comission."', '".$date."', '".$customerId."')";
+    db_insert($query);
+    $query = "select max(id) as id from sale where customerId='".$customerId."'";
+    $id = db_select($query);
+    return $id[0]['id'];
+}

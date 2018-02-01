@@ -9,6 +9,7 @@ require_once './includes/database.php';
 
 if(isset($_POST['confirmSale'])){
     $row = $_POST['rowNumber'];
+    $comission = $_POST['comission'];
     $customer = isset($_POST['customerName'])? $_POST['customerName']:'';
     $party = isset($_POST['partyDDL'])? $_POST['partyDDL']:'';
     $customerId = $party;
@@ -16,16 +17,17 @@ if(isset($_POST['confirmSale'])){
         $customerId = db_insert_get_customer($customer);
     }
 
-    $time = time();
-    $date = date('Y-m-d',$time);
 
-    $query = "INSERT INTO `sale` (`id`, `pcs`, `unitPrice`, `date`, `customerId`, `subCategoryId`) VALUES";
+
+    $saleId = db_insert_get_saleId($comission,$customerId);
+
+    $query = "INSERT INTO `soldproducts` (`id`, `pcs`, `unitPrice`, `saleId`, `subCategoryId`) VALUES";
     for($i=1;$i<$row;$i++){
         $subCategoryId =$_POST['parentRowNo'.$i];
         $price = $_POST['price'.$i];
         $unit = $_POST['amount'.$i];
 
-        $query .= " (NULL, '".$unit."', '".$price."', '".$date."', '".$customerId."', '".$subCategoryId."')";
+        $query .= " (NULL, '".$unit."', '".$price."', '".$saleId."', '".$subCategoryId."')";
         if($i!=$row-1) $query.=",";
     }
     db_insert($query);

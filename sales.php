@@ -176,11 +176,20 @@ include_once './templates/topper-customized.php';
     }
 
     function getTotalCostHtml(){
-        var html = "<div class=\"row\" id='totalCostDiv'>\n"+
-                        "<div class=\"col-md-8\"></div>\n"+
-                        "<div class=\"col-md-2\"><h4>Total Cost : </h4></div>\n" +
-                        "<div class=\"col-md-2\"><h4 id=\"totalCost\">800 tk </h4></div>\n" +
-                    "</div>";
+//        commision row
+        var html = "<div id='totalCostDiv'>\n" +
+                        "<div class=\"row\" id='comissionDiv'>\n"+
+                        "<div class=\"col-md-8 \"></div>\n"+
+                        "<div class=\"col-md-2 \"><h4>Comission : </h4></div>\n" +
+                        "<div class=\"col-md-2 \"><input id='comission' name='comission' value='0' type='number' min='0' class='form-control' oninput='calculateTotalCost()' required></div>\n" +
+                        "</div>";
+//        total cost row
+            html    +=  "<div class=\"row\" >\n"+
+                            "<div class=\"col-md-8 \"></div>\n"+
+                            "<div class=\"col-md-2 \"><h4>Total Cost : </h4></div>\n" +
+                            "<div class=\"col-md-2 \"><h4 id=\"totalCost\">800 tk </h4></div>\n" +
+                        "</div>" +
+                   "</div>";
         return html;
     }
 
@@ -195,12 +204,15 @@ include_once './templates/topper-customized.php';
         var cost = 0;
         var amount = "";
         var price = "";
+        var comission = "";
         for(var i=1;i<counter;i++){
             price = $('#price'+i).val();
             amount = $('#amount'+i).val();
             cost += price*amount;
 
         }
+        comission = $('#comission');
+        cost -= comission.val()*1;
         $('#totalCost').html(cost+" tk");
     }
 
