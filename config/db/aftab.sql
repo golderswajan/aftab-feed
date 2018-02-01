@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 25, 2018 at 11:39 PM
+-- Generation Time: Feb 01, 2018 at 05:41 PM
 -- Server version: 10.1.24-MariaDB
 -- PHP Version: 7.1.6
 
@@ -100,7 +100,8 @@ CREATE TABLE `customer` (
 
 INSERT INTO `customer` (`id`, `name`, `address`) VALUES
 (1, 'Swajan', 'Khulna'),
-(2, 'Shahidul', 'Gopalgonj');
+(2, 'Shahidul', 'Gopalgonj'),
+(10, 'Rahim', NULL);
 
 -- --------------------------------------------------------
 
@@ -199,22 +200,42 @@ INSERT INTO `price` (`id`, `buy`, `sale`, `subCategoryId`) VALUES
 
 CREATE TABLE `sale` (
   `id` int(11) NOT NULL,
-  `pcs` int(11) NOT NULL,
-  `unitPrice` float NOT NULL,
+  `comission` float NOT NULL,
   `date` date NOT NULL,
-  `customerId` int(11) NOT NULL,
-  `subCategoryId` int(11) NOT NULL
+  `customerId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sale`
 --
 
-INSERT INTO `sale` (`id`, `pcs`, `unitPrice`, `date`, `customerId`, `subCategoryId`) VALUES
-(1, 3, 1, '2018-01-26', 2, 1),
-(2, 2, 25, '2018-01-26', 2, 2),
-(3, 1, 15, '2018-01-26', 2, 3),
-(4, 2, 15, '2018-01-25', 1, 3);
+INSERT INTO `sale` (`id`, `comission`, `date`, `customerId`) VALUES
+(1, 12, '2018-02-01', 1),
+(2, 5, '2018-02-01', 10);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `soldproducts`
+--
+
+CREATE TABLE `soldproducts` (
+  `id` int(11) NOT NULL,
+  `pcs` int(11) NOT NULL,
+  `unitPrice` int(11) NOT NULL,
+  `saleId` int(11) NOT NULL,
+  `subCategoryId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `soldproducts`
+--
+
+INSERT INTO `soldproducts` (`id`, `pcs`, `unitPrice`, `saleId`, `subCategoryId`) VALUES
+(1, 2, 25, 1, 2),
+(2, 2, 1, 1, 1),
+(3, 3, 5, 2, 4),
+(4, 2, 15, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -346,8 +367,15 @@ ALTER TABLE `price`
 --
 ALTER TABLE `sale`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `subCategoryId` (`subCategoryId`),
   ADD KEY `customerId` (`customerId`);
+
+--
+-- Indexes for table `soldproducts`
+--
+ALTER TABLE `soldproducts`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `saleId` (`saleId`),
+  ADD KEY `subCategoryId` (`subCategoryId`);
 
 --
 -- Indexes for table `stock`
@@ -394,7 +422,7 @@ ALTER TABLE `creditsale`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `expense`
 --
@@ -419,6 +447,11 @@ ALTER TABLE `price`
 -- AUTO_INCREMENT for table `sale`
 --
 ALTER TABLE `sale`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `soldproducts`
+--
+ALTER TABLE `soldproducts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `stock`
@@ -468,8 +501,14 @@ ALTER TABLE `price`
 -- Constraints for table `sale`
 --
 ALTER TABLE `sale`
-  ADD CONSTRAINT `sale_ibfk_1` FOREIGN KEY (`subCategoryId`) REFERENCES `subcategory` (`id`),
   ADD CONSTRAINT `sale_ibfk_2` FOREIGN KEY (`customerId`) REFERENCES `customer` (`id`);
+
+--
+-- Constraints for table `soldproducts`
+--
+ALTER TABLE `soldproducts`
+  ADD CONSTRAINT `soldproducts_ibfk_1` FOREIGN KEY (`saleId`) REFERENCES `sale` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `soldproducts_ibfk_2` FOREIGN KEY (`subCategoryId`) REFERENCES `subcategory` (`id`);
 
 --
 -- Constraints for table `stock`
