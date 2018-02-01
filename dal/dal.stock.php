@@ -34,7 +34,7 @@ class DALStock
 		return $result;
 
 	}
-	public function showStock()
+	public function getStock()
 	{
 		$utility = new Utility;
 		$sql = "SELECT * FROM `stock` WHERE 1 ORDER BY stock.date ASC";

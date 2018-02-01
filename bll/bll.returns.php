@@ -80,8 +80,6 @@ class BLLReturns
 
 		if(isset($_GET['delete']))
 		{
-
-		
 			$id = $utility->secureInput($_GET['delete']);
 		
 			$result = $dalReturns->deleteReturns($id);

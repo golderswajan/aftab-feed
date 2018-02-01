@@ -35,11 +35,13 @@ if (isset($_SESSION['message']))
     }
 ?>
 
+   
+
     <!-- Date selection -->
     <div class="col-md-12">
     <div class="card">
         <div class="header">
-            <h4 class="title"><b>Expense Report</b> 
+            <h4 class="title"><b>Reports</b> 
             </h4>
         </div>
         <div class="content">
@@ -47,10 +49,21 @@ if (isset($_SESSION['message']))
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
+                    <label>Report</label>
+                    <select name="report" class="form form-control">
+                        <option value="Sales">Sales Report</option>
+                        <option value="Expense">Expense Report</option>
+                        <option value="Stock">Stock Report</option>
+                        <option value="Final">Final Report</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
                     <label>From</label>
                     <input type="date" name="dateFrom" class="form-control" value="<?php
                     $time = time();
-                    if(isset($_GET['dateRange']))
+                    if(isset($_GET['loadReports']))
                     echo $_GET['dateFrom'];
                     else
                     echo date('Y-m-d',$time);
@@ -62,7 +75,7 @@ if (isset($_SESSION['message']))
                     <label>To</label>
                     <input type="date" name="dateTo" class="form-control" value="<?php
                     $time = time();
-                    if(isset($_GET['dateRange']))
+                    if(isset($_GET['loadReports']))
                     echo $_GET['dateTo'];
                     else
                     echo date('Y-m-d',$time);
@@ -71,10 +84,11 @@ if (isset($_SESSION['message']))
             </div>
         </div>
         <div class="row">
-             <div class="col-md-8">
+            <div class="col-md-10"></div>
+            
+             <div class="col-md-2">
                 <div class="form-group">
-                   
-                    <input type="submit" name="dateRange" class="btn btn-info btn-fill pull-right" value="Load Expenses">
+                    <input type="submit" name="loadReports" class="btn btn-info btn-fill btn-block pull-right" value="Load Report">
                 </div>
             </div>
 
@@ -83,22 +97,31 @@ if (isset($_SESSION['message']))
     </div>
     </div>
     </div>
+
     <!-- Date selection end -->
     <!-- Data Display -->
     <div class="col-md-12">
-        <div class="card" id="datatable_wraper">
+        <div class="card">
             <div class="header">
-                <h3 class="title text-center"><b>Expense Report</b></h3>
+                <h3 class="title text-center"><b>
+                    <?php if(isset($_GET['loadReports'])) echo $_GET['report']?>
+                     Report</b></h3>
                 <p class="h5 text-center"><i><?php
                     $time = time();
-                    if(isset($_GET['dateRange']))
+                    if(isset($_GET['loadReports']))
                     echo $_GET['dateFrom'].' <b>To</b> '.$_GET['dateTo'];
                     else
                     echo date('d-M-Y',$time);
                 ?></i></p>
-                <form action="bll/bll.makepdf.php">
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    
+                </div>
+                <div class="col-md-2">
+                    <form action="bll/bll.makepdf.php">
                 <input type="text" name="dateFromHolder" value="<?php
-                    if(isset($_GET['dateRange']))
+                    if(isset($_GET['loadReports']))
                     {
                        echo $_GET['dateFrom'];  
                     }
@@ -110,7 +133,7 @@ if (isset($_SESSION['message']))
                     }
                 ?>" style="display: none;">
                 <input type="text" name="dateToHolder" value="<?php
-                    if(isset($_GET['dateRange']))
+                    if(isset($_GET['loadReports']))
                     {
                        echo $_GET['dateTo'];  
                     }
@@ -121,29 +144,44 @@ if (isset($_SESSION['message']))
                         echo $today;
                     }
                 ?>"  style="display: none;">
-                <input type="submit" class="btn btn-primary btn-xs pull-right" name="expensePDF" value="PDF">
+                <input type="submit" class="btn btn-danger btn-fill btn-block pull-right" name="<?php
+                if(isset($_GET['loadReports']))
+                {
+                    echo $_GET['report'];
+                }
+                ?>" value="Export PDF">
                     
                 </form>
+                </div>
             </div>
-
-            <div  class="content table-responsive table-full-width">
-                <table id="datatable" class="table table-hover table-striped" id="ExpenseReport">
+                
+            <div class="content table-responsive table-full-width">
+                <table class="table table-hover table-striped" id="reportTable">
 <?php
-$bllSales = new BLLReports;
-if(isset($_GET['dateRange']))
+$bllReports = new BLLReports;
+if(isset($_GET['loadReports']))
 {
     $dateFrom = $_GET['dateFrom'];
     $dateTo = $_GET['dateTo'];
-    echo $bllSales->showExpenseReport($dateFrom,$dateTo);
-}
-else
-{
-    $time = time();
-    $today = date('Y-m-d',$time);
-    echo $bllSales->showExpenseReport($today,$today);
+
+    if($_GET['report']=='Sales')
+    {
+        echo $bllReports->showSalesReport($dateFrom,$dateTo);
+    }
+    elseif($_GET['report']=='Expense')
+    {
+        echo $bllReports->showExpenseReport($dateFrom,$dateTo);
+    }
+    elseif($_GET['report']=='Stock')
+    {
+        echo $bllReports->showStockReport($dateFrom,$dateTo);
+    }
+    elseif($_GET['report']=='Final')
+    {
+        echo $bllReports->showStockReport($dateFrom,$dateTo);
+    }
 }
 ?>
-
                 </table>
             </div>
         </div>
@@ -162,7 +200,7 @@ else
 <script type="text/javascript" src="assets/js/tableexport.min.js"></script>
 
 <!-- <script>
-    $('#ExpenseReport').tableExport();
+    $('#SalesReport').tableExport();
 </script> -->
 <!-- Report csv,xlsx,txt plugins -->
 

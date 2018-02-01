@@ -20,6 +20,13 @@ class BLLReports
         $data = "";
         $SL = 1;
 
+        $data.='<thead>
+                        <th>SL.</th>
+                        <th>Product</th>
+                        <th>Tk</th>
+                        </thead>
+                    <tbody>';
+
         while ($resSalesReport = mysqli_fetch_assoc($resultSalesReport))
         {
         $data .= '<tr>';
@@ -34,7 +41,7 @@ class BLLReports
         }
         $data .= '<tr><td></td><td>Total = </td><td>';
         $data .= $totalSales;
-        $data .= '</td></tr>';
+        $data .= '</td></tr></tbody>';
 
         return $data;
     }
@@ -46,6 +53,13 @@ class BLLReports
         $totalSales = 0;
         $data = "";
         $SL = 1;
+
+        $data.=' <thead>
+                        <th>SL.</th>
+                        <th>Product</th>
+                        <th>Tk</th>
+                        </thead>
+                    <tbody>';
 
         while ($resSalesReport = mysqli_fetch_assoc($resultSalesReport))
         {
@@ -61,7 +75,7 @@ class BLLReports
         }
         $data .= '<tr><td></td><td>Total = </td><td>';
         $data .= $totalSales;
-        $data .= '</td></tr>';
+        $data .= '</td></tr></tbody>';
 
         return $data;
 
@@ -75,6 +89,18 @@ class BLLReports
         $data = "";
         $SL = 1;
 
+        $data.='<thead>
+                        <th>SL.</th>
+                        <th>Product</th>
+                        <th>Opening Goods</th>
+                        <th>Recieved Goods</th>
+                        <th>SE OnHand</th>
+                        <th>Sales Goods</th>
+                        <th>Return Goods</th>
+                        <th>Closing Goods</th>
+                        <th>Product Value</th>
+                        </thead>
+                    <tbody>';
         while ($resSubCat = mysqli_fetch_assoc($resultSubCat))
         {
             $subCatId = $resSubCat['id'];
@@ -497,6 +523,7 @@ class BLLReports
         $data.=$total;
         $data.='</td>';
         $data.='</tr>';
+        $data.='</tbody>';
 
 
         return $data;
