@@ -58,6 +58,13 @@ class DALReports
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
+	public function getStockReport($dateFrom,$dateTo)
+	{
+		$utility = new Utility;
+		$sql = "SELECT category.name as categoryName, SUM(stock.netAmount) as total FROM stock,subcategory,category WHERE stock.subCategoryId = subcategory.id && subcategory.categoryId = category.id && stock.date BETWEEN '$dateFrom' AND '$dateTo' GROUP BY categoryName";
+		$result = $utility->dbQuery($sql);
+		return $result;
+	}
 	public function getTodayStock($subCatName,$today)
 	{
 		$utility = new Utility;
@@ -145,14 +152,6 @@ class DALReports
 	{
 		$utility = new Utility;
 		$sql = "SELECT * FROM `bankdeposite` WHERE bankdeposite.date = '$today'";
-		$result = $utility->dbQuery($sql);
-		return $result;
-	}
-
-	public function getStatus($date)
-	{
-		$utility = new Utility;
-		$sql = "SELECT * FROM `flag` WHERE flag.date = '$date'";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}

@@ -51,18 +51,7 @@ if (isset($_SESSION['message']))
 
             <div class="content table-responsive table-full-width">
                 <table class="table table-hover table-striped" id="StockReport">
-                    <thead>
-                        <th>SL.</th>
-                        <th>Product</th>
-                        <th>Opening Goods</th>
-                        <th>Recieved Goods</th>
-                        <th>SE OnHand</th>
-                        <th>Sales Goods</th>
-                        <th>Return Goods</th>
-                        <th>Closing Goods</th>
-                        <th>Product Value</th>
-                        </thead>
-                    <tbody>
+                    
 <?php
     $bllStock = new BLLReports;
     $time = time();
@@ -72,7 +61,7 @@ if (isset($_SESSION['message']))
 
     echo $bllStock->showStockReport($yesterday,$today);
 ?>
-                    </tbody>
+
                 </table>
             </div>
         </div>

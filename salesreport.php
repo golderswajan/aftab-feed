@@ -100,12 +100,6 @@ if (isset($_SESSION['message']))
 
             <div class="content table-responsive table-full-width">
                 <table class="table table-hover table-striped" id="SalesReport">
-                    <thead>
-                        <th>SL.</th>
-                        <th>Product</th>
-                        <th>Tk</th>
-                        </thead>
-                    <tbody>
 <?php
 $bllSales = new BLLReports;
 if(isset($_GET['dateRange']))
@@ -121,7 +115,7 @@ else
     echo $bllSales->showSalesReport($today,$today);
 }
 ?>
-                    </tbody>
+
                 </table>
             </div>
         </div>
