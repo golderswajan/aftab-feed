@@ -5,19 +5,9 @@
 		<icon>pe-7s-graph</icon>
 	</items>
 	<items>
-		<title>Stock Report</title>
-		<link>stockreport.php</link>
+		<title>Reports</title>
+		<link>reports.php</link>
 		<icon>pe-7s-graph3</icon>
-	</items>
-	<items>
-		<title>Sales Report</title>
-		<link>salesreport.php</link>
-		<icon>pe-7s-graph1</icon>
-	</items>
-	<items>
-		<title>Expense Report</title>
-		<link>expensereport.php</link>
-		<icon>pe-7s-cash</icon>
 	</items>
 	<items>
 		<title>Stock</title>

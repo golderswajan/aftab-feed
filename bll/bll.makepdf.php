@@ -293,10 +293,11 @@ class StockPDF extends Company
 		while ($res = mysqli_fetch_assoc($resultSalesReport))
 		{
 			$pdf->Cell(20 ,5,$sl++,1,0);
-			$pdf->Cell(130 ,5,$res['categoryName'],1,0);
-			$pdf->Cell(34 ,5,$res['total'],1,1,'R');//end of line
+			$pdf->Cell(130 ,5,$res['subCategoryName'],1,0);
+			$netAmount = $res['pcs']*$res['unitPrice'];
+			$pdf->Cell(34 ,5,$netAmount,1,1,'R');//end of line
 
-			$total += $res['total'];
+			$total += $netAmount;
 		}
 
 		//summary

@@ -166,7 +166,9 @@ class BLLReports
             while ($resSales = mysqli_fetch_assoc($resultSales))
             {
                $totalSales = $resSales['pcs'];
-               $totalSalesValue = $resSales['netAmount'];
+               $unitPrice = $resSales['unitPrice'];
+
+               $totalSalesValue = $totalSales*$unitPrice;
             }
             if($totalSales == NULL)
             {
@@ -182,7 +184,9 @@ class BLLReports
             while ($resReturns = mysqli_fetch_assoc($resultReturns))
             {
                $totalReturns = $resReturns['pcs'];
-               $totalReturnsValue = $resReturns['netAmount'];
+               $unitPrice = $resSales['unitPrice'];
+
+               $totalReturnsValue = $totalReturns*$unitPrice;
             }
             if($totalReturns == NULL)
             {

@@ -29,7 +29,7 @@ class DALReports
 	public function getSalesReportBySubCategoryName($subCategoryName,$date)
 	{
 		$utility = new Utility;
-		$sql = "SELECT SUM(sale.pcs) as pcs, SUM(sale.netAmount) as netAmount FROM sale,subcategory WHERE sale.subCategoryId = subcategory.id && subcategory.name =  '$subCategoryName' && sale.date ='$date'";
+		$sql = "SELECT SUM(soldproducts.pcs) as pcs, SUM(soldproducts.unitPrice) as unitPrice FROM soldproducts,sale,subcategory WHERE sale.id = soldproducts.saleId && soldproducts.subCategoryId = subcategory.id && subcategory.name =  '$subCategoryName' && sale.date ='$date'";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
@@ -54,14 +54,14 @@ class DALReports
 	public function getOpeningStock($subCatName,$yesterday)
 	{
 		$utility = new Utility;
-		$sql = "SELECT * FROM `closinginventory`,`subcategory` WHERE closinginventory.subCategoryId = subcategory.id && subcategory.name = '$subCatName' && closinginventory.date = '$yesterday'";
+		$sql = "SELECT * FROM `closingstock`,`subcategory` WHERE closingstock.subCategoryId = subcategory.id && subcategory.name = '$subCatName' && closingstock.date = '$yesterday'";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
 	public function getStockReport($dateFrom,$dateTo)
 	{
 		$utility = new Utility;
-		$sql = "SELECT category.name as categoryName, SUM(stock.netAmount) as total FROM stock,subcategory,category WHERE stock.subCategoryId = subcategory.id && subcategory.categoryId = category.id && stock.date BETWEEN '$dateFrom' AND '$dateTo' GROUP BY categoryName";
+		$sql = "SELECT subcategory.name as subCategoryName, SUM(stock.pcs) as pcs, SUM(stock.unitPrice) as unitPrice FROM stock,subcategory WHERE stock.subCategoryId = subcategory.id && stock.date BETWEEN '$dateFrom' AND '$dateTo' GROUP BY subCategoryName";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
@@ -77,7 +77,7 @@ class DALReports
 	public function getReturnsReportBySubCategoryName($subCategoryName,$date)
 	{
 		$utility = new Utility;
-		$sql = "SELECT SUM(returns.pcs) as pcs, SUM(returns.netAmount) as netAmount FROM returns,subcategory WHERE returns.subCategoryId = subcategory.id && subcategory.name =  '$subCategoryName' && returns.date ='$date'";
+		$sql = "SELECT SUM(returnsproducts.pcs) as pcs, SUM(returnsproducts.unitPrice) as unitPrice FROM returnsproducts,returns,subcategory WHERE returns.id = returnsproducts.returnsId && returnsproducts.subCategoryId = subcategory.id && subcategory.name =  '$subCategoryName' && returns.date ='$date'";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
@@ -96,7 +96,7 @@ class DALReports
 	public function cornClosingStock($subCategoryId,$explanation,$pcs,$unitPrice,$netAmount,$date)
 	{
 		$utility = new Utility;
-		$sql = "INSERT INTO `closinginventory`(`id`, `subCategoryId`, `explanation`, `pcs`, `unitPrice`, `netAmount`, `date`) VALUES ('',$subCategoryId,'$explanation',$pcs,$unitPrice,$netAmount,$date)";
+		$sql = "INSERT INTO `closingstock`(`id`, `subCategoryId`, `explanation`, `pcs`, `unitPrice`, `netAmount`, `date`) VALUES ('',$subCategoryId,'$explanation',$pcs,$unitPrice,$netAmount,$date)";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
@@ -106,7 +106,7 @@ class DALReports
 	public function getTotalOpeningStock($yesterday)
 	{
 		$utility = new Utility;
-		$sql = "SELECT * FROM closinginventory WHERE closinginventory.date = '$yesterday'";
+		$sql = "SELECT * FROM closingstock WHERE closingstock.date = '$yesterday'";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
