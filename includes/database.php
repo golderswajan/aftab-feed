@@ -75,13 +75,3 @@ function db_insert_get_saleId($comission=0,$customerId){
     $id = db_select($query);
     return $id[0]['id'];
 }
-
-function db_insert_get_returnsId($comission=0,$partyId){
-    $time = time();
-    $date = date('Y-m-d',$time);
-    $query = "INSERT INTO `returns` (`id`, `comission`, `date`, `partyId`) VALUES (NULL, '".$comission."', '".$date."', '".$partyId."')";
-    db_insert($query);
-    $query = "select max(id) as id from returns where partyId='".$partyId."'";
-    $id = db_select($query);
-    return $id[0]['id'];
-}

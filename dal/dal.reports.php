@@ -21,7 +21,7 @@ class DALReports
 	public function getSalesReport($dateFrom,$dateTo)
 	{
 		$utility = new Utility;
-		$sql = "SELECT category.name as categoryName, SUM(sale.netAmount) as total FROM sale,subcategory,category WHERE sale.subCategoryId = subcategory.id && subcategory.categoryId = category.id && sale.date BETWEEN '$dateFrom' AND '$dateTo' GROUP BY categoryName";
+		$sql = "SELECT subcategory.name as subCategoryName, customer.name as customerName, customer.address as customerAddress, sale.comission as comission, soldproducts.pcs, soldproducts.unitPrice FROM subcategory, soldproducts, sale, customer WHERE customer.id = sale.customerId && sale.id = soldproducts.saleId && soldproducts.subCategoryId = subcategory.id && sale.date BETWEEN  '$dateFrom' AND '$dateTo' GROUP BY subCategoryName";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}

@@ -65,15 +65,16 @@ class SalesPDF extends Company
 		
 		$dalReports  = new DALReports;
         $resultSalesReport = $dalReports->getSalesReport($dateFrom,$dateTo);
-		$total=0;
+		$subTotal=0;
 		$sl=1;
 		while ($res = mysqli_fetch_assoc($resultSalesReport))
 		{
+			$total = $res['pcs']*$res['unitPrice'];
 			$pdf->Cell(20 ,5,$sl++,1,0);
-			$pdf->Cell(130 ,5,$res['categoryName'],1,0);
-			$pdf->Cell(34 ,5,$res['total'],1,1,'R');//end of line
+			$pdf->Cell(130 ,5,$res['subCategoryName'],1,0);
+			$pdf->Cell(34 ,5,$total,1,1,'R');//end of line
 
-			$total += $res['total'];
+			$subTotal += $total;
 		}
 
 		//summary
@@ -81,7 +82,7 @@ class SalesPDF extends Company
 
 		$pdf->Cell(125 ,5,'',0,0);
 		$pdf->Cell(25 ,5,'Total = ',0,0);
-		$pdf->Cell(34 ,5,$total." Tk.",1,1,'R');//end of line
+		$pdf->Cell(34 ,5,$subTotal." Tk.",1,1,'R');//end of line
 
 	
 

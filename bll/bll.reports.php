@@ -23,23 +23,25 @@ class BLLReports
         $data.='<thead>
                         <th>SL.</th>
                         <th>Product</th>
+                        <th>Pcs./Kg.</th>
                         <th>Tk</th>
                         </thead>
                     <tbody>';
 
         while ($resSalesReport = mysqli_fetch_assoc($resultSalesReport))
         {
-        $data .= '<tr>';
-
+            $total = $resSalesReport['pcs']*$resSalesReport['unitPrice'];
+            $data .= '<tr>';
             $data .= '<td>'.$SL++.'</td>';
-            $data .= '<td>'.$resSalesReport['categoryName'].'</td>';
-            $data .= '<td>'.floor($resSalesReport['total']).'</td>';
-        $data .= '</tr>';
-        $totalSales += intval($resSalesReport['total']);
+            $data .= '<td>'.$resSalesReport['subCategoryName'].'</td>';
+            $data .= '<td>'.$resSalesReport['pcs'].'</td>';
+            $data .= '<td>'.floor($total).'</td>';
+            $data .= '</tr>';
+            $totalSales += intval($total);
 
 
         }
-        $data .= '<tr><td></td><td>Total = </td><td>';
+        $data .= '<tr><td></td><td>Total = </td><td></td><td>';
         $data .= $totalSales;
         $data .= '</td></tr></tbody>';
 

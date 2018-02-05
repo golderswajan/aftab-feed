@@ -33,6 +33,44 @@ if (isset($_SESSION['message']))
     }
 ?>
 
+    <!-- Date selection -->
+    <div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title"><b>Final Report</b> 
+            </h4>
+        </div>
+        <div class="content">
+        <form  method="GET">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>From</label>
+                    <input type="date" name="date" class="form-control" value="<?php
+                    $time = time();
+                    if(isset($_GET['dateSelect']))
+                    echo $_GET['date'];
+                    else
+                    echo date('Y-m-d',$time);
+                    ?>" required>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label></label>
+                   <div class="form-group">
+                   
+                    <input type="submit" name="dateSelect" class="btn btn-info btn-fill pull-right" value="Load Report">
+                </div>
+                </div>
+            </div>
+        </div>
+
+        </form>
+    </div>
+    </div>
+    </div>
+    <!-- Date selection end -->
 
     <!-- Data Display -->
     <div class="col-md-12">
@@ -51,19 +89,14 @@ if (isset($_SESSION['message']))
             </div>
 
             <div class="content table-responsive table-full-width">
+            <table class="table table-hover table-striped" id="SalesReport">
+	            <thead>
+	                <th>Details</th><th>Tk.</th>
+	            </thead>
+	            <tbody>
+	            </tbody>
+            </table>
             </div>
-        </div>
-    </div>
-    <div class="col-md-12">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="header">
-                    <h3 class="title text-center"><b>Aftab Feed Products</b></h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            
         </div>
     </div>
     <!-- Data Display -->
