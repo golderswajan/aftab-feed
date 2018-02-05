@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 03, 2018 at 10:13 AM
+-- Generation Time: Feb 05, 2018 at 04:22 AM
 -- Server version: 10.1.24-MariaDB
 -- PHP Version: 7.1.6
 
@@ -21,16 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `aftab`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `abcd`
---
-
-CREATE TABLE `abcd` (
-  `d` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -195,6 +185,54 @@ INSERT INTO `price` (`id`, `buy`, `sale`, `subCategoryId`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `returns`
+--
+
+CREATE TABLE `returns` (
+  `id` int(11) NOT NULL,
+  `comission` float NOT NULL,
+  `date` date NOT NULL,
+  `partyId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `returns`
+--
+
+INSERT INTO `returns` (`id`, `comission`, `date`, `partyId`) VALUES
+(1, 5, '2018-02-05', 2),
+(2, 2, '2018-02-05', 1),
+(3, 0, '2018-02-05', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `returnsproducts`
+--
+
+CREATE TABLE `returnsproducts` (
+  `id` int(11) NOT NULL,
+  `pcs` int(11) NOT NULL,
+  `unitPrice` int(11) NOT NULL,
+  `returnsId` int(11) NOT NULL,
+  `subCategoryId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `returnsproducts`
+--
+
+INSERT INTO `returnsproducts` (`id`, `pcs`, `unitPrice`, `returnsId`, `subCategoryId`) VALUES
+(1, 1, 15, 1, 3),
+(2, 2, 5, 1, 4),
+(3, 10, 1, 2, 6),
+(4, 7, 1, 2, 8),
+(5, 5, 1, 2, 9),
+(6, 1, 15, 3, 3);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sale`
 --
 
@@ -212,7 +250,10 @@ CREATE TABLE `sale` (
 INSERT INTO `sale` (`id`, `comission`, `date`, `customerId`) VALUES
 (1, 12, '2018-02-01', 1),
 (2, 5, '2018-02-01', 10),
-(3, 1, '2018-02-02', 1);
+(3, 1, '2018-02-02', 1),
+(4, 10, '2018-02-05', 1),
+(5, 2, '2018-02-05', 1),
+(6, 10, '2018-02-05', 2);
 
 -- --------------------------------------------------------
 
@@ -238,7 +279,13 @@ INSERT INTO `soldproducts` (`id`, `pcs`, `unitPrice`, `saleId`, `subCategoryId`)
 (3, 3, 5, 2, 4),
 (4, 2, 15, 2, 3),
 (5, 1, 1, 3, 1),
-(6, 1, 1, 3, 9);
+(6, 1, 1, 3, 9),
+(7, 4, 25, 4, 2),
+(8, 2, 1, 4, 7),
+(9, 6, 1, 5, 6),
+(10, 3, 1, 5, 8),
+(11, 3, 25, 6, 2),
+(12, 5, 1, 6, 6);
 
 -- --------------------------------------------------------
 
@@ -366,6 +413,21 @@ ALTER TABLE `price`
   ADD KEY `subCategoryId` (`subCategoryId`);
 
 --
+-- Indexes for table `returns`
+--
+ALTER TABLE `returns`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `partyId` (`partyId`);
+
+--
+-- Indexes for table `returnsproducts`
+--
+ALTER TABLE `returnsproducts`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `saleId` (`returnsId`),
+  ADD KEY `subCategoryId` (`subCategoryId`);
+
+--
 -- Indexes for table `sale`
 --
 ALTER TABLE `sale`
@@ -447,15 +509,25 @@ ALTER TABLE `party`
 ALTER TABLE `price`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
+-- AUTO_INCREMENT for table `returns`
+--
+ALTER TABLE `returns`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `returnsproducts`
+--
+ALTER TABLE `returnsproducts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
 -- AUTO_INCREMENT for table `sale`
 --
 ALTER TABLE `sale`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `soldproducts`
 --
 ALTER TABLE `soldproducts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `stock`
 --
@@ -499,6 +571,19 @@ ALTER TABLE `party`
 --
 ALTER TABLE `price`
   ADD CONSTRAINT `price_ibfk_1` FOREIGN KEY (`subCategoryId`) REFERENCES `subcategory` (`id`);
+
+--
+-- Constraints for table `returns`
+--
+ALTER TABLE `returns`
+  ADD CONSTRAINT `returns_ibfk_1` FOREIGN KEY (`partyId`) REFERENCES `party` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `returnsproducts`
+--
+ALTER TABLE `returnsproducts`
+  ADD CONSTRAINT `returnsproducts_ibfk_1` FOREIGN KEY (`returnsId`) REFERENCES `returns` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `returnsproducts_ibfk_2` FOREIGN KEY (`subCategoryId`) REFERENCES `subcategory` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `sale`
