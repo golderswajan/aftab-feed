@@ -180,7 +180,7 @@ class DALReports
 	public function getChickenReport($partyId,$keyName,$dateFrom,$dateTo)
 	{
 		$utility = new Utility;
-		$sql = "SELECT soldproducts.*,sale.comission FROM soldproducts,sale,party,subcategory WHERE soldproducts.saleId = sale.id && sale.customerId= party.customerId && party.id =$partyId && soldproducts.subCategoryId = subcategory.id &&  subcategory.name = '$keyName' && sale.date BETWEEN '$dateFrom' AND '$dateTo'";
+		$sql = "SELECT SUM(soldproducts.pcs) as pcs,soldproducts.*,sale.comission FROM soldproducts,sale,party,subcategory WHERE soldproducts.saleId = sale.id && sale.customerId= party.customerId && party.id =$partyId && soldproducts.subCategoryId = subcategory.id &&  subcategory.name = '$keyName' && sale.date BETWEEN '$dateFrom' AND '$dateTo'";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
