@@ -55,6 +55,9 @@ if (isset($_SESSION['message']))
                         <option value="Expense">Expense Report</option>
                         <option value="Stock">Stock Report</option>
                         <option value="Final">Final Report</option>
+                        <option disabled>------------------</option>
+                        <option value="Feed">Feed Sales</option>
+                        <option value="Chicken">Chicken Sales</option>
                     </select>
                 </div>
             </div>
@@ -179,6 +182,14 @@ if(isset($_GET['loadReports']))
     elseif($_GET['report']=='Final')
     {
         echo $bllReports->showStockReport($dateFrom,$dateTo);
+    }
+    elseif($_GET['report']=='Feed')
+    {
+        echo $bllReports->showFeedReport($dateFrom,$dateTo);
+    }
+    elseif($_GET['report']=='Chicken')
+    {
+        echo $bllReports->showChickenReport($dateFrom,$dateTo);
     }
 }
 ?>

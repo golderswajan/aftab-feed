@@ -76,6 +76,22 @@ class DALProductCategory
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
+	// For report header 
+	public function getFeedSubCategory()
+	{
+		$utility = new Utility;
+		$sql = "SELECT subcategory.name AS subCategoryName,subcategory.id,category.name AS categoryName,subcategory.categoryId FROM `subcategory`,`category` WHERE subcategory.categoryId = category.id && category.name='Feed'";
+		$result = $utility->dbQuery($sql);
+		return $result;
+	}
+	// For report header 
+	public function getChickenSubCategory()
+	{
+		$utility = new Utility;
+		$sql = "SELECT subcategory.name AS subCategoryName,subcategory.id,category.name AS categoryName,subcategory.categoryId FROM `subcategory`,`category` WHERE subcategory.categoryId = category.id && category.name='Chicken'";
+		$result = $utility->dbQuery($sql);
+		return $result;
+	}
 	public function deleteSubCategory($id)
 	{
 		$utility = new Utility;

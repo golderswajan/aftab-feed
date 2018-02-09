@@ -155,5 +155,51 @@ class DALReports
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%S%%%
+# Feed Report
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	public function getFeedReport($partyId,$keyName,$dateFrom,$dateTo)
+	{
+		$utility = new Utility;
+		$sql = "SELECT soldproducts.*,sale.comission FROM soldproducts,sale,party,subcategory WHERE soldproducts.saleId = sale.id && sale.customerId= party.customerId && party.id =$partyId && soldproducts.subCategoryId = subcategory.id &&  subcategory.name = '$keyName' && sale.date BETWEEN '$dateFrom' AND '$dateTo'";
+		$result = $utility->dbQuery($sql);
+		return $result;
+	}
+
+	public function getFeedCommission($partyId,$dateFrom,$dateTo)
+	{
+		$utility = new Utility;
+		$sql = "SELECT DISTINCT(sale.id), sale.comission FROM sale,party,soldproducts,subcategory,category WHERE category.name='Feed' && category.id = subcategory.categoryId && subcategory.id = soldproducts.subCategoryId && soldproducts.saleId = sale.id && sale.customerId = party.customerId && party.id = $partyId && sale.date BETWEEN '$dateFrom' AND '$dateTo'";
+		$result = $utility->dbQuery($sql);
+		return $result;
+	}
+
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%S%%%
+# Chicken Report
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	public function getChickenReport($partyId,$keyName,$dateFrom,$dateTo)
+	{
+		$utility = new Utility;
+		$sql = "SELECT soldproducts.*,sale.comission FROM soldproducts,sale,party,subcategory WHERE soldproducts.saleId = sale.id && sale.customerId= party.customerId && party.id =$partyId && soldproducts.subCategoryId = subcategory.id &&  subcategory.name = '$keyName' && sale.date BETWEEN '$dateFrom' AND '$dateTo'";
+		$result = $utility->dbQuery($sql);
+		return $result;
+	}
+
+	public function getChickenCommission($partyId,$dateFrom,$dateTo)
+	{
+		$utility = new Utility;
+		$sql = "SELECT DISTINCT(sale.id), sale.comission FROM sale,party,soldproducts,subcategory,category WHERE category.name='Chicken' && category.id = subcategory.categoryId && subcategory.id = soldproducts.subCategoryId && soldproducts.saleId = sale.id && sale.customerId = party.customerId && party.id = $partyId && sale.date BETWEEN '$dateFrom' AND '$dateTo'";
+		$result = $utility->dbQuery($sql);
+		return $result;
+	}
+
+
+	public function getParty()
+	{
+		$utility = new Utility;
+		$sql = "SELECT customer.* FROM `party`,customer WHERE party.customerId = customer.id";
+		$result = $utility->dbQuery($sql);
+		return $result;
+	}
 }
 ?>
