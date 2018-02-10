@@ -145,7 +145,7 @@ include_once './templates/topper-customized.php';
             }
         }
     }
-    
+
     function getRowHtml(index,primaryId,name,price,quantity=1) {
         var rowHtml = "<div class=\"row\" id=\"div"+index+"\">\n"+
             "               <div class=\"col-md-1 col-lg-1 col-sm-1\"><h5>"+index+".</h5><input id='parentRowNo"+index+"' name='parentRowNo"+index+"' value='"+primaryId+"' hidden></div>\n"+
@@ -164,32 +164,32 @@ include_once './templates/topper-customized.php';
 
     function getHeaderHtml(){
         var html="<div class=\"row\">\n"+
-                        "<div class=\"col-md-1 col-lg-1 col-sm-1\"><h4>SL.</h4></div>\n"+
-                        "<div class=\"col-md-4 col-lg-4 col-sm-4\"><h4>Products</h4></div>\n"+
-                        "<div class=\"col-md-3 col-lg-3 col-sm-3\"><h4>Price</h4></div>\n"+
-                        "<div class=\"col-md-2 col-lg-2 col-sm-2\"><h4>Unit</h4></div>\n"+
-                        "<div class=\"col-md-1 col-lg-1 col-sm-1\"><h4>Cost</h4></div>\n"+
-                        "<div class=\"col-md-1 col-lg-1 col-sm-1\"></div>\n"+
-                "</div>\n"+
-                "<hr>";
+            "<div class=\"col-md-1 col-lg-1 col-sm-1\"><h4>SL.</h4></div>\n"+
+            "<div class=\"col-md-4 col-lg-4 col-sm-4\"><h4>Products</h4></div>\n"+
+            "<div class=\"col-md-3 col-lg-3 col-sm-3\"><h4>Price</h4></div>\n"+
+            "<div class=\"col-md-2 col-lg-2 col-sm-2\"><h4>Unit</h4></div>\n"+
+            "<div class=\"col-md-1 col-lg-1 col-sm-1\"><h4>Cost</h4></div>\n"+
+            "<div class=\"col-md-1 col-lg-1 col-sm-1\"></div>\n"+
+            "</div>\n"+
+            "<hr>";
         return html;
     }
 
     function getTotalCostHtml(){
 //        commision row
         var html = "<div id='totalCostDiv'>\n" +
-                        "<div class=\"row\" id='comissionDiv'>\n"+
-                        "<div class=\"col-md-8 \"></div>\n"+
-                        "<div class=\"col-md-2 \"><h4>Comission : </h4></div>\n" +
-                        "<div class=\"col-md-2 \"><input id='comission' name='comission' value='0' type='number' min='0' class='form-control' oninput='calculateTotalCost()'  ondblclick=\"$('#calculator').show()\" required></div>\n" +
-                        "</div>";
+            "<div class=\"row\" id='comissionDiv'>\n"+
+            "<div class=\"col-md-8 \"></div>\n"+
+            "<div class=\"col-md-2 \"><h4>Comission : </h4></div>\n" +
+            "<div class=\"col-md-2 \"><input id='comission' name='comission' value='0' type='number' min='0' class='form-control' oninput='calculateTotalCost()'  ondblclick=\"$('#calculator').show()\" required></div>\n" +
+            "</div>";
 //        total cost row
-            html    +=  "<div class=\"row\" >\n"+
-                            "<div class=\"col-md-8 \"></div>\n"+
-                            "<div class=\"col-md-2 \"><h4>Total Cost : </h4></div>\n" +
-                            "<div class=\"col-md-2 \"><h4 id=\"totalCost\">800 tk </h4></div>\n" +
-                        "</div>" +
-                   "</div>";
+        html    +=  "<div class=\"row\" >\n"+
+            "<div class=\"col-md-8 \"></div>\n"+
+            "<div class=\"col-md-2 \"><h4>Total Cost : </h4></div>\n" +
+            "<div class=\"col-md-2 \"><h4 id=\"totalCost\">800 tk </h4></div>\n" +
+            "</div>" +
+            "</div>";
         return html;
     }
 
@@ -251,11 +251,11 @@ include_once './templates/topper-customized.php';
                         <div class="col-md-4 col-sm-4 col-lg-4" id="partyDiv">
                             <div class="form-group">
                                 <label>Party</label>
-    <!--                            <select class="selectpicker form-control" data-live-search="true" id="partyDDL">-->
-                                    <?php
-                                    echo $bllSales->getProductPartiesAsOptions();
-                                    ?>
-    <!--                            </select>-->
+                                <!--                            <select class="selectpicker form-control" data-live-search="true" id="partyDDL">-->
+                                <?php
+                                echo $bllSales->getProductPartiesAsOptions();
+                                ?>
+                                <!--                            </select>-->
                             </div>
                         </div>
                         <div class="col-md-4 col-md-offset-1 col-sm-4 col-sm-offset-1 col-lg-4 col-lg-offset-1" id="customerDiv">
@@ -270,7 +270,7 @@ include_once './templates/topper-customized.php';
                             <div class="form-group">
                                 <label>Category</label>
                                 <?php
-                                    echo $bllSales->getProductCategoryAsOptions();
+                                echo $bllSales->getProductCategoryAsOptions();
                                 ?>
                             </div>
                         </div>
@@ -278,9 +278,9 @@ include_once './templates/topper-customized.php';
                             <div class="form-group">
                                 <label style="margin-left: 10px">Products</label>
                                 <div class="checkboxDiv">
-    <!--                                <label><input type="checkbox">option 1</label>-->
-    <!--                                <label><input type="checkbox">option 1</label>-->
-    <!--                                <label><input type="checkbox">option is very large what are you thinking</label>-->
+                                    <!--                                <label><input type="checkbox">option 1</label>-->
+                                    <!--                                <label><input type="checkbox">option 1</label>-->
+                                    <!--                                <label><input type="checkbox">option is very large what are you thinking</label>-->
                                 </div>
 
                             </div>
@@ -291,9 +291,9 @@ include_once './templates/topper-customized.php';
             </div>
         </div>
 
-    <!--    product selection ends-->
+        <!--    product selection ends-->
 
-    <!--    cash memo parts start-->
+        <!--    cash memo parts start-->
         <div class="col-md-12">
             <div class="card">
                 <div class="header">
@@ -309,27 +309,27 @@ include_once './templates/topper-customized.php';
                         <div class="col-md-1 col-lg-1 col-sm-1"></div>
                     </div>
                     <hr>
-    <!--                <div class="row" id="div1">-->
-    <!--                    <div class="col-md-1 col-lg-1 col-sm-1">1.</div>-->
-    <!--                    <div class="col-md-4 col-lg-4 col-sm-4">Chicken 2 days</div>-->
-    <!--                    <div class="col-md-3 col-lg-3 col-sm-3">20</div>-->
-    <!--                    <div class="col-md-2 col-lg-2 col-sm-2"><input type="number" class="form-control" value="1" min="1"></div>-->
-    <!--                    <div class="col-md-1 col-lg-1 col-sm-1">100</div>-->
-    <!--                    <div class="col-md-1 col-lg-1 col-sm-1"><a onclick="removeRow(1)"><span class="glyphicon glyphicon-remove"></span></a></div>-->
-    <!--                </div>-->
-    <!--                <div class="row" id="div2">-->
-    <!--                    <div class="col-md-1 col-lg-1 col-sm-1">2.</div>-->
-    <!--                    <div class="col-md-4 col-lg-4 col-sm-4">Chicken 2 days</div>-->
-    <!--                    <div class="col-md-3 col-lg-3 col-sm-3">20</div>-->
-    <!--                    <div class="col-md-2 col-lg-2 col-sm-2"><input type="number" class="form-control" value="1" min="1"></div>-->
-    <!--                    <div class="col-md-1 col-lg-1 col-sm-1">100</div>-->
-    <!--                    <div class="col-md-1 col-lg-1 col-sm-1"><a onclick="removeRow(1)"><span class="glyphicon glyphicon-remove"></span></a></div>-->
-    <!--                </div>-->
-    <!--                <div class="row">-->
-    <!--                    <div class="col-md-8"></div>-->
-    <!--                    <div class="col-md-2"><h4>Total Cost : </h4></div>-->
-    <!--                    <div class="col-md-2"><h4 id="totalCost">800 tk </h4></div>-->
-    <!--                </div>-->
+                    <!--                <div class="row" id="div1">-->
+                    <!--                    <div class="col-md-1 col-lg-1 col-sm-1">1.</div>-->
+                    <!--                    <div class="col-md-4 col-lg-4 col-sm-4">Chicken 2 days</div>-->
+                    <!--                    <div class="col-md-3 col-lg-3 col-sm-3">20</div>-->
+                    <!--                    <div class="col-md-2 col-lg-2 col-sm-2"><input type="number" class="form-control" value="1" min="1"></div>-->
+                    <!--                    <div class="col-md-1 col-lg-1 col-sm-1">100</div>-->
+                    <!--                    <div class="col-md-1 col-lg-1 col-sm-1"><a onclick="removeRow(1)"><span class="glyphicon glyphicon-remove"></span></a></div>-->
+                    <!--                </div>-->
+                    <!--                <div class="row" id="div2">-->
+                    <!--                    <div class="col-md-1 col-lg-1 col-sm-1">2.</div>-->
+                    <!--                    <div class="col-md-4 col-lg-4 col-sm-4">Chicken 2 days</div>-->
+                    <!--                    <div class="col-md-3 col-lg-3 col-sm-3">20</div>-->
+                    <!--                    <div class="col-md-2 col-lg-2 col-sm-2"><input type="number" class="form-control" value="1" min="1"></div>-->
+                    <!--                    <div class="col-md-1 col-lg-1 col-sm-1">100</div>-->
+                    <!--                    <div class="col-md-1 col-lg-1 col-sm-1"><a onclick="removeRow(1)"><span class="glyphicon glyphicon-remove"></span></a></div>-->
+                    <!--                </div>-->
+                    <!--                <div class="row">-->
+                    <!--                    <div class="col-md-8"></div>-->
+                    <!--                    <div class="col-md-2"><h4>Total Cost : </h4></div>-->
+                    <!--                    <div class="col-md-2"><h4 id="totalCost">800 tk </h4></div>-->
+                    <!--                </div>-->
                 </div>
             </div>
         </div>
