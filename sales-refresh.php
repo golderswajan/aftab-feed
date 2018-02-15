@@ -10,16 +10,19 @@ require_once './includes/database.php';
 if(isset($_POST['confirmSale'])){
     $row = $_POST['rowNumber'];
     $comission = $_POST['comission'];
+    $memoNo = $_POST['memoId'];
+    $categoryId = $_POST['category'];
     $customer = isset($_POST['customerName'])? $_POST['customerName']:'';
     $party = isset($_POST['partyDDL'])? $_POST['partyDDL']:'';
+
     $customerId = $party;
     if(!empty($customer)){
         $customerId = db_insert_get_customer($customer);
+        $categoryId = "NULL";
     }
 
 
-
-    $saleId = db_insert_get_saleId($comission,$customerId);
+    $saleId = db_insert_get_saleId($comission,$customerId,$categoryId,$memoNo);
 
     $query = "INSERT INTO `soldproducts` (`id`, `pcs`, `unitPrice`, `saleId`, `subCategoryId`) VALUES";
     for($i=1;$i<$row;$i++){

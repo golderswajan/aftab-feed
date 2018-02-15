@@ -1,62 +1,105 @@
 <?php
-    include_once './templates/topper-customized.php';
-?>
-<script>
+//    include_once './templates/topper-customized.php';
+//?>
 
-    function showCalculator() {
-        $('#calc').show();
-    }
+<!doctype html>
+<html>
+    <head>
 
-</script>
-<div style="position: relative">
-    <input type="button" value="Calculator" onclick="showCalculator()">
-    <input type="number" id="comission">
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+        <script src="/assets/plugin/jquery-3.2.1.min.js"></script>
+        <style>
+            td{
+                /*background: #4091e2;*/
+                background: #9d9d9d;
+                width: 34px;
+                height: 34px;
+                border: 2px solid black;
+                font-size: x-small;
+            }
+        </style>
+        <script>
 
-    <FORM NAME="Calc" id="calculator" style="display: block;z-index: 1;position: absolute;top: 80px;left: 50px;">
-        <TABLE BORDER=4>
-            <TR>
-                <TD>
-                    <INPUT TYPE="text"   NAME="Input" Size="16">
-                    <br>
-                </TD>
-            </TR>
-            <TR>
-                <TD>
-                    <INPUT TYPE="button" NAME="ac"   VALUE="AC" OnClick="Calc.Input.value = ''">
-                    <INPUT TYPE="button" NAME="clear"   VALUE="c" OnCLick="Calc.Input.value = Calc.Input.value.slice(0,-1)">
-                    <INPUT TYPE="button" NAME="close" VALUE="close" OnClick="$('#calculator').hide()">
-                    <INPUT TYPE="button" NAME="save"  VALUE="save" OnClick="$('#comission').val(Calc.Input.value);$('#calculator').hide()">
-                    <br>
-                    <INPUT TYPE="button" NAME="one"   VALUE="  1  " OnClick="Calc.Input.value += '1'">
-                    <INPUT TYPE="button" NAME="two"   VALUE="  2  " OnCLick="Calc.Input.value += '2'">
-                    <INPUT TYPE="button" NAME="three" VALUE="  3  " OnClick="Calc.Input.value += '3'">
-                    <INPUT TYPE="button" NAME="plus"  VALUE="  +  " OnClick="Calc.Input.value += ' + '">
-                    <br>
-                    <INPUT TYPE="button" NAME="four"  VALUE="  4  " OnClick="Calc.Input.value += '4'">
-                    <INPUT TYPE="button" NAME="five"  VALUE="  5  " OnCLick="Calc.Input.value += '5'">
-                    <INPUT TYPE="button" NAME="six"   VALUE="  6  " OnClick="Calc.Input.value += '6'">
-                    <INPUT TYPE="button" NAME="minus" VALUE="  --  " OnClick="Calc.Input.value += ' - '">
-                    <br>
-                    <INPUT TYPE="button" NAME="seven" VALUE="  7  " OnClick="Calc.Input.value += '7'">
-                    <INPUT TYPE="button" NAME="eight" VALUE="  8  " OnCLick="Calc.Input.value += '8'">
-                    <INPUT TYPE="button" NAME="nine"  VALUE="  9  " OnClick="Calc.Input.value += '9'">
-                    <INPUT TYPE="button" NAME="times" VALUE="  x  " OnClick="Calc.Input.value += ' * '">
-                    <br>
-                    <INPUT TYPE="button" NAME="point" VALUE="  .   " OnClick="Calc.Input.value += '.'">
-                    <INPUT TYPE="button" NAME="zero"  VALUE="  0  " OnClick="Calc.Input.value += '0'">
-                    <INPUT TYPE="button" NAME="DoIt"  VALUE="  =  " OnClick="Calc.Input.value = eval(Calc.Input.value)">
-                    <INPUT TYPE="button" NAME="div"   VALUE="   /  " OnClick="Calc.Input.value += ' / '">
-                    <br>
-                </TD>
-            </TR>
-        </TABLE>
-    </FORM>
+            var points='';
+            function  showResult() {
+                var x1 = $('#x1').val();
+                x1=parseInt(x1);
+                var x2 = $('#x2').val();
+                x2=parseInt(x2);
+                var y1 = $('#y1').val();
+                y1=parseInt(y1);
+                var y2 = $('#y2').val();
+                y2=parseInt(y2);
+                var dx = x2-x1;
+                var dy = y2-y1;
+                var p = 2*dy-dx;
+                if(dy>dx){
+                    alert("This input is not supported by this algorithm as tangent is greater than 1");
+                    return;
+                }
+                drawPoint(x1,y1);
 
-</div>
+                var y=y1;
+                for(var i=x1 ;i<x2;i++){
+                    if(p<0){
+                        drawPoint(i+1,y);
+                        p += 2*dy;
+                    }else{
+                        drawPoint(i+1,++y);
+                        p += 2*dy-2*dx;
+                    }
+                }
 
-<h2>Hello</h2>
+    //            $('#points').html(points.slice(0,-1));
 
+            }
+
+            function drawPoint(m,n){
+                points += "( "+m+","+n+" ),";
+                var x = 19 - n +1;
+                var y = m+1;
+                console.log(x+" "+y);
+
+                $('#cell'+x+''+y).css('background-color','red');
+                $('#cell'+x+''+y).html("("+m+","+n+")");
+            }
+
+        </script>
+    </head>
+
+    <body>
+        <div style="margin-left: 20px">
+
+            <p id="points"></p>
+
+            <div>
+                <table>
+                    <?php
+                    $html='';
+                        for($i=1;$i<21;$i++){
+                            $html .= "<tr>";
+                            for($j=1;$j<21;$j++){
+                                $html .= "<td id=\"cell".$i.$j."\"></td>";
+                            }
+                            $html .= "</tr>";
+                        }
+                        echo $html;
+                    ?>
+                </table>
+            </div>
+
+            <div style="margin-top: 10px">
+                <input type="number" id="x1" placeholder=" input X1">
+                <input type="number" id="y1" placeholder=" input Y1">
+                <input type="number" id="x2" placeholder=" input X2">
+                <input type="number" id="y2" placeholder=" input Y2">
+                <input type="button" value="Result" id="result" onclick="showResult()">
+            </div>
+        </div>
+    </body>
+
+</html>
 
 <?php
-    include_once './templates/footer-customized.php';
+//    include_once './templates/footer-customized.php';
 ?>

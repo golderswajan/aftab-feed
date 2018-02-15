@@ -9,6 +9,12 @@ class DALProductCategory
 	{
 
 	}
+    public function createMemoField($categoryName)
+    {
+        $utility = new Utility;
+        $sql = "ALTER TABLE `memono` ADD ".$categoryName." INT(11) NOT NULL DEFAULT '1' AFTER `Medicine`;";
+        $utility->dbQuery($sql);
+    }
 	public function insertCategory($categoryName)
 	{
 		$utility = new Utility;
@@ -17,6 +23,7 @@ class DALProductCategory
 		return $result;
 
 	}
+
 	public function updateCategory($id,$categoryName)
 	{
 		$utility = new Utility;

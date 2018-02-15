@@ -66,13 +66,21 @@ function db_insert_get_customer($name){
 
 }
 
-function db_insert_get_saleId($comission=0,$customerId){
+function db_insert_get_saleId($comission=0,$customerId,$categoryId,$memoNo){
     $time = time();
     $date = date('Y-m-d',$time);
-    $query = "INSERT INTO `sale` (`id`, `comission`, `date`, `customerId`) VALUES (NULL, '".$comission."', '".$date."', '".$customerId."')";
+    $query = "INSERT INTO `sale` (`id`, `comission`, `date`, `customerId`, `categoryId`, `memoNo`) VALUES (NULL, '".$comission."', '".$date."', '".$customerId."', ".$categoryId.", '".$memoNo."')";
     db_insert($query);
     $query = "select max(id) as id from sale where customerId='".$customerId."'";
     $id = db_select($query);
+
+    if(strcmp($categoryId,"NULL")){
+        $query = "select name from category where id ='".$categoryId."'";
+        $category = db_select($query)[0]['name'];
+        $query = "update memono set ".$category." = ".$category."+1";
+    }
+    else $query = "update memono set Customer = Customer+1";
+    db_update($query);
     return $id[0]['id'];
 }
 
@@ -84,4 +92,15 @@ function db_insert_get_returnsId($comission=0,$partyId){
     $query = "select max(id) as id from returns where partyId='".$partyId."'";
     $id = db_select($query);
     return $id[0]['id'];
+}
+
+function getMemoNo($categoryId){
+    $memoNameNo = array();
+    $query = "select name from category where id = '".$categoryId."'";
+    $data = db_select($query)[0]['name'];
+    array_push($memoNameNo,$data);
+    $query = "select ".$data." from memono";
+    $data = db_select($query)[0][$data];
+    array_push($memoNameNo,$data);
+    return $memoNameNo;
 }

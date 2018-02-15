@@ -35,19 +35,46 @@ include_once './templates/topper-customized.php';
 
     var counter = 1;
     var saleArray = [];
+    var partySelected = false;
     $(document).ready(function($){
         $('#category').on('change',function(){
             createSubCategoryField();
         });
         $('#partyDDL').on('change',function(){
             var partyId = $('#partyDDL').val();
-            if(partyId!=0)$('#customerName').prop('disabled',true);
-            else $('#customerName').prop('disabled',false);
+            if(partyId!=0){
+                $('#customerName').prop('disabled',true);
+                $('#category').prop('disabled',false);
+                partySelected = true;
+            }
+            else{
+                $('#customerName').prop('disabled',false);
+                $('#category').prop('disabled',true);
+                partySelected = false;
+            }
         })
         window.setTimeout(function(){
             $('#msgDiv').hide();
 
         }, 2000);
+
+        $(window).keydown(function (event) {
+            if(event.keyCode == 13){
+                var calInput = $('#input').val();
+                if(calInput!='') $('#input').val(eval(calInput).toFixed(2));
+
+                event.preventDefault();
+                return false;
+            }
+
+        })
+        $('form').submit(function (event) {
+
+            $('#category').prop('disabled',false);
+
+            }
+        );
+
     });
 
     function createSubCategoryField(){
@@ -63,11 +90,29 @@ include_once './templates/topper-customized.php';
             }
             $('.checkboxDiv').html(html);
         });
+
+        if(partySelected){
+            $.post('jQuery-process.php',{categoryIdForMemo:categoryId},function (data) {
+                data = JSON.parse(data);
+                $('#memoText').html(data[0]+" : "+data[1]);
+                $('#memoId').val(data[1]);
+            });
+        }else{
+            $.post('jQuery-process.php',{customerMemo:"customerMemo"},function (data) {
+                data = JSON.parse(data);
+                $('#memoText').html(" : "+data);
+                $('#memoId').val(data);
+
+            });
+        }
+
+
     }
 
     function checkToAdd(cb,cbId){
         if(cb.checked){
             saleArray.push(cbId);
+            if(partySelected) $('#category').prop('disabled',true);
             var cashMemoDiv = $('#cashMemoDiv');
             $.post('jQuery-process.php',{subCategoryId:cbId},function(data){
                 data = JSON.parse(data);
@@ -132,6 +177,7 @@ include_once './templates/topper-customized.php';
         }
         saleArray.splice(saleArray.indexOf(parseInt(parentRowNo)),1);
         if(counter==1)  $('#confirmSale').hide();
+        if(partySelected && saleArray.length==0) $('#category').prop('disabled',false);
 
     }
 
@@ -181,7 +227,7 @@ include_once './templates/topper-customized.php';
             "<div class=\"row\" id='comissionDiv'>\n"+
             "<div class=\"col-md-8 \"></div>\n"+
             "<div class=\"col-md-2 \"><h4>Comission : </h4></div>\n" +
-            "<div class=\"col-md-2 \"><input id='comission' name='comission' value='0' type='number' min='0' class='form-control' oninput='calculateTotalCost()'  ondblclick=\"$('#calculator').show()\" required></div>\n" +
+            "<div class=\"col-md-2 \"><input id='comission' name='comission' value='0' type='number' min='0' class='form-control' oninput='calculateTotalCost()'  ondblclick=\"$('#calculator').show();$('#input').focus();\" required></div>\n" +
             "</div>";
 //        total cost row
         html    +=  "<div class=\"row\" >\n"+
@@ -218,12 +264,41 @@ include_once './templates/topper-customized.php';
 
     function hideParty(){
         var nameInput = $('#customerName').val().trim();
-        if(nameInput.length==0)$('#partyDDL').prop('disabled',false);
-        else $('#partyDDL').prop('disabled',true);
+        if(nameInput.length==0){
+            $('#partyDDL').prop('disabled',false);
+            $('#category').prop('disabled',true);
+            partySelected = true;
+        }
+        else {
+            $('#partyDDL').prop('disabled',true);
+            $('#category').prop('disabled',false);
+            partySelected = false;
+        }
     }
 
+    function isNumberKey(evt){
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode>=48 && charCode<=57)
+            return true;
+        else if(charCode>=42 && charCode<=47)
+            return true;
+        else if(charCode==13)
+            return true;
+        return false;
+    }
 
+    function checkSales() {
+//        var selectedValue = $("#category").val();
+//        if(saleArray.length!=0){
+//            console.log("HELLO");
+//            $("#category option").each(function()
+//            {
+//                if($(this).val()!=selectedValue)$(this).attr('disabled',true);
+//            });
+//        }
+//        $("#category").focus();
 
+    }
 
 </script>
 
@@ -297,7 +372,7 @@ include_once './templates/topper-customized.php';
         <div class="col-md-12">
             <div class="card">
                 <div class="header">
-                    <h4><b>Cash Memo</b></h4>
+                    <h4><b>Cash Memo   </b>   <span style="margin-left: 30px" id="memoText"></span><input id="memoId" name="memoId" value="" hidden></h4>
                 </div>
                 <div class="content cash-memo" id="cashMemoDiv">
                     <div class="row">
@@ -339,36 +414,36 @@ include_once './templates/topper-customized.php';
         <TABLE BORDER=4>
             <TR>
                 <TD>
-                    <INPUT TYPE="text"   NAME="Input" Size="20"  readonly>
+                    <INPUT TYPE="text"   NAME="Input" id="input" Size="20" value="" onkeypress="return isNumberKey(event)" >
                     <br>
                 </TD>
             </TR>
             <TR>
                 <TD>
-                    <INPUT TYPE="button" NAME="ac"   VALUE="AC" OnClick="Calc.Input.value = ''">
-                    <INPUT TYPE="button" NAME="clear"   VALUE="c" OnCLick="Calc.Input.value = Calc.Input.value.slice(0,-1)">
+                    <INPUT TYPE="button" NAME="ac"   VALUE="AC" OnClick="Calc.Input.value = '';$('#input').focus();">
+                    <INPUT TYPE="button" NAME="clear"   VALUE="c" OnCLick="Calc.Input.value = Calc.Input.value.slice(0,-1);$('#input').focus();">
                     <INPUT TYPE="button" NAME="close" VALUE="close" OnClick="$('#calculator').hide();Calc.Input.value=''">
                     <INPUT TYPE="button" NAME="save"  VALUE="save" OnClick="$('#comission').val(Calc.Input.value);Calc.Input.value='';$('#calculator').hide();calculateTotalCost()">
                     <br>
-                    <INPUT TYPE="button" NAME="one"   VALUE="  1  " OnClick="Calc.Input.value += '1'">
-                    <INPUT TYPE="button" NAME="two"   VALUE="  2  " OnCLick="Calc.Input.value += '2'">
-                    <INPUT TYPE="button" NAME="three" VALUE="  3  " OnClick="Calc.Input.value += '3'">
-                    <INPUT TYPE="button" NAME="plus"  VALUE="  +  " OnClick="Calc.Input.value += ' + '">
+                    <INPUT TYPE="button" NAME="one"   VALUE="  1  " OnClick="Calc.Input.value += '1';$('#input').focus();">
+                    <INPUT TYPE="button" NAME="two"   VALUE="  2  " OnCLick="Calc.Input.value += '2';$('#input').focus();">
+                    <INPUT TYPE="button" NAME="three" VALUE="  3  " OnClick="Calc.Input.value += '3';$('#input').focus();">
+                    <INPUT TYPE="button" NAME="plus"  VALUE="  +  " OnClick="Calc.Input.value += ' + ';$('#input').focus();">
                     <br>
-                    <INPUT TYPE="button" NAME="four"  VALUE="  4  " OnClick="Calc.Input.value += '4'">
-                    <INPUT TYPE="button" NAME="five"  VALUE="  5  " OnCLick="Calc.Input.value += '5'">
-                    <INPUT TYPE="button" NAME="six"   VALUE="  6  " OnClick="Calc.Input.value += '6'">
-                    <INPUT TYPE="button" NAME="minus" VALUE="  --  " OnClick="Calc.Input.value += ' - '">
+                    <INPUT TYPE="button" NAME="four"  VALUE="  4  " OnClick="Calc.Input.value += '4';$('#input').focus();">
+                    <INPUT TYPE="button" NAME="five"  VALUE="  5  " OnCLick="Calc.Input.value += '5';$('#input').focus();">
+                    <INPUT TYPE="button" NAME="six"   VALUE="  6  " OnClick="Calc.Input.value += '6';$('#input').focus();">
+                    <INPUT TYPE="button" NAME="minus" VALUE="  --  " OnClick="Calc.Input.value += ' - ';$('#input').focus();">
                     <br>
-                    <INPUT TYPE="button" NAME="seven" VALUE="  7  " OnClick="Calc.Input.value += '7'">
-                    <INPUT TYPE="button" NAME="eight" VALUE="  8  " OnCLick="Calc.Input.value += '8'">
-                    <INPUT TYPE="button" NAME="nine"  VALUE="  9  " OnClick="Calc.Input.value += '9'">
-                    <INPUT TYPE="button" NAME="times" VALUE="  x  " OnClick="Calc.Input.value += ' * '">
+                    <INPUT TYPE="button" NAME="seven" VALUE="  7  " OnClick="Calc.Input.value += '7';$('#input').focus();">
+                    <INPUT TYPE="button" NAME="eight" VALUE="  8  " OnCLick="Calc.Input.value += '8';$('#input').focus();">
+                    <INPUT TYPE="button" NAME="nine"  VALUE="  9  " OnClick="Calc.Input.value += '9';$('#input').focus();">
+                    <INPUT TYPE="button" NAME="times" VALUE="  x  " OnClick="Calc.Input.value += ' * ';$('#input').focus();">
                     <br>
-                    <INPUT TYPE="button" NAME="point" VALUE="  .   " OnClick="Calc.Input.value += '.'">
-                    <INPUT TYPE="button" NAME="zero"  VALUE="  0  " OnClick="Calc.Input.value += '0'">
-                    <INPUT TYPE="button" NAME="DoIt"  VALUE="  =  " OnClick="Calc.Input.value = eval(Calc.Input.value)">
-                    <INPUT TYPE="button" NAME="div"   VALUE="   /  " OnClick="Calc.Input.value += ' / '">
+                    <INPUT TYPE="button" NAME="point" VALUE="  .   " OnClick="Calc.Input.value += '.';$('#input').focus();">
+                    <INPUT TYPE="button" NAME="zero"  VALUE="  0  " OnClick="Calc.Input.value += '0';$('#input').focus();">
+                    <INPUT TYPE="button" NAME="DoIt"  VALUE="  =  " OnClick="Calc.Input.value = eval(Calc.Input.value).toFixed(2);$('#input').focus();">
+                    <INPUT TYPE="button" NAME="div"   VALUE="   /  " OnClick="Calc.Input.value += ' / ';$('#input').focus();">
                     <br>
                 </TD>
             </TR>

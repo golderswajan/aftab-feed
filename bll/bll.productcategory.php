@@ -21,6 +21,7 @@ class BLLProductCategory
 			
 
 			$result = $dalProductCategory->insertCategory($categoryName);
+            $dalProductCategory->createMemoField($categoryName);
 			if($result)
 			{
 				$_SESSION['message'] = "Category added Successfully!";
