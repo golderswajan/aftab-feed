@@ -41,10 +41,16 @@ function db_update($query){
     $con = db_connect();
     $con->query($query);
     $con->close();
+    if (!isset($_SESSION))
+    {
+        session_start();
+    }
+    $_SESSION['message'] = "Updated Successfully!";
 }
 
 function db_delete($query){
     db_update($query);
+
 }
 
 function db_insert($query){

@@ -10,6 +10,8 @@ $categoryId=isset($_POST['categoryId'])?$_POST['categoryId']:null;
 $subCategoryId=isset($_POST['subCategoryId'])?$_POST['subCategoryId']:null;
 $categoryIdForMemo=isset($_POST['categoryIdForMemo'])?$_POST['categoryIdForMemo']:null;
 $customerMemo=isset($_POST['customerMemo'])?$_POST['customerMemo']:null;
+$customerDueMemo=isset($_POST['customerDueMemo'])?$_POST['customerDueMemo']:null;
+$customerDueAmountMemo=isset($_POST['customerDueAmountMemo'])?$_POST['customerDueAmountMemo']:null;
 
 
 
@@ -28,5 +30,21 @@ if($categoryId!=null || !empty($categoryId)){
 }else if($customerMemo!=null || !empty($customerMemo)){
     $query = "select Customer from memono";
     $data = db_select($query)[0]['Customer'];
+    echo json_encode($data);
+}else if($customerDueMemo!=null || !empty($customerDueMemo)){
+    $query = "select customer.name from customer,sale where sale.categoryId is NULL and sale.memoNo='".$customerDueMemo."' and sale.customerId=customer.id";
+    $data = db_select($query);
+    if($data==null || empty($data)){
+        $data = "NOT EXISTS";
+    } else{
+        $data = $data[0]['name'];
+    }
+    echo json_encode($data);
+}else if($customerDueAmountMemo!=null || !empty($customerDueAmountMemo)){
+    $query = "select customer.name,customerdue.amount from customer,sale,customerdue where sale.categoryId is NULL and sale.memoNo='".$customerDueAmountMemo."' and sale.customerId=customer.id and customerdue.memoNo=sale.memoNo";
+    $data = db_select($query);
+    if($data==null || empty($data)){
+        $data = "NOT EXISTS";
+    }
     echo json_encode($data);
 }
