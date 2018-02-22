@@ -1,6 +1,6 @@
 #Protect directory listing
-Options -Indexes
+#Options -Indexes
 
 #Redirect to error page
-ErrorDocument 403 index.php
-ErrorDocument 404 index.php
+#ErrorDocument 403 index.php
+#ErrorDocument 404 index.php

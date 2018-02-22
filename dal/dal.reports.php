@@ -117,14 +117,6 @@ class DALReports
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
-
-	public function getTotalSales($today)
-	{
-		$utility = new Utility;
-		$sql = "SELECT * FROM sale WHERE sale.date = '$today'";
-		$result = $utility->dbQuery($sql);
-		return $result;
-	}
 	/// only creditsale returns
 	public function getTotalReturns($today)
 	{
@@ -133,25 +125,27 @@ class DALReports
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
-	public function getTotalIncentives($today)
+
+	public function getTotalSales($dateFrom,$dateTo)
 	{
-		// 2.75% is for POS value
 		$utility = new Utility;
-		$sql = "SELECT * FROM incentive WHERE incentive.date = '$today'";
+		$sql = "SELECT soldproducts.* FROM soldproducts,sale WHERE soldproducts.saleId = sale.id && sale.date  BETWEEN '$dateFrom' AND '$dateTo'";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
-	public function getTotalCost($today)
+
+
+	public function getTotalCost($dateFrom,$dateTo)
 	{
 		$utility = new Utility;
-		$sql = "SELECT * FROM expense WHERE expense.date = '$today'";
+		$sql = "SELECT * FROM expense WHERE expense.date BETWEEN '$dateFrom' AND '$dateTo'";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
-	public function getBankDeposite($today)
+	public function getBankDeposite($dateFrom,$dateTo)
 	{
 		$utility = new Utility;
-		$sql = "SELECT * FROM `bankdeposite` WHERE bankdeposite.date = '$today'";
+		$sql = "SELECT * FROM `bankdeposite` WHERE bankdeposite.date BETWEEN '$dateFrom' AND '$dateTo'";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}

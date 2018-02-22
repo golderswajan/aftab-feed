@@ -13,6 +13,7 @@ class BLLReports
         $utility = new Utility;
         $dalReports = new DALReports;
     }
+
     public function showSalesReport($dateFrom,$dateTo)
     {
         $dalReports  = new DALReports;
@@ -384,47 +385,22 @@ class BLLReports
 # FINAL REPORT 
 #%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    public function showFinalReport($today,$yesterday)
+    public function showFinalReport($dateFrom,$dateTo)
     {
         $dalReports  = new DALReports;
         $data = "";
-        // Total Opening Stock
-        $resultOpening = $dalReports->getTotalOpeningStock($yesterday);
-        $valueOpening = 0;
-        while ($resOpening = mysqli_fetch_assoc($resultOpening))
-        {
-           $valueOpening += $resOpening['netAmount'];
-        }
-
-        // Total Stock Arrived today
-        $resultArrived= $dalReports->getTotalArrivedStock($today);
-        $valueArrived = 0;
-        while ($resArrived = mysqli_fetch_assoc($resultArrived))
-        {
-           $valueArrived += $resArrived['netAmount'];
-        }
-        // Lifting commission
-
-        $valueCommission = $this->getTotalCommission($today,$yesterday);
-
+        
         // Total Sales
-        $resultSales= $dalReports->getTotalSales($today);
+        $resultSales= $dalReports->getTotalSales($dateFrom,$dateTo);
         $valueSales = 0;
         while ($resSales = mysqli_fetch_assoc($resultSales))
         {
-           $valueSales += $resSales['netAmount'];
+           $valueSales += $resSales['pcs']*$resSales['unitPrice'];
         }
-        // Return //products mfs
-        // No need any more, since double entry system introduced
-        // $resultReturns= $dalReports->getTotalReturns($today);
-         $valueReturns= 0;
-        // while ($resReturn = mysqli_fetch_assoc($resultReturns))
-        // {
-        //    $valueReturns += $resReturn['netAmount'];
-        // }
+        
 
         // Total Cost
-        $resultCost= $dalReports->getTotalCost($today);
+        $resultCost= $dalReports->getTotalCost($dateFrom,$dateTo);
         $valueCost = 0;
         while ($resCost = mysqli_fetch_assoc($resultCost))
         {
@@ -432,165 +408,16 @@ class BLLReports
         }
 
         // Bank Deposite
-        $resultBank= $dalReports->getBankDeposite($today);
+        $resultBank= $dalReports->getBankDeposite($dateFrom,$dateTo);
         $valueBank = 0;
         while ($resBank = mysqli_fetch_assoc($resultBank))
         {
            $valueBank += $resBank['netAmount'];
         }
 
-        // Total Incentives
-        $resultIncentives= $dalReports->getTotalIncentives($today);
-        $valueIncentives= 0;
-        while ($resIncentives = mysqli_fetch_assoc($resultIncentives))
-        {
-           $valueIncentives += $resIncentives['netAmount'];
-        }
-        // Left 2.75% incentives for POS value
-        if($valueIncentives>0)
-        {
-            $valueIncentives -= $valueIncentives*(2.75/100);
-        }
-
-
-        // Flooring
-        $valueOpening = floor($valueOpening);
-        $valueArrived = floor($valueArrived);
-        $valueSales = floor($valueSales);
-        $valueReturns = floor($valueReturns);
-        $valueCost = floor($valueCost);
-        $valueBank = floor($valueBank);
-        $valueIncentives= floor($valueIncentives);
-        $valueCommission = floor($valueCommission);
-
-        // Calculations 
-
-        // Opening Value
-        // Incentive 
-        // PO IN
-        // Commission
-        // MFS Return
-        // -----------------
-        // Total Value
-        
-        $totalValue= $valueOpening+$valueArrived+$valueIncentives+$valueReturns+$valueCommission;
-
-        $closingProduct = $totalProduct+$valueReturns-$valueSales;
-
-        // Opening Vault
-        // Total Sale
-        // -----------------
-        // Total Sale Value
-        $openingVault = 0;
-        $resultVault = $dalReports->getOpeningVault($yesterday);
-        while ($res = mysqli_fetch_assoc($resultVault))
-        {
-            $openingVault+= $res['netAmount'];
-        }
-        if($openingVault == NULL)
-        {
-            $openingVault = 0;
-        }
-        
-        $totalSaleValue = $openingVault+$valueSales;
-        // Total Sale Value
-        //- Bank 
-        //- MFS Return
-        //-Cost
-        
-        // --------------------
-        // Close Vault
-        $closeVault =$totalSaleValue- ($valueBank+$valueReturns+$valueCost);
-
-        // Total Value
-        // Close Vault
-        // -----------------
-        // Total
-        $total = $totalValue+$closeVault;
-
-
         // Display section
-
-        // Opening product
-        $data.='<tr>';
-        $data.='<td>';
-        $data.='Opening product:';
-        $data.='</td>';
-        $data.='<td>';
-        $data.=$valueOpening;
-        $data.='</td>';
-        $data.='</tr>';
-
-
-        // Incentives
-
-        $data.='<tr>';
-        $data.='<td>';
-        $data.='Incentive Value:';
-        $data.='</td>';
-        $data.='<td>';
-        $data.=$valueIncentives;
-        $data.='</td>';
-        $data.='</tr>';
-
-        // PO
-        $data.='<tr>';
-        $data.='<td>';
-        $data.='PO In:';
-        $data.='</td>';
-        $data.='<td>';
-        $data.=$valueArrived;
-        $data.='</td>';
-        $data.='</tr>';
-
-        // Commission
-
-        $data.='<tr>';
-        $data.='<td>';
-        $data.='Commission:';
-        $data.='</td>';
-        $data.='<td>';
-        $data.=$valueCommission;
-        $data.='</td>';
-        $data.='</tr>';
-
-        // Return product
-
-        $data.='<tr>';
-        $data.='<td>';
-        $data.='MFS Return:';
-        $data.='</td>';
-        $data.='<td>';
-        $data.=$valueReturns;
-        $data.='</td>';
-        $data.='</tr>';
-
-        // Closing product
-
-        $data.='<tr>';
-        $data.='<td>';
-        $data.='Total Value:';
-        $data.='</td>';
-        $data.='<td>';
-        $data.=$totalValue;
-        $data.='</td>';
-        $data.='</tr>';
-
-        $data.="<tr><td colspan='2'><hr></td></tr>";
-
-
+        $total = $valueSales-$valueCost-$valueBank;
         
-
-        // Opening Vault
-        $data.='<tr>';
-        $data.='<td>';
-        $data.='Opening Vault:';
-        $data.='</td>';
-        $data.='<td>';
-        $data.=$openingVault;
-        $data.='</td>';
-        $data.='</tr>';
-
         // Total Sales
         $data.='<tr>';
         $data.='<td>';
@@ -602,19 +429,6 @@ class BLLReports
         $data.='</tr>';
 
 
-        // Total Sale Value 
-
-        $data.='<tr>';
-        $data.='<td>';
-        $data.='Total Sale Value :';
-        $data.='</td>';
-        $data.='<td>';
-        $data.=$totalSaleValue;
-        $data.='</td>';
-        $data.='</tr>';
-
-        $data.="<tr><td colspan='2'><hr></td></tr>";
-
         // Bank Deposite
         $data.='<tr>';
         $data.='<td>';
@@ -622,16 +436,6 @@ class BLLReports
         $data.='</td>';
         $data.='<td>';
         $data.=$valueBank;
-        $data.='</td>';
-        $data.='</tr>';
-
-        // MFS Return
-        $data.='<tr>';
-        $data.='<td>';
-        $data.='MFS Return:';
-        $data.='</td>';
-        $data.='<td>';
-        $data.=$valueReturns;
         $data.='</td>';
         $data.='</tr>';
 
@@ -645,19 +449,7 @@ class BLLReports
         $data.='</td>';
         $data.='</tr>';
 
-        //Close Vault
-
-        $data.='<tr>';
-        $data.='<td>';
-        $data.='Close Vault:';
-        $data.='</td>';
-        $data.='<td>';
-        $data.=$closeVault;
-        $data.='</td>';
-        $data.='</tr>';
-        
-        $data.="<tr><td colspan='2'><hr></td></tr>";
-
+       
         //Total
 
         $data.='<tr>';

@@ -181,7 +181,7 @@ if(isset($_GET['loadReports']))
     }
     elseif($_GET['report']=='Final')
     {
-        echo $bllReports->showStockReport($dateFrom,$dateTo);
+        echo $bllReports->showFinalReport($dateFrom,$dateTo);
     }
     elseif($_GET['report']=='Feed')
     {
