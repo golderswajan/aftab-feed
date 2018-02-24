@@ -33,6 +33,13 @@ class DALReports
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
+	public function getSalesByCategoryName($dateFrom,$dateTo,$categoryName)
+	{
+		$utility = new Utility;
+		$sql = "SELECT  SUM(soldproducts.pcs * soldproducts.unitPrice) as total,sale.memoNo,category.name as categoryName FROM soldproducts,sale,category WHERE soldproducts.saleId = sale.id && sale.categoryId = category.id && category.name = '$categoryName' && sale.date BETWEEN '$dateFrom' AND '$dateTo' GROUP BY memoNo ";
+		$result = $utility->dbQuery($sql);
+		return $result;
+	}
 	public function getOnHandBySubCategoryName($subCategoryName,$date)
 	{
 		$utility = new Utility;
@@ -192,6 +199,14 @@ class DALReports
 	{
 		$utility = new Utility;
 		$sql = "SELECT customer.* FROM `party`,customer WHERE party.customerId = customer.id";
+		$result = $utility->dbQuery($sql);
+		return $result;
+	}
+
+	public function getPartyPayment($dateFrom,$dateTo)
+	{
+		$utility = new Utility;
+		$sql = "SELECT customer.name, payment.amount FROM party,customer,payment WHERE party.customerId = customer.id && customer.id = payment.partyId && payment.date BETWEEN '$dateFrom' AND '$dateTo' GROUP BY customer.name ";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}

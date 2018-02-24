@@ -192,7 +192,7 @@ class BLLReports
     {
         $dalReports  = new DALReports;
         $resultSalesReport = $dalReports->getExpenseReport($dateFrom,$dateTo);
-        $totalSales = 0;
+        $totalExpense = 0;
         $data = "";
         $SL = 1;
 
@@ -205,18 +205,30 @@ class BLLReports
 
         while ($resSalesReport = mysqli_fetch_assoc($resultSalesReport))
         {
-        $data .= '<tr>';
+            $data .= '<tr>';
 
             $data .= '<td>'.$SL++.'</td>';
             $data .= '<td>'.$resSalesReport['categoryName'].'</td>';
             $data .= '<td>'.$resSalesReport['total'].'</td>';
-        $data .= '</tr>';
-        $totalSales += intval($resSalesReport['total']);
-
-
+            $data .= '</tr>';
+            $totalExpense += intval($resSalesReport['total']);
         }
+
+        $resultBank = $dalReports->getBankDeposite($dateFrom,$dateTo);
+        while ($resBank = mysqli_fetch_assoc($resultBank))
+        {
+            $data .= '<tr>';
+
+            $data .= '<td>'.$SL++.'</td>';
+            $data .= '<td>'.$resBank['bankName'].'</td>';
+            $data .= '<td>'.$resBank['netAmount'].'</td>';
+            $data .= '</tr>';
+            $totalExpense += intval($resBank['netAmount']);
+        }
+
+
         $data .= '<tr><td></td><td>Total = </td><td>';
-        $data .= $totalSales;
+        $data .= $totalExpense;
         $data .= '</td></tr></tbody>';
 
         return $data;
@@ -460,6 +472,95 @@ class BLLReports
         $data.=$total;
         $data.='</td>';
         $data.='</tr>';
+        $data.='</tbody>';
+
+
+        return $data;
+    }
+    public function showDetailedFinalReport($dateFrom,$dateTo)
+    {
+        $dalReports  = new DALReports;
+        $data = "";
+        
+        $dalProductCategory = new DALProductCategory;
+        $resultCategoryName = $dalProductCategory->getCategory();
+
+        $data.='<thead>';
+        $data.='<th>M.No</th><th>Detatils</th><th>Amount</th>';
+        $data.='</thead>';
+        while ($resCatName = mysqli_fetch_assoc($resultCategoryName))
+        {
+            // Total Sales
+            $resultSales= $dalReports->getSalesByCategoryName($dateFrom,$dateTo,$resCatName['name']);
+            $valueSales = 0;
+            while ($resSales = mysqli_fetch_assoc($resultSales))
+            {
+                $valueSales += $resSales['total'];
+                // Total Sales
+                $data.='<tr>';
+                $data.='<td>';
+                $data.= $resSales['memoNo'];
+                $data.='</td>';
+                $data.='<td>';
+                $data.= $resSales['categoryName'];
+                $data.='</td>';
+                $data.='<td>';
+                $data.=$resSales['total'];
+                $data.='</td>';
+                $data.='</tr>';
+            }
+            if($valueSales>0)
+            {
+                $data.='<tr>';
+                $data.='<td>';
+                $data.='</td>';
+                $data.='<td class="text-right">';
+                $data.= 'Sub Total=';
+                $data.='</td>';
+                $data.='<td>';
+                $data.=$valueSales;
+                $data.='</td>';
+                $data.='</tr>';
+                }
+        }
+
+
+        // Pary payments
+        $resultParty= $dalReports->getPartyPayment($dateFrom,$dateTo);
+        $valueParty = 0;
+        while ($resParty = mysqli_fetch_assoc($resultParty))
+        {
+            // payments
+            $data.='<tr>';
+            $data.='<td>';
+            //$data.= $resSales['memoNo'];
+            $data.='</td>';
+            $data.='<td>';
+            $data.= $resParty['name'];
+            $data.='</td>';
+            $data.='<td>';
+            $data.=$resParty['amount'];
+            $data.='</td>';
+            $data.='</tr>';
+        }
+        
+
+        // Total Cost
+        $resultCost= $dalReports->getTotalCost($dateFrom,$dateTo);
+        $valueCost = 0;
+        while ($resCost = mysqli_fetch_assoc($resultCost))
+        {
+           $valueCost += $resCost['netAmount'];
+        }
+
+        // Bank Deposite
+        $resultBank= $dalReports->getBankDeposite($dateFrom,$dateTo);
+        $valueBank = 0;
+        while ($resBank = mysqli_fetch_assoc($resultBank))
+        {
+           $valueBank += $resBank['netAmount'];
+        }
+
         $data.='</tbody>';
 
 

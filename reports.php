@@ -157,9 +157,11 @@ if (isset($_SESSION['message']))
                 </form>
                 </div>
             </div>
-                
-            <div class="content table-responsive table-full-width">
-                <table class="table table-hover table-striped" id="reportTable">
+    
+<div class="row">
+    <div class="col-md-12">  
+        <div class="content table-responsive table-full-width">
+            <table class="table table-hover table-striped" id="reportTable">
 <?php
 $bllReports = new BLLReports;
 if(isset($_GET['loadReports']))
@@ -179,10 +181,7 @@ if(isset($_GET['loadReports']))
     {
         echo $bllReports->showStockReport($dateFrom,$dateTo);
     }
-    elseif($_GET['report']=='Final')
-    {
-        echo $bllReports->showFinalReport($dateFrom,$dateTo);
-    }
+    
     elseif($_GET['report']=='Feed')
     {
         echo $bllReports->showFeedReport($dateFrom,$dateTo);
@@ -195,6 +194,42 @@ if(isset($_GET['loadReports']))
 ?>
                 </table>
             </div>
+        </div>
+    </div>
+
+<div class="row">
+    <div class="col-md-6">  
+        <div class="content table-responsive table-full-width">
+            <table class="table table-hover table-striped" id="reportTable">
+<?php
+$bllReports = new BLLReports;
+if(isset($_GET['loadReports']))
+{
+    if($_GET['report']=='Final')
+    {
+        echo $bllReports->showDetailedFinalReport($dateFrom,$dateTo);
+
+        echo "</table>
+                </div>
+                </div>
+                ";
+        echo '<div class="col-md-6">  
+        <div class="content table-responsive table-full-width">
+            <table class="table table-hover table-striped" id="reportTable">';
+        echo $bllReports->showExpenseReport($dateFrom,$dateTo);
+
+    }
+}
+?>
+  </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
         </div>
     </div>
     <!-- Data Display -->
