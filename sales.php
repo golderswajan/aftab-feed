@@ -35,7 +35,7 @@ include_once './templates/topper-customized.php';
 
     var counter = 1;
     var saleArray = [];
-    var partySelected = false;
+
     $(document).ready(function($){
         $('#category').on('change',function(){
             createSubCategoryField();
@@ -44,13 +44,11 @@ include_once './templates/topper-customized.php';
             var partyId = $('#partyDDL').val();
             if(partyId!=0){
                 $('#customerName').prop('disabled',true);
-                $('#category').prop('disabled',false);
-                partySelected = true;
+
             }
             else{
                 $('#customerName').prop('disabled',false);
-                $('#category').prop('disabled',true);
-                partySelected = false;
+
             }
         })
         window.setTimeout(function(){
@@ -60,9 +58,6 @@ include_once './templates/topper-customized.php';
 
         $(window).keydown(function (event) {
             if(event.keyCode == 13){
-                var calInput = $('#input').val();
-                if(calInput!='') $('#input').val(eval(calInput).toFixed(2));
-
                 event.preventDefault();
                 return false;
             }
@@ -78,33 +73,33 @@ include_once './templates/topper-customized.php';
     });
 
     function createSubCategoryField(){
-        var categoryId = $('#category').val();
-        $('.checkboxDiv').html('');
-        $.post('jQuery-process.php',{categoryId:categoryId},function (data) {
-            data = JSON.parse(data);
-            var html='';
-            for(var i=0;i<data.length;i++){
-                html += "<label><input id='cb"+data[i].id+"' type='checkbox' onchange='checkToAdd(this,"+data[i].id+")'";
-                if(saleArray.indexOf(parseInt(data[i].id))>-1) html += "checked";
-                html += ">"+data[i].name+"</label>";
-            }
-            $('.checkboxDiv').html(html);
-        });
 
-        if(partySelected){
+        var categoryId = $('#category').val();
+
+        if(categoryId!=0){
+            //        creating subcategory
+            $('.checkboxDiv').html('');
+            $.post('jQuery-process.php',{categoryId:categoryId},function (data) {
+                data = JSON.parse(data);
+                var html='';
+                for(var i=0;i<data.length;i++){
+                    html += "<label><input id='cb"+data[i].id+"' type='checkbox' onchange='checkToAdd(this,"+data[i].id+")'";
+                    if(saleArray.indexOf(parseInt(data[i].id))>-1) html += "checked";
+                    html += ">"+data[i].name+"</label>";
+                }
+                $('.checkboxDiv').html(html);
+            });
+
+            //        getting memo no
             $.post('jQuery-process.php',{categoryIdForMemo:categoryId},function (data) {
                 data = JSON.parse(data);
                 $('#memoText').html(data[0]+" : "+data[1]);
                 $('#memoId').val(data[1]);
             });
         }else{
-            $.post('jQuery-process.php',{customerMemo:"customerMemo"},function (data) {
-                data = JSON.parse(data);
-                $('#memoText').html(" : "+data);
-                $('#memoId').val(data);
-
-            });
+            $('#memoText').html('');
         }
+
 
 
     }
@@ -112,7 +107,7 @@ include_once './templates/topper-customized.php';
     function checkToAdd(cb,cbId){
         if(cb.checked){
             saleArray.push(cbId);
-            if(partySelected) $('#category').prop('disabled',true);
+            $('#category').prop('disabled',true);
             var cashMemoDiv = $('#cashMemoDiv');
             $.post('jQuery-process.php',{subCategoryId:cbId},function(data){
                 data = JSON.parse(data);
@@ -177,7 +172,7 @@ include_once './templates/topper-customized.php';
         }
         saleArray.splice(saleArray.indexOf(parseInt(parentRowNo)),1);
         if(counter==1)  $('#confirmSale').hide();
-        if(partySelected && saleArray.length==0) $('#category').prop('disabled',false);
+        if(saleArray.length==0) $('#category').prop('disabled',false);
 
     }
 
@@ -192,12 +187,13 @@ include_once './templates/topper-customized.php';
         }
     }
 
-    function getRowHtml(index,primaryId,name,price,quantity=1) {
+    function getRowHtml(index,primaryId,name,price,quantity=1,individualComission=1) {
         var rowHtml = "<div class=\"row\" id=\"div"+index+"\">\n"+
             "               <div class=\"col-md-1 col-lg-1 col-sm-1\"><h5>"+index+".</h5><input id='parentRowNo"+index+"' name='parentRowNo"+index+"' value='"+primaryId+"' hidden></div>\n"+
-            "               <div class=\"col-md-4 col-lg-4 col-sm-4\"><h5>"+name+"</h5><input id='name"+index+"'  value='"+name+"' hidden></div>\n"+
-            "               <div class=\"col-md-3 col-lg-3 col-sm-3\"><h5>"+price+"</h5><input id='price"+index+"' name='price"+index+"' value='"+price+"' hidden></div>\n"+
+            "               <div class=\"col-md-3 col-lg-3 col-sm-3\"><h5>"+name+"</h5><input id='name"+index+"'  value='"+name+"' hidden></div>\n"+
+            "               <div class=\"col-md-2 col-lg-2 col-sm-2\"><h5>"+price+"</h5><input id='price"+index+"' name='price"+index+"' value='"+price+"' hidden></div>\n"+
             "               <div class=\"col-md-2 col-lg-2 col-sm-2\"><input id='amount"+index+"' name='amount"+index+"' type=\"number\" class=\"form-control\" value='"+quantity+"' min=\"1\" oninput='measureCost("+index+")'></div>\n" +
+            "               <div class=\"col-md-2 col-lg-2 col-sm-2\"><input id='individualComission"+index+"' name='individualComission"+index+"' type=\"number\" class=\"form-control\" value='"+individualComission+"' min=\"0\" oninput='calculateTotalCost()'></div>\n" +
             "               <div class=\"col-md-1 col-lg-1 col-sm-1\"><h5 id='cost"+index+"'>"+price*quantity+"tk</h5></div>\n" +
             "               <div class=\"col-md-1 col-lg-1 col-sm-1\"><a onclick=\"removeRow("+index+")\"><span class=\"glyphicon glyphicon-remove\"></span></a></div>\n"+
             "          </div>";
@@ -211,9 +207,10 @@ include_once './templates/topper-customized.php';
     function getHeaderHtml(){
         var html="<div class=\"row\">\n"+
             "<div class=\"col-md-1 col-lg-1 col-sm-1\"><h4>SL.</h4></div>\n"+
-            "<div class=\"col-md-4 col-lg-4 col-sm-4\"><h4>Products</h4></div>\n"+
-            "<div class=\"col-md-3 col-lg-3 col-sm-3\"><h4>Price</h4></div>\n"+
+            "<div class=\"col-md-3 col-lg-3 col-sm-3\"><h4>Products</h4></div>\n"+
+            "<div class=\"col-md-2 col-lg-2 col-sm-2\"><h4>Price</h4></div>\n"+
             "<div class=\"col-md-2 col-lg-2 col-sm-2\"><h4>Unit</h4></div>\n"+
+            "<div class=\"col-md-2 col-lg-2 col-sm-2\"><h4>Comission</h4></div>\n"+
             "<div class=\"col-md-1 col-lg-1 col-sm-1\"><h4>Cost</h4></div>\n"+
             "<div class=\"col-md-1 col-lg-1 col-sm-1\"></div>\n"+
             "</div>\n"+
@@ -222,18 +219,30 @@ include_once './templates/topper-customized.php';
     }
 
     function getTotalCostHtml(){
-//        commision row
-        var html = "<div id='totalCostDiv'>\n" +
-            "<div class=\"row\" id='comissionDiv'>\n"+
-            "<div class=\"col-md-8 \"></div>\n"+
-            "<div class=\"col-md-2 \"><h4>Comission : </h4></div>\n" +
-            "<div class=\"col-md-2 \"><input id='comission' name='comission' value='0' type='number' min='0' class='form-control' oninput='calculateTotalCost()'  ondblclick=\"$('#calculator').show();$('#input').focus();\" required></div>\n" +
-            "</div>";
+
 //        total cost row
-        html    +=  "<div class=\"row\" >\n"+
+        var html = "<div id='totalCostDiv'>\n" +
+            "<div class=\"row\">\n"+
             "<div class=\"col-md-8 \"></div>\n"+
             "<div class=\"col-md-2 \"><h4>Total Cost : </h4></div>\n" +
-            "<div class=\"col-md-2 \"><h4 id=\"totalCost\">800 tk </h4></div>\n" +
+            "<div class=\"col-md-2 \"><h4 id=\"totalCost\">800 tk </h4><input name='totalCostField' id='totalCostField' value='' hidden></div>\n" +
+            "</div>";
+//        commision row
+         html += "<div class=\"row\">\n"+
+             "<div class=\"col-md-2 \"><h4>Payment : </h4></div>\n"+
+             "<div class=\"col-md-2 \"><input type='number' min='0' class='form-control' name='payment' id='payment' oninput='measurePaymentDue()' required></div>\n"+
+            "<div class=\"col-md-4 \"></div>\n"+
+            "<div class=\"col-md-2 \"><h4 ondblclick='calculateTotalCost()'>Comission : </h4></div>\n" +
+            "<div class=\"col-md-2 \"><input id='comission' name='comission' value='0' type='number' min='0' class='form-control' oninput='calculateNetCost()'  required></div>\n" +
+            "</div>";
+
+//        net cost row
+        html    +=  "<div class=\"row\" >\n"+
+            "<div class=\"col-md-2 \"><h4>Due : </h4></div>\n"+
+            "<div class=\"col-md-2 \"><input type='number' min='0' class='form-control' name='due' id='due' readonly></div>\n"+
+            "<div class=\"col-md-4 \"></div>\n"+
+            "<div class=\"col-md-2 \"><h4>Net Cost : </h4></div>\n" +
+            "<div class=\"col-md-2 \"><h4 id=\"netCost\">800 tk </h4><input name='netCostField' id='netCostField' value='' hidden></div>\n" +
             "</div>" +
             "</div>";
         return html;
@@ -250,29 +259,33 @@ include_once './templates/topper-customized.php';
         var cost = 0;
         var amount = "";
         var price = "";
-        var comission = "";
+        var comission = 0;
+        var individualComission = '';
         for(var i=1;i<counter;i++){
             price = $('#price'+i).val();
             amount = $('#amount'+i).val();
+            individualComission = $('#individualComission'+i).val();
             cost += price*amount;
+            comission +=amount*individualComission;
+            console.log(comission);
 
         }
-        comission = $('#comission');
-        cost -= comission.val()*1;
         $('#totalCost').html(cost+" tk");
+        $('#totalCostField').val(cost);
+        $('#comission').val(comission);
+        cost -= comission;
+        $('#netCost').html(cost+" tk");
+        $('#netCostField').val(cost);
     }
 
     function hideParty(){
         var nameInput = $('#customerName').val().trim();
         if(nameInput.length==0){
             $('#partyDDL').prop('disabled',false);
-            $('#category').prop('disabled',true);
-            partySelected = true;
         }
         else {
             $('#partyDDL').prop('disabled',true);
-            $('#category').prop('disabled',false);
-            partySelected = false;
+
         }
     }
 
@@ -287,18 +300,20 @@ include_once './templates/topper-customized.php';
         return false;
     }
 
-    function checkSales() {
-//        var selectedValue = $("#category").val();
-//        if(saleArray.length!=0){
-//            console.log("HELLO");
-//            $("#category option").each(function()
-//            {
-//                if($(this).val()!=selectedValue)$(this).attr('disabled',true);
-//            });
-//        }
-//        $("#category").focus();
-
+    function measurePaymentDue() {
+        var netCost = $('#netCost').html();
+        netCost = parseFloat(netCost.split('tk')[0]);
+        var payment = $('#payment').val();
+        $('#due').val(netCost-payment);
     }
+
+    function calculateNetCost(){
+        var totalCost = $('#totalCost').html();
+        totalCost = parseFloat(totalCost.split('tk')[0]);
+        var comission = $('#comission').val();
+        $('#netCost').html(totalCost-comission);
+    }
+
 
 </script>
 
@@ -377,9 +392,10 @@ include_once './templates/topper-customized.php';
                 <div class="content cash-memo" id="cashMemoDiv">
                     <div class="row">
                         <div class="col-md-1 col-lg-1 col-sm-1"><h4>SL.</h4></div>
-                        <div class="col-md-4 col-lg-4 col-sm-4"><h4>Products</h4></div>
-                        <div class="col-md-3 col-lg-3 col-sm-3"><h4>Price</h4></div>
+                        <div class="col-md-3 col-lg-3 col-sm-3"><h4>Products</h4></div>
+                        <div class="col-md-2 col-lg-2 col-sm-2"><h4>Price</h4></div>
                         <div class="col-md-2 col-lg-2 col-sm-2"><h4>Unit</h4></div>
+                        <div class="col-md-2 col-lg-2 col-sm-2"><h4>Comission</h4></div>
                         <div class="col-md-1 col-lg-1 col-sm-1"><h4>Cost</h4></div>
                         <div class="col-md-1 col-lg-1 col-sm-1"></div>
                     </div>
@@ -410,45 +426,7 @@ include_once './templates/topper-customized.php';
         </div>
         <input type="submit" id="confirmSale" name="confirmSale" class="btn btn-primary" style="margin-left: 40%;display: none" value="Confirm The Sale" >
     </form>
-    <FORM NAME="Calc" id="calculator" style="display: none;z-index: 1;position: fixed;bottom: 10px;right: 50px;">
-        <TABLE BORDER=4>
-            <TR>
-                <TD>
-                    <INPUT TYPE="text"   NAME="Input" id="input" Size="20" value="" onkeypress="return isNumberKey(event)" >
-                    <br>
-                </TD>
-            </TR>
-            <TR>
-                <TD>
-                    <INPUT TYPE="button" NAME="ac"   VALUE="AC" OnClick="Calc.Input.value = '';$('#input').focus();">
-                    <INPUT TYPE="button" NAME="clear"   VALUE="c" OnCLick="Calc.Input.value = Calc.Input.value.slice(0,-1);$('#input').focus();">
-                    <INPUT TYPE="button" NAME="close" VALUE="close" OnClick="$('#calculator').hide();Calc.Input.value=''">
-                    <INPUT TYPE="button" NAME="save"  VALUE="save" OnClick="$('#comission').val(Calc.Input.value);Calc.Input.value='';$('#calculator').hide();calculateTotalCost()">
-                    <br>
-                    <INPUT TYPE="button" NAME="one"   VALUE="  1  " OnClick="Calc.Input.value += '1';$('#input').focus();">
-                    <INPUT TYPE="button" NAME="two"   VALUE="  2  " OnCLick="Calc.Input.value += '2';$('#input').focus();">
-                    <INPUT TYPE="button" NAME="three" VALUE="  3  " OnClick="Calc.Input.value += '3';$('#input').focus();">
-                    <INPUT TYPE="button" NAME="plus"  VALUE="  +  " OnClick="Calc.Input.value += ' + ';$('#input').focus();">
-                    <br>
-                    <INPUT TYPE="button" NAME="four"  VALUE="  4  " OnClick="Calc.Input.value += '4';$('#input').focus();">
-                    <INPUT TYPE="button" NAME="five"  VALUE="  5  " OnCLick="Calc.Input.value += '5';$('#input').focus();">
-                    <INPUT TYPE="button" NAME="six"   VALUE="  6  " OnClick="Calc.Input.value += '6';$('#input').focus();">
-                    <INPUT TYPE="button" NAME="minus" VALUE="  --  " OnClick="Calc.Input.value += ' - ';$('#input').focus();">
-                    <br>
-                    <INPUT TYPE="button" NAME="seven" VALUE="  7  " OnClick="Calc.Input.value += '7';$('#input').focus();">
-                    <INPUT TYPE="button" NAME="eight" VALUE="  8  " OnCLick="Calc.Input.value += '8';$('#input').focus();">
-                    <INPUT TYPE="button" NAME="nine"  VALUE="  9  " OnClick="Calc.Input.value += '9';$('#input').focus();">
-                    <INPUT TYPE="button" NAME="times" VALUE="  x  " OnClick="Calc.Input.value += ' * ';$('#input').focus();">
-                    <br>
-                    <INPUT TYPE="button" NAME="point" VALUE="  .   " OnClick="Calc.Input.value += '.';$('#input').focus();">
-                    <INPUT TYPE="button" NAME="zero"  VALUE="  0  " OnClick="Calc.Input.value += '0';$('#input').focus();">
-                    <INPUT TYPE="button" NAME="DoIt"  VALUE="  =  " OnClick="Calc.Input.value = eval(Calc.Input.value).toFixed(2);$('#input').focus();">
-                    <INPUT TYPE="button" NAME="div"   VALUE="   /  " OnClick="Calc.Input.value += ' / ';$('#input').focus();">
-                    <br>
-                </TD>
-            </TR>
-        </TABLE>
-    </FORM>
+
 </div>
 
 <?php

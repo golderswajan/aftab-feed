@@ -72,20 +72,19 @@ function db_insert_get_customer($name){
 
 }
 
-function db_insert_get_saleId($comission=0,$customerId,$categoryId,$memoNo){
+function db_insert_get_saleId($total,$comission=0,$net,$customerId,$categoryId,$memoNo){
     $time = time();
     $date = date('Y-m-d',$time);
-    $query = "INSERT INTO `sale` (`id`, `comission`, `date`, `customerId`, `categoryId`, `memoNo`) VALUES (NULL, '".$comission."', '".$date."', '".$customerId."', ".$categoryId.", '".$memoNo."')";
+    $query = "INSERT INTO `sale` (`id`, `total`,`comission`,`net`, `date`, `customerId`, `categoryId`, `memoNo`) VALUES (NULL, '".$total."','".$comission."','".$net."', '".$date."', '".$customerId."', ".$categoryId.", '".$memoNo."')";
     db_insert($query);
     $query = "select max(id) as id from sale where customerId='".$customerId."'";
     $id = db_select($query);
 
-    if(strcmp($categoryId,"NULL")){
-        $query = "select name from category where id ='".$categoryId."'";
-        $category = db_select($query)[0]['name'];
-        $query = "update memono set ".$category." = ".$category."+1";
-    }
-    else $query = "update memono set Customer = Customer+1";
+//    increment of memo no
+    $query = "select name from category where id ='".$categoryId."'";
+    $category = db_select($query)[0]['name'];
+    $query = "update memono set ".$category." = ".$category."+1";
+
     db_update($query);
     return $id[0]['id'];
 }
@@ -109,4 +108,27 @@ function getMemoNo($categoryId){
     $data = db_select($query)[0][$data];
     array_push($memoNameNo,$data);
     return $memoNameNo;
+}
+
+function db_insert_customer_payment_due($saleId,$payment,$due){
+    $time = time();
+    $date = date('Y-m-d',$time);
+    if($payment!=0){
+        $query = "INSERT INTO `payment` (`id`, `customerId`, `date`, `amount`, `saleId`) VALUES (NULL, NULL, '".$date."', '".$payment."', '".$saleId."')";
+        db_insert($query);
+    }
+    if($due!=0){
+        $query = "INSERT INTO `customerdue` (`id`, `amount`, `saleId`) VALUES (NULL, '".$due."', '".$saleId."')";
+        db_insert($query);
+    }
+
+}
+
+function db_insert_party_payment($partyId,$payment){
+    $time = time();
+    $date = date('Y-m-d',$time);
+    if($payment!=0){
+        $query = "INSERT INTO `payment` (`id`, `customerId`, `date`, `amount`, `saleId`) VALUES (NULL, '".$partyId."', '".$date."', '".$payment."', NULL)";
+        db_insert($query);
+    }
 }

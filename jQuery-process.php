@@ -9,13 +9,13 @@ include_once './includes/database.php';
 $categoryId=isset($_POST['categoryId'])?$_POST['categoryId']:null;
 $subCategoryId=isset($_POST['subCategoryId'])?$_POST['subCategoryId']:null;
 $categoryIdForMemo=isset($_POST['categoryIdForMemo'])?$_POST['categoryIdForMemo']:null;
-$customerMemo=isset($_POST['customerMemo'])?$_POST['customerMemo']:null;
-$customerDueMemo=isset($_POST['customerDueMemo'])?$_POST['customerDueMemo']:null;
 $customerDueAmountMemo=isset($_POST['customerDueAmountMemo'])?$_POST['customerDueAmountMemo']:null;
+$categoryIdForDueMemo=isset($_POST['categoryIdForDueMemo'])?$_POST['categoryIdForDueMemo']:null;
 
 
 
 
+//for sale page
 if($categoryId!=null || !empty($categoryId)){
     $query = "select * from subcategory where categoryId = '".$categoryId."'";
     $data = db_select($query);
@@ -25,23 +25,12 @@ if($categoryId!=null || !empty($categoryId)){
     $data = db_select($query);
     echo json_encode($data);
 }else if($categoryIdForMemo!=null || !empty($categoryIdForMemo)){
-
     echo json_encode(getMemoNo($categoryIdForMemo));
-}else if($customerMemo!=null || !empty($customerMemo)){
-    $query = "select Customer from memono";
-    $data = db_select($query)[0]['Customer'];
-    echo json_encode($data);
-}else if($customerDueMemo!=null || !empty($customerDueMemo)){
-    $query = "select customer.name from customer,sale where sale.categoryId is NULL and sale.memoNo='".$customerDueMemo."' and sale.customerId=customer.id";
-    $data = db_select($query);
-    if($data==null || empty($data)){
-        $data = "NOT EXISTS";
-    } else{
-        $data = $data[0]['name'];
-    }
-    echo json_encode($data);
-}else if($customerDueAmountMemo!=null || !empty($customerDueAmountMemo)){
-    $query = "select customer.name,customerdue.amount from customer,sale,customerdue where sale.categoryId is NULL and sale.memoNo='".$customerDueAmountMemo."' and sale.customerId=customer.id and customerdue.memoNo=sale.memoNo";
+
+}
+//for payment page
+else if($customerDueAmountMemo!=null || !empty($customerDueAmountMemo)){
+    $query = "select customer.name,customerdue.amount from customer,sale,customerdue where sale.categoryId='".$categoryIdForDueMemo."' && sale.memoNo='".$customerDueAmountMemo."' && sale.id=customerdue.saleId && sale.customerId=customer.id";
     $data = db_select($query);
     if($data==null || empty($data)){
         $data = "NOT EXISTS";

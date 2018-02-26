@@ -36,10 +36,11 @@ include_once './templates/topper-customized.php';
         $('#paymentClear').prop('disabled',true);
     }
 
-    function getCustomer(){
+    function searchCustomer(){
         var customerMemo = $('#memoNo').val();
-        if(customerMemo!=''){
-            $.post('jQuery-process.php',{customerDueAmountMemo:customerMemo},function (data) {
+        var category = $('#category').val();
+        if(customerMemo!='' && category!=0){
+            $.post('jQuery-process.php',{customerDueAmountMemo:customerMemo,categoryIdForDueMemo:category},function (data) {
                 data = JSON.parse(data);
 
                 if(data=="NOT EXISTS"){
@@ -55,6 +56,12 @@ include_once './templates/topper-customized.php';
                     $('#dueAmount').val(data['amount']);
                     $('#customerName').css('color','blue');
                     $('#dueAmount').css('color','blue');
+                }
+                if(data['amount']==0){
+                    $('#amountCustomer').hide();
+                    $('#customerPayment').hide();
+                    $('#dueAmount').val("Fully Paid");
+                    $('#dueAmount').css({'color':'green','font-size':'20px'});
                 }
             })
         }else{
@@ -132,17 +139,25 @@ include_once './templates/topper-customized.php';
                          <div class="row">
                              <div class="col-md-3 col-sm-3 col-lg-3">
                                  <div class="form-group">
-                                     <label>Customer Memo No</label>
-                                     <input type="number" min="0" class="form-control" name="memoNo" id="memoNo" oninput="getCustomer()" required>
+                                     <label>Category</label>
+                                     <?php
+                                     echo $bllSales->getProductCategoryAsOptions();
+                                     ?>
                                  </div>
                              </div>
-                             <div class="col-md-4 col-md-offset-1 col-sm-4 col-sm-offset-1 col-lg-4 col-lg-offset-1">
+                             <div class="col-md-2 col-sm-2 col-lg-2">
+                                 <div class="form-group">
+                                     <label>Memo No</label>
+                                     <input type="number" min="0" class="form-control" name="memoNo" id="memoNo" required>
+                                 </div>
+                             </div>
+                             <div class="col-md-4 col-md-offset-0 col-sm-4 col-sm-offset-0 col-lg-4 col-lg-offset-0">
                                  <div class="form-group">
                                      <label>Customer Name</label>
                                      <input class="form-control" name="customerName" id="customerName" readonly>
                                  </div>
                              </div>
-                             <div class="col-md-3 col-md-offset-1 col-sm-3 col-sm-offset-1 col-lg-3 col-lg-offset-1" >
+                             <div class="col-md-2 col-md-offset-0 col-sm-2 col-sm-offset-0 col-lg-2 col-lg-offset-0" >
                                  <div class="form-group">
                                      <label>Due Amount(TK)</label>
                                      <input class="form-control"  id="dueAmount" name="dueAmount" readonly required>
@@ -152,15 +167,20 @@ include_once './templates/topper-customized.php';
                          </div>
 
                          <div class="row">
-                             <div class="col-md-3 col-sm-3 col-lg-3">
+                             <div class="col-md-3 col-sm-3 col-lg-3" style="margin-top: 25px">
                                  <div class="form-group" >
-                                     <label style="font-weight: bold;color: red"><h4>Full  Paid</h4></label>
-                                     <input type="checkbox" name="paymentClear" id="paymentClear" style="margin-left: 20px;color: #0000CC" required>
+                                     <input class="form-control btn btn-primary" name="customerSearch" type="button" onclick="searchCustomer()" value="Search">
                                  </div>
                              </div>
-                             <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-lg-2 col-lg-offset-1">
+                             <div class="col-md-3 col-md-offset-2 col-sm-3 col-sm-offset-2 col-lg-3 col-lg-offset-2">
+                                 <div class="form-group" >
+                                     <label>Payment Amount(TK)</label>
+                                     <input class="form-control"  type="number" name="amountCustomer" id="amountCustomer" required>
+                                 </div>
+                             </div>
+                             <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-lg-2 col-lg-offset-1" style="margin-top: 25px">
                                  <div class="form-group">
-                                     <input class="form-control btn btn-success" name="customerPayment" type="submit" onclick="hidePartyForm(event)" value="Paid">
+                                     <input class="form-control btn btn-success" name="customerPayment" id="customerPayment" type="submit" onclick="hidePartyForm(event)" value="Paid">
                                  </div>
                              </div>
 
@@ -171,7 +191,8 @@ include_once './templates/topper-customized.php';
                  </div>
              </div>
              <form>
- <div>
+ </div>
+
 
 <?php
     include_once './templates/footer-customized.php';

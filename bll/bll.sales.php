@@ -268,7 +268,7 @@ class BLLSales
     {
         $dalSales = new DALSales;
         $result = $dalSales->getCategory();
-        $data ='<select id="category" name="category" class="form-control product-category" onclick="checkSales()" disabled>';
+        $data ='<select id="category" name="category" class="form-control product-category selectpicker" data-live-search="true" required>';
         $data .= "<option value='0'>select category</option>";
         foreach ($result as $res)
         {

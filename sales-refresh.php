@@ -9,8 +9,12 @@ require_once './includes/database.php';
 
 if(isset($_POST['confirmSale'])){
     $row = $_POST['rowNumber'];
+    $total = $_POST['totalCostField'];
     $comission = $_POST['comission'];
+    $net = $_POST['netCostField'];
     $memoNo = $_POST['memoId'];
+    $payment = $_POST['payment'];
+    $due = $_POST['due'];
     $categoryId = $_POST['category'];
     $customer = isset($_POST['customerName'])? $_POST['customerName']:'';
     $party = isset($_POST['partyDDL'])? $_POST['partyDDL']:'';
@@ -18,11 +22,13 @@ if(isset($_POST['confirmSale'])){
     $customerId = $party;
     if(!empty($customer)){
         $customerId = db_insert_get_customer($customer);
-        $categoryId = "NULL";
     }
 
+//    echo $payment.",".$due;
+    $saleId = db_insert_get_saleId($total,$comission,$net,$customerId,$categoryId,$memoNo);
 
-    $saleId = db_insert_get_saleId($comission,$customerId,$categoryId,$memoNo);
+    if(!empty($customer)) db_insert_customer_payment_due($saleId,$payment,$due);
+    else db_insert_party_payment($customerId,$payment);
 
     $query = "INSERT INTO `soldproducts` (`id`, `pcs`, `unitPrice`, `saleId`, `subCategoryId`) VALUES";
     for($i=1;$i<$row;$i++){
