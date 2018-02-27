@@ -28,7 +28,7 @@ if(isset($_POST['confirmSale'])){
     $saleId = db_insert_get_saleId($total,$comission,$net,$customerId,$categoryId,$memoNo);
 
     if(!empty($customer)) db_insert_customer_payment_due($saleId,$payment,$due);
-    else db_insert_party_payment($customerId,$payment);
+    else db_insert_party_payment($customerId,$payment,$saleId);
 
     $query = "INSERT INTO `soldproducts` (`id`, `pcs`, `unitPrice`, `saleId`, `subCategoryId`) VALUES";
     for($i=1;$i<$row;$i++){

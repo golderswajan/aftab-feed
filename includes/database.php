@@ -89,12 +89,12 @@ function db_insert_get_saleId($total,$comission=0,$net,$customerId,$categoryId,$
     return $id[0]['id'];
 }
 
-function db_insert_get_returnsId($comission=0,$partyId){
+function db_insert_get_returnsId($total,$categoryId,$memo){
     $time = time();
     $date = date('Y-m-d',$time);
-    $query = "INSERT INTO `returns` (`id`, `comission`, `date`, `partyId`) VALUES (NULL, '".$comission."', '".$date."', '".$partyId."')";
+    $query = "INSERT INTO `returns` (`id`, `total`, `date`, `categoryId`, `memoNo`) VALUES (NULL, '".$total."', '".$date."', '".$categoryId."', '".$memo."');";
     db_insert($query);
-    $query = "select max(id) as id from returns where partyId='".$partyId."'";
+    $query = "select max(id) as id from returns where categoryId='".$categoryId."' && memoNo='".$memo."'";
     $id = db_select($query);
     return $id[0]['id'];
 }
@@ -114,7 +114,7 @@ function db_insert_customer_payment_due($saleId,$payment,$due){
     $time = time();
     $date = date('Y-m-d',$time);
     if($payment!=0){
-        $query = "INSERT INTO `payment` (`id`, `customerId`, `date`, `amount`, `saleId`) VALUES (NULL, NULL, '".$date."', '".$payment."', '".$saleId."')";
+        $query = "INSERT INTO `customerpayment` (`id`, `date`, `amount`, `saleId`) VALUES (NULL, '".$date."', '".$payment."', '".$saleId."');";
         db_insert($query);
     }
     if($due!=0){
@@ -124,11 +124,13 @@ function db_insert_customer_payment_due($saleId,$payment,$due){
 
 }
 
-function db_insert_party_payment($partyId,$payment){
+function db_insert_party_payment($partyId,$payment,$saleId){
     $time = time();
     $date = date('Y-m-d',$time);
+    $query = "select concat(\"Cash on \",category.name,\" : \",sale.memoNo) as details from sale,category where sale.categoryId=category.id && sale.id='".$saleId."'";
+    $details = db_select($query)[0]['details'];
     if($payment!=0){
-        $query = "INSERT INTO `payment` (`id`, `customerId`, `date`, `amount`, `saleId`) VALUES (NULL, '".$partyId."', '".$date."', '".$payment."', NULL)";
+        $query = "INSERT INTO `partypayment` (`id`, `details`, `amount`, `date`, `customerId`) VALUES (NULL, '".$details."', '".$payment."', '".$date."', '".$partyId."');";
         db_insert($query);
     }
 }

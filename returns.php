@@ -48,6 +48,17 @@ include_once './templates/topper-customized.php';
             $('#msgDiv').hide();
 
         }, 2000);
+        $('form').submit(function (event) {
+
+                $('#category').prop('disabled',false);
+                var customerName = $('#customerName').val();
+                if(customerName=='' || customerName=="NOT EXISTS"){
+                    event.preventDefault();
+                    return false;
+                }
+
+            }
+        );
     });
 
     function createSubCategoryField(){
@@ -68,6 +79,7 @@ include_once './templates/topper-customized.php';
     function checkToAdd(cb,cbId){
         if(cb.checked){
             saleArray.push(cbId);
+            $('#category').prop('disabled',true);
             var cashMemoDiv = $('#cashMemoDiv');
             $.post('jQuery-process.php',{subCategoryId:cbId},function(data){
                 data = JSON.parse(data);
@@ -132,6 +144,7 @@ include_once './templates/topper-customized.php';
         }
         saleArray.splice(saleArray.indexOf(parseInt(parentRowNo)),1);
         if(counter==1)  $('#confirmReturn').hide();
+        if(saleArray.length==0) $('#category').prop('disabled',false);
 
     }
 
@@ -187,7 +200,7 @@ include_once './templates/topper-customized.php';
         html    +=  "<div class=\"row\" >\n"+
             "<div class=\"col-md-8 \"></div>\n"+
             "<div class=\"col-md-2 \"><h4>Total Cost : </h4></div>\n" +
-            "<div class=\"col-md-2 \"><h4 id=\"totalCost\">800 tk </h4></div>\n" +
+            "<div class=\"col-md-2 \"><h4 id=\"totalCost\">800 tk </h4><input id='totalCostField' name='totalCostField' hidden></div>\n" +
             "</div>" +
             "</div>";
         return html;
@@ -214,14 +227,37 @@ include_once './templates/topper-customized.php';
         comission = $('#comission');
         cost -= comission.val()*1;
         $('#totalCost').html(cost+" tk");
+        $('#totalCostField').val(cost);
     }
 
-    function hideParty(){
-        var nameInput = $('#customerName').val().trim();
-        if(nameInput.length==0)$('#partyDDL').prop('disabled',false);
-        else $('#partyDDL').prop('disabled',true);
-    }
+    function searchCustomer(){
+        var customerMemo = $('#memo').val();
+        var category = $('#category').val();
+        if(customerMemo!='' && category!=0){
+            $.post('jQuery-process.php',{returnMemo:customerMemo,categoryIdForReturn:category},function (data) {
+                data = JSON.parse(data);
 
+                if(data=="NOT EXISTS"){
+                    $('#customerName').val(data);
+                    $('#customerName').css('color','red');
+                    $('#memoText').html('');
+
+                }
+                else{
+                    data = data[0];
+                    $('#customerName').val(data['name']);
+                    $('#customerName').css('color','blue');
+                    $('#memoText').html(" : "+customerMemo);
+
+                }
+
+            })
+        }else{
+            $('#customerName').val("");
+            $('#memoText').html('');
+        }
+
+    }
 
 
 
@@ -243,27 +279,28 @@ include_once './templates/topper-customized.php';
         <div class="col-md-12">
             <div class="card">
                 <div class="header">
-                    <h4 class="title"><b>Customer Sale</b>
+                    <h4 class="title"><b>Customer/Party Return</b>
                     </h4>
                 </div>
                 <div class="content">
                     <div class="row">
-                        <div class="col-md-4 col-sm-4 col-lg-4" id="partyDiv">
+                        <div class="col-md-4  col-sm-4 col-lg-4" id="partyDiv">
                             <div class="form-group">
-                                <label>Party</label>
-                                <!--                            <select class="selectpicker form-control" data-live-search="true" id="partyDDL">-->
-                                <?php
-                                echo $bllSales->getProductPartiesAsOptions();
-                                ?>
-                                <!--                            </select>-->
+                                <label>Memo No.</label>
+                               <input type="number" class="form-control" name="memo" id="memo" required>
                             </div>
                         </div>
-<!--                        <div class="col-md-4 col-md-offset-1 col-sm-4 col-sm-offset-1 col-lg-4 col-lg-offset-1" id="customerDiv">-->
-<!--                            <div class="form-group">-->
-<!--                                <label>Customer</label>-->
-<!--                                <input class="form-control" id="customerName" name="customerName" oninput="hideParty()" required>-->
-<!--                            </div>-->
-<!--                        </div>-->
+                        <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-lg-2 col-lg-offset-1" style="margin-top: 20px">
+                            <div class="form-group">
+                                <input type="button" class="form-control btn btn-success" name="search" value="Search" onclick="searchCustomer()">
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-md-offset-1 col-sm-4 col-sm-offset-1 col-lg-4 col-lg-offset-1" id="customerDiv">
+                            <div class="form-group">
+                                <label>Customer/Party  Name</label>
+                                <input class="form-control" id="customerName" name="customerName" value="" required readonly>
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4 col-sm-4 col-lg-4">
@@ -297,7 +334,7 @@ include_once './templates/topper-customized.php';
         <div class="col-md-12">
             <div class="card">
                 <div class="header">
-                    <h4><b>Cash Memo</b></h4>
+                    <h4><b>Return Memo <span id="memoText"></span></b></h4>
                 </div>
                 <div class="content cash-memo" id="cashMemoDiv">
                     <div class="row">

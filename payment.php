@@ -26,6 +26,7 @@ include_once './templates/topper-customized.php';
     function hidePartyForm(event){
         $('#partyDDL').prop('disabled',true);
         $('#amountParty').prop('disabled',true);
+        $('#details').prop('disabled',true);
         if($('#customerName').val()=="NOT EXISTS"){
             event.preventDefault();
         }
@@ -33,7 +34,8 @@ include_once './templates/topper-customized.php';
     }
     function hideCustomerForm(){
         $('#memoNo').prop('disabled',true);
-        $('#paymentClear').prop('disabled',true);
+        $('#amountCustomer').prop('disabled',true);
+
     }
 
     function searchCustomer(){
@@ -109,10 +111,18 @@ include_once './templates/topper-customized.php';
                                 <!--                            </select>-->
                             </div>
                         </div>
+
                         <div class="col-md-4 col-md-offset-1 col-sm-4 col-sm-offset-1 col-lg-4 col-lg-offset-1" >
                             <div class="form-group">
+                                <label>Details</label>
+                                <input class="form-control" id="details" name="details" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-lg-2 col-lg-offset-1" >
+                            <div class="form-group">
                                 <label>Amount(TK)</label>
-                                <input class="form-control" id="amountParty" name="amountParty" required>
+                                <input class="form-control" id="amountParty" name="amountParty" type="number" min="0" required>
                             </div>
                         </div>
                         <div class="col-md-2  col-sm-2 col-lg-2 " >
