@@ -31,7 +31,7 @@ if($categoryId!=null || !empty($categoryId)){
 }
 //for payment page
 else if($customerDueAmountMemo!=null || !empty($customerDueAmountMemo)){
-    $query = "select customer.name,customerdue.amount from customer,sale,customerdue where sale.categoryId='".$categoryIdForDueMemo."' && sale.memoNo='".$customerDueAmountMemo."' && sale.id=customerdue.saleId && sale.customerId=customer.id";
+    $query = "select customer.name,customerduepayment.amount from customer,sale,customerduepayment where sale.categoryId='".$categoryIdForDueMemo."' && sale.memoNo='".$customerDueAmountMemo."' && sale.id=customerduepayment.saleId && sale.customerId=customer.id";
     $data = db_select($query);
     if($data==null || empty($data)){
         $data = "NOT EXISTS";
@@ -47,3 +47,4 @@ else if($returnMemo!=null || !empty($returnMemo)){
     }
     echo json_encode($data);
 }
+

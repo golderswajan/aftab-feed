@@ -10,6 +10,11 @@
 		<icon>pe-7s-graph3</icon>
 	</items>
 	<items>
+		<title>Shop Details</title>
+		<link>shop-details.php</link>
+		<icon>pe-7s-note2</icon>
+	</items>
+	<items>
 		<title>Purchase</title>
 		<link>stock.php</link>
 		<icon>pe-7s-help2</icon>
@@ -19,11 +24,7 @@
 		<link>sales.php</link>
 		<icon>pe-7s-note2</icon>
 	</items>
-	<items>
-		<title>Customer Due</title>
-		<link>customer-due.php</link>
-		<icon>pe-7s-note2</icon>
-	</items>
+
 	<items>
 		<title>Payment</title>
 		<link>payment.php</link>

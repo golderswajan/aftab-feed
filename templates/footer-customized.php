@@ -14,7 +14,7 @@
 <!-- Report csv,xlsx,txt plugins -->
 <script type="text/javascript" src="assets/js/bootstrap.min_1.js"></script>
 <script type="text/javascript" src="assets/js/FileSaver.min.js"></script>
-<script type="text/javascript" src="assets/js/jquery-3.1.1.min.js"></script>
+<!--<script type="text/javascript" src="assets/js/jquery-3.1.1.min.js"></script>-->
 <script type="text/javascript" src="assets/js/tableexport.min.js"></script>
 
 <?php

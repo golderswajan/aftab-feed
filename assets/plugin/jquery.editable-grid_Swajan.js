@@ -79,7 +79,7 @@
                 $.each(tempColumns,function (index,value) {
                     tempColumns[index] = jsUcFirst(value);
                 });
-                console.log(tempColumns);
+                // console.log(tempColumns);
             }
 
 
@@ -199,7 +199,7 @@
 
             if (clickControl) {
                 if (event.target.id != (identity+primaryKey.col+"Input"+primaryKey.row)) {
-                    console.log("you touched");
+                    // console.log("you touched");
                     doEditFunction();
                 }
             }
@@ -208,7 +208,7 @@
         $(document).keypress(function (e) {
             if (clickControl) {
                 if (e.which == 13) {
-                    console.log("you pressed enter");
+                    // console.log("you pressed enter");
                     doEditFunction();
                 }
 

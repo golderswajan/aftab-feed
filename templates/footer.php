@@ -20,9 +20,8 @@
 </div>
 
 </body>
-    
-    <!--   Core JS Files   -->
-    <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+
 
 	<!--  Checkbox, Radio & Switch Plugins -->
 	<script src="assets/js/bootstrap-checkbox-radio-switch.js"></script>

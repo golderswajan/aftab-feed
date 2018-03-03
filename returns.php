@@ -27,6 +27,9 @@ include_once './templates/topper-customized.php';
     .product-category:hover{
         cursor: pointer;
     }
+    input[type='checkbox']{
+        cursor: pointer;
+    }
 
 
 </style>
@@ -198,7 +201,8 @@ include_once './templates/topper-customized.php';
             "</div>";
 //        total cost row
         html    +=  "<div class=\"row\" >\n"+
-            "<div class=\"col-md-8 \"></div>\n"+
+            "<div class=\"col-md-2 col-md-offset-2\"><input type='checkbox' name='autoPayment' id='autoPayment'><b style='padding-left: 10px'>Auto Payment</b></div>\n"+
+            "<div class=\"col-md-4 \"></div>\n"+
             "<div class=\"col-md-2 \"><h4>Total Cost : </h4></div>\n" +
             "<div class=\"col-md-2 \"><h4 id=\"totalCost\">800 tk </h4><input id='totalCostField' name='totalCostField' hidden></div>\n" +
             "</div>" +
@@ -232,9 +236,11 @@ include_once './templates/topper-customized.php';
 
     function searchCustomer(){
         var customerMemo = $('#memo').val();
-        var category = $('#category').val();
-        if(customerMemo!='' && category!=0){
-            $.post('jQuery-process.php',{returnMemo:customerMemo,categoryIdForReturn:category},function (data) {
+        var categoryId = $('#category').val();
+        var categoryName = $("#category option:selected").text();
+
+        if(customerMemo!='' && categoryId!=0){
+            $.post('jQuery-process.php',{returnMemo:customerMemo,categoryIdForReturn:categoryId},function (data) {
                 data = JSON.parse(data);
 
                 if(data=="NOT EXISTS"){
@@ -247,7 +253,7 @@ include_once './templates/topper-customized.php';
                     data = data[0];
                     $('#customerName').val(data['name']);
                     $('#customerName').css('color','blue');
-                    $('#memoText').html(" : "+customerMemo);
+                    $('#memoText').html("  "+categoryName+" : "+customerMemo);
 
                 }
 

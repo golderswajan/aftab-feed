@@ -20,7 +20,7 @@ if(isset($_POST['customerDue'])){
 
     $query = "update customer set customer.mobile='".$mobile."' where customer.id in (select sale.customerId from sale where sale.categoryId is NULL and sale.memoNo='".$memoNo."' )";
     db_insert($query);
-    $address = "Location: customer-due.php";
+    $address = "Location: shop-details.php";
     header($address);
 
 }

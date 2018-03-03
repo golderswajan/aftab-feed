@@ -267,7 +267,7 @@ include_once './templates/topper-customized.php';
             individualComission = $('#individualComission'+i).val();
             cost += price*amount;
             comission +=amount*individualComission;
-            console.log(comission);
+//            console.log(comission);
 
         }
         $('#totalCost').html(cost+" tk");

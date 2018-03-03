@@ -6,6 +6,7 @@
  * Time: 7:41 AM
  */
 include_once './bll/bll.sales.php';
+include_once './includes/database.php';
 include_once './templates/topper-customized.php';
 ?>
 
@@ -41,6 +42,7 @@ include_once './templates/topper-customized.php';
     function searchCustomer(){
         var customerMemo = $('#memoNo').val();
         var category = $('#category').val();
+        console.log(customerMemo+" "+category+"hello");
         if(customerMemo!='' && category!=0){
             $.post('jQuery-process.php',{customerDueAmountMemo:customerMemo,categoryIdForDueMemo:category},function (data) {
                 data = JSON.parse(data);
@@ -64,6 +66,9 @@ include_once './templates/topper-customized.php';
                     $('#customerPayment').hide();
                     $('#dueAmount').val("Fully Paid");
                     $('#dueAmount').css({'color':'green','font-size':'20px'});
+                }else{
+                    $('#amountCustomer').show();
+                    $('#customerPayment').show();
                 }
             })
         }else{
@@ -96,7 +101,11 @@ include_once './templates/topper-customized.php';
         <div class="col-md-12">
             <div class="card">
                 <div class="header">
-                    <h4 class="title"><b>Party Payment</b>
+                    <?php
+                        $query = "select partyPayment from memono";
+                        $memo = db_select($query)[0]['partyPayment'];
+                    ?>
+                    <h4 class="title"><b>Party Payment  Memo:<?= $memo ?><input type="number" name="partyMemo" value="<?= $memo?>" hidden></b>
                     </h4>
                 </div>
                 <div class="content">

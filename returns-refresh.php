@@ -13,9 +13,10 @@ if(isset($_POST['confirmReturn'])){
     $totalCost = $_POST['totalCostField'];
     $categoryId = $_POST['category'];
     $memoNo = $_POST['memo'];
+    $autoPayment = isset($_POST['autoPayment'])?1:0;
 
+    $returnsId = db_insert_get_returnsId_autoPayment($totalCost,$categoryId,$memoNo,$autoPayment);
 
-    $returnsId = db_insert_get_returnsId($totalCost,$categoryId,$memoNo);
 
     $query = "INSERT INTO `returnsproducts` (`id`, `pcs`, `unitPrice`, `returnsId`, `subCategoryId`) VALUES";
     for($i=1;$i<$row;$i++){
@@ -29,5 +30,4 @@ if(isset($_POST['confirmReturn'])){
     db_insert($query);
     $address = "Location: returns.php";
     header($address);
-
 }
