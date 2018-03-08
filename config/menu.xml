@@ -15,8 +15,13 @@
 		<icon>pe-7s-note2</icon>
 	</items>
 	<items>
-		<title>Purchase</title>
+		<title>Stock</title>
 		<link>stock.php</link>
+		<icon>pe-7s-help2</icon>
+	</items>
+	<items>
+		<title>Purchase</title>
+		<link>purchase.php</link>
 		<icon>pe-7s-help2</icon>
 	</items>
 	<items>

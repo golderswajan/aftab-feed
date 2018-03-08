@@ -1,5 +1,5 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'].'/dal/dal.stock.php');
+include($_SERVER['DOCUMENT_ROOT'].'/dal/dal.purchase.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/includes/utility.php');
 
 $id = "";
@@ -59,13 +59,13 @@ class BLLStock
 			if($result)
 			{
 				$_SESSION['message'] = "Stock updated Successfully!";
-				header('Location:../stock.php');
+				header('Location:../purchase.php');
 				exit();
 			}
 			else
 			{
 				$_SESSION['message'] = "Can't update Stock!";
-				header('Location:../stock.php');
+				header('Location:../purchase.php');
 				exit();
 			}
 
@@ -134,8 +134,8 @@ class BLLStock
             	$data .= '<td>'.$resInv['unitPrice'].'</td>';
             	$data .= '<td>'.$resInv['netAmount'].'</td>';
 
-            	$data .='<td><a href="stock.php?edit='.$resInv['id'].'">Edit</a></td>';
-				$data .='<td><a href="stock.php?delete='.$resInv['id'].'">Delete</a></td>';
+            	$data .='<td><a href="purchase.php?edit='.$resInv['id'].'">Edit</a></td>';
+				$data .='<td><a href="purchase.php?delete='.$resInv['id'].'">Delete</a></td>';
             	$data .= '</tr>';
 
             	$totalPV += $resInv['netAmount'];

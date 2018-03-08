@@ -248,7 +248,6 @@ class BLLReports
                         <th>Product</th>
                         <th>Opening Goods</th>
                         <th>Recieved Goods</th>
-                        <th>SE OnHand</th>
                         <th>Sales Goods</th>
                         <th>Return Goods</th>
                         <th>Closing Goods</th>
@@ -294,21 +293,6 @@ class BLLReports
                 $totalStockValueToday = 0;
             }
 
-            // OnHand goods
-            $resultOnHand = $dalReports->getOnHandBySubCategoryName($subCatName,$today);
-            // variables
-            $totalOnHand = 0;
-            $totalOnHandValue = 0;
-            while ($resOnHand = mysqli_fetch_assoc($resultOnHand))
-            {
-               $totalOnHand = $resOnHand['pcs'];
-               $totalOnHandValue = $resOnHand['netAmount'];
-            }
-            if($totalOnHand == NULL)
-            {
-                $totalOnHand = 0;
-                $totalOnHandValue = 0;
-            }
 
              // Sales goods
             $resultSales = $dalReports->getSalesReportBySubCategoryName($subCatName,$today);
@@ -346,16 +330,6 @@ class BLLReports
                 $totalReturnsValue = 0;
             }
 
-            // Normalize
-            // $precision = 2;
-            // $totalStockValueOpening = number_format($totalStockValueOpening,$precision);
-
-            // $totalStockValueToday = number_format($totalStockValueToday,$precision);
-            
-            // $totalSalesValue = number_format($totalSalesValue,$precision);
-            
-            // $totalReturnsValue = number_format($totalReturnsValue,$precision);
-
             // Dispaly data
             $data .= '<tr>';
             $data .= '<td>'.$SL++.'</td>';
@@ -363,14 +337,13 @@ class BLLReports
             $data .= '<td>'.$totalStockOpening.'('.$totalStockValueOpening.')</td>';
             $data .= '<td>'.$totalStockToday.'('.$totalStockValueToday.')</td>';
             // Closing calculation
-            $closingPcs = $totalStockOpening+$totalStockToday+$totalReturns-$totalOnHand;
+            $closingPcs = $totalStockOpening+$totalStockToday+$totalReturns;
 
             // Jhamela
             $utility = new Utility;
             $unitPrice = $utility->getSalePrice($subCatId);
             $closingValue = $closingPcs*$unitPrice;
 
-            $data .= '<td>'.$totalOnHand.'('.$totalOnHandValue.')</td>';
             $data .= '<td>'.$totalSales.'('.$totalSalesValue.')</td>';
             $data .= '<td>'.$totalReturns.'('.$totalReturnsValue.')</td>';
             $data .= '<td>'.$closingPcs.'</td>';
