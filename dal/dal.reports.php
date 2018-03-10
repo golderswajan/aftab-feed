@@ -206,7 +206,7 @@ class DALReports
 	public function getPartyPayment($dateFrom,$dateTo)
 	{
 		$utility = new Utility;
-		$sql = "SELECT customer.name, payment.amount FROM party,customer,payment WHERE party.customerId = customer.id && customer.id = payment.partyId && payment.date BETWEEN '$dateFrom' AND '$dateTo' GROUP BY customer.name ";
+		$sql = "SELECT customer.name, payment.amount FROM party,customer,payment WHERE party.customerId = customer.id && customer.id = payment.customerId && payment.date BETWEEN '$dateFrom' AND '$dateTo' GROUP BY customer.name ";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}

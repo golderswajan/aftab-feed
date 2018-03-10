@@ -494,7 +494,7 @@ class BLLReports
                 $data.=$valueSales;
                 $data.='</td>';
                 $data.='</tr>';
-                }
+            }
         }
 
 
@@ -504,6 +504,7 @@ class BLLReports
         while ($resParty = mysqli_fetch_assoc($resultParty))
         {
             // payments
+            $valueParty+=$resParty['amount'];
             $data.='<tr>';
             $data.='<td>';
             //$data.= $resSales['memoNo'];
@@ -516,7 +517,30 @@ class BLLReports
             $data.='</td>';
             $data.='</tr>';
         }
-        
+        if($valueParty>0)
+        {
+            $data.='<tr>';
+            $data.='<td>';
+            $data.='</td>';
+            $data.='<td class="text-right">';
+            $data.= 'Sub Total=';
+            $data.='</td>';
+            $data.='<td>';
+            $data.=$valueParty;
+            $data.='</td>';
+            $data.='</tr>';
+        }
+        // Grand Total DR.
+        $data.='<tr>';
+        $data.='<td>';
+        $data.='</td>';
+        $data.='<td class="text-right">';
+        $data.= 'Total Deposite=';
+        $data.='</td>';
+        $data.='<td>';
+        $data.=$valueParty+$valueSales;
+        $data.='</td>';
+        $data.='</tr>';
 
         // Total Cost
         $resultCost= $dalReports->getTotalCost($dateFrom,$dateTo);
