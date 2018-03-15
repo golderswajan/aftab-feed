@@ -285,7 +285,7 @@ class BLLReports
             {
                 // More than 1 row returns :-) ;-)
                $totalStockToday += $resStockToday['pcs'];
-               $totalStockValueToday += $resStockToday['netAmount'];
+               $totalStockValueToday += $resStockToday['unitPrice']*$resStockToday['pcs'];
             }
             if($totalStockToday == NULL)
             {
@@ -337,24 +337,18 @@ class BLLReports
             $data .= '<td>'.$totalStockOpening.'('.$totalStockValueOpening.')</td>';
             $data .= '<td>'.$totalStockToday.'('.$totalStockValueToday.')</td>';
             // Closing calculation
-            $closingPcs = $totalStockOpening+$totalStockToday+$totalReturns;
+            $closingPcs = $totalStockOpening+$totalStockToday+$totalReturns-$totalSales;
 
             // Jhamela
             $utility = new Utility;
-            $unitPrice = $utility->getSalePrice($subCatId);
+            $unitPrice = $utility->getBuyPrice($subCatId);
             $closingValue = $closingPcs*$unitPrice;
 
             $data .= '<td>'.$totalSales.'('.$totalSalesValue.')</td>';
             $data .= '<td>'.$totalReturns.'('.$totalReturnsValue.')</td>';
             $data .= '<td>'.$closingPcs.'</td>';
-            if($subCatName=="Flexi Load")
-            {
-                $data .= '<td>'.$closingValue.'<td class="alert-danger">'.($closingPcs-($closingPcs-($closingPcs*2.75/100))).'('.($closingValue-($closingValue-$closingValue*(2.75/100))).')</td></td>';
-            }
-            else
-            {
-                $data .= '<td>'.$closingValue.'</td>';
-            }
+
+            $data .= '<td>'.$closingValue.'</td>';
             $data .= '</tr>';
             $totalStock += $closingValue;
 
@@ -461,11 +455,13 @@ class BLLReports
         $data.='<thead>';
         $data.='<th>M.No</th><th>Detatils</th><th>Amount</th>';
         $data.='</thead>';
+
+        $totalValueSales = 0;
         while ($resCatName = mysqli_fetch_assoc($resultCategoryName))
         {
             // Total Sales
             $resultSales= $dalReports->getSalesByCategoryName($dateFrom,$dateTo,$resCatName['name']);
-            $valueSales = 0;
+            $valueSales=0;
             while ($resSales = mysqli_fetch_assoc($resultSales))
             {
                 $valueSales += $resSales['total'];
@@ -495,6 +491,8 @@ class BLLReports
                 $data.='</td>';
                 $data.='</tr>';
             }
+
+            $totalValueSales+=$valueSales;
         }
 
 

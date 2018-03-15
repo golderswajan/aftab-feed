@@ -18,7 +18,7 @@ class BLLPrice
 			$buy = $_POST['buy'];
 			$sale = $_POST['sale'];
 			
-			for($i=1;$i<sizeof($id);$i++)
+			for($i=0;$i<sizeof($id);$i++)
 			{
 				//echo $id[$i]."---".$buy[$i]."---".$sale[$i]."<br>";
 				$result = $dalPrice->updatePrice($id[$i],$buy[$i],$sale[$i]);
