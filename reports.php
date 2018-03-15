@@ -122,6 +122,25 @@ if (isset($_SESSION['message']))
                     
                 </div>
                 <div class="col-md-2">
+                    <!-- Temporary Button for closing event -->
+                    <form action="bll/bll.reports.php" method="POST">
+                        <input type="text" name="today" value="<?php
+                        $time = time();
+                        $date = date('Y-m-d',$time);
+                        echo $date;
+                        ?>" style="display: none;">
+                        <input type="text" name="yesterday" value="<?php
+                        $time = time();
+                        $y = strtotime("-1 day", $time);
+                        $yesterday = date('Y-m-d',$y);
+                        echo $date;
+                        ?>" style="display: none;">
+
+                       
+                        <input type="submit" name="closing" value="Close Today" class="btn btn-danger btn-fill btn-block pull-right" >
+                    </form>
+                </div>
+               <!--  <div class="col-md-2">
                     <form action="bll/bll.makepdf.php">
                 <input type="text" name="dateFromHolder" value="<?php
                     if(isset($_GET['loadReports']))
@@ -155,7 +174,7 @@ if (isset($_SESSION['message']))
                 ?>" value="Export PDF">
                     
                 </form>
-                </div>
+                </div> -->
             </div>
     
 <div class="row">

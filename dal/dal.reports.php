@@ -98,16 +98,6 @@ class DALReports
 	}
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%S%%%
-# Corn Job: Closing Stock
-#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	public function cornClosingStock($subCategoryId,$explanation,$pcs,$unitPrice,$netAmount,$date)
-	{
-		$utility = new Utility;
-		$sql = "INSERT INTO `closingstock`(`id`, `subCategoryId`, `explanation`, `pcs`, `unitPrice`, `netAmount`, `date`) VALUES ('',$subCategoryId,'$explanation',$pcs,$unitPrice,$netAmount,$date)";
-		$result = $utility->dbQuery($sql);
-		return $result;
-	}
-#%%%%%%%%%%%%%%%%%%%%%%%%%%%S%%%
 # Final Stock Report
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	public function getTotalOpeningStock($yesterday)
@@ -207,6 +197,24 @@ class DALReports
 	{
 		$utility = new Utility;
 		$sql = "SELECT customer.name, payment.amount FROM party,customer,payment WHERE party.customerId = customer.id && customer.id = payment.customerId && payment.date BETWEEN '$dateFrom' AND '$dateTo' GROUP BY customer.name ";
+		$result = $utility->dbQuery($sql);
+		return $result;
+	}
+
+///////////////////////////
+// CORN JOB
+///////////////////////////
+	public function cronClosingVault($cash,$date)
+	{
+		$utility = new Utility;
+		$sql = "INSERT INTO `vault`(`id`, `amount`, `date`) VALUES ('',$cash,'$date')";
+		$result = $utility->dbQuery($sql);
+		return $result;
+	}
+	public function cronClosingStock($pcs,$unitPrice,$date,$subCategoryId)
+	{
+		$utility = new Utility;
+		$sql = "INSERT INTO `closingstock`(`id`, `pcs`, `unitPrice`, `date`, `subCategoryId`) VALUES ('',$pcs,$unitPrice,'$date',$subCategoryId)";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}

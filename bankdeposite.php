@@ -53,9 +53,19 @@ if (isset($_SESSION['message']))
                             ?>" style="display: none">
 
                 <!-- Hold end -->
+
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Token No</label>
+                            <label>Bank Name</label>
+                              <input type="text" name="bankName" class="form-control" placeholder="Bank Name" required value="<?php
+                            if(isset($_GET['edit']))
+                               echo $GLOBALS['bankName'];
+                            ?>">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Notes (Optional)</label>
                            <input type="text" name="tokenNo" class="form-control" placeholder="Token No" value="<?php
                             if(isset($_GET['edit']))
                                echo $GLOBALS['tokenNo'];
@@ -63,34 +73,7 @@ if (isset($_SESSION['message']))
 
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Bank Name</label>
-                            <select class="form-control" name="bankName">
-                               <?php
-                                $bankArray = array('SIBL','IBBL');
-                                $option = "";
-
-                                foreach ($bankArray as $res)
-                                {
-
-                                    if(isset($_GET['edit']) && $GLOBALS['bankName']==$res)
-                                    {
-                                        $option .= '<option value='.$res.' selected>';
-                                    }
-                                    else
-                                    {
-                                    $option .= '<option value='.$res.'>';
-
-                                    }
-                                    $option .= $res;
-                                    $option .= '</option>';
-                                }
-                                echo $option;
-                            ?>
-                            </select>
-                        </div>
-                    </div>
+                    
                     
                 </div>
                 <div class="row">
@@ -202,7 +185,7 @@ if (isset($_SESSION['message']))
             <table class="table table-hover table-striped">
                 <thead>
                     <th>SL.</th>
-                    <th>Slip/Scroll No</th>
+                    <th>Notes</th>
                     <th>Bank Name</th>
                     <th>Net Amount</th>
                     <th>Edit</th>

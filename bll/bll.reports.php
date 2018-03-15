@@ -12,6 +12,17 @@ class BLLReports
     {
         $utility = new Utility;
         $dalReports = new DALReports;
+
+        if (isset($_POST['closing']))
+        {
+            $today = $_POST['today'];
+            $yesterday = $_POST['yesterday'];
+            $this->closingVault($today,$yesterday);
+            $this->closingStock($today,$yesterday);
+
+            header('Location:'.$_SERVER['HTTP_REFERER']);
+            exit();
+        }
     }
 
     public function showSalesReport($dateFrom,$dateTo)
@@ -768,6 +779,151 @@ class BLLReports
 
         }
 
+    }
+
+    public function closingVault($dateTo,$dateFrom)
+    {
+        $dalReports  = new DALReports;
+        
+        $dalProductCategory = new DALProductCategory;
+        $resultCategoryName = $dalProductCategory->getCategory();
+
+        $totalValueSales = 0;
+        while ($resCatName = mysqli_fetch_assoc($resultCategoryName))
+        {
+            // Total Sales
+            $resultSales= $dalReports->getSalesByCategoryName($dateFrom,$dateTo,$resCatName['name']);
+            $valueSales=0;
+            while ($resSales = mysqli_fetch_assoc($resultSales))
+            {
+                $valueSales += $resSales['total'];
+            }
+
+            $totalValueSales+=$valueSales;
+        }
+
+
+        // Pary payments
+        $resultParty= $dalReports->getPartyPayment($dateFrom,$dateTo);
+        $valueParty = 0;
+        while ($resParty = mysqli_fetch_assoc($resultParty))
+        {
+            // payments
+            $valueParty+=$resParty['amount'];
+        }
+        // Total Cost
+        $resultCost= $dalReports->getTotalCost($dateFrom,$dateTo);
+        $valueCost = 0;
+        while ($resCost = mysqli_fetch_assoc($resultCost))
+        {
+           $valueCost += $resCost['netAmount'];
+        }
+
+        // Bank Deposite
+        $resultBank= $dalReports->getBankDeposite($dateFrom,$dateTo);
+        $valueBank = 0;
+        while ($resBank = mysqli_fetch_assoc($resultBank))
+        {
+           $valueBank += $resBank['netAmount'];
+        }
+
+        $cashOnHand = $totalValueSales+$valueParty - $valueCost-$valueBank;
+
+        $dalReports->cronClosingVault($cashOnHand,$dateTo);
+
+    }
+
+    public function closingStock($today,$yesterday)
+    {
+        $dalReports  = new DALReports;
+        $resultSubCat = $dalReports->getSubCategories();
+        $totalStock = 0;
+
+        while ($resSubCat = mysqli_fetch_assoc($resultSubCat))
+        {
+            $subCatId = $resSubCat['id'];
+            $subCatName = $resSubCat['name'];
+
+            // Stock Opening
+            $resultStockOpening = $dalReports->getOpeningStock($subCatName,$yesterday);
+            // variables
+            $totalStockOpening = 0;
+            $totalStockValueOpening = 0;
+            while ($resStockOpening = mysqli_fetch_assoc($resultStockOpening))
+            {
+                // More than 1 row returns :-) ;-)
+               $totalStockOpening += $resStockOpening['pcs'];
+               $totalStockValueOpening += $resStockOpening['netAmount'];
+            }
+            if($totalStockOpening == NULL)
+            {
+                $totalStockOpening = 0;
+                $totalStockValueOpening = 0;
+            }
+
+            // Stock Today: Today actually
+            $resultStockToday = $dalReports->getTodayStock($subCatName,$today);
+            // variables
+            $totalStockToday = 0;
+            $totalStockValueToday = 0;
+            while ($resStockToday = mysqli_fetch_assoc($resultStockToday))
+            {
+                // More than 1 row returns :-) ;-)
+               $totalStockToday += $resStockToday['pcs'];
+               $totalStockValueToday += $resStockToday['unitPrice']*$resStockToday['pcs'];
+            }
+            if($totalStockToday == NULL)
+            {
+                $totalStockToday = 0;
+                $totalStockValueToday = 0;
+            }
+
+             // Sales goods
+            $resultSales = $dalReports->getSalesReportBySubCategoryName($subCatName,$today);
+            // variables
+            $totalSales = 0;
+            $totalSalesValue = 0;
+            while ($resSales = mysqli_fetch_assoc($resultSales))
+            {
+               $totalSales = $resSales['pcs'];
+               $unitPrice = $resSales['unitPrice'];
+
+               $totalSalesValue = $totalSales*$unitPrice;
+            }
+            if($totalSales == NULL)
+            {
+                $totalSales = 0;
+                $totalSalesValue = 0;
+            }
+
+             // Return goods
+            $resultReturns = $dalReports->getReturnsReportBySubCategoryName($subCatName,$today);
+            // variables
+            $totalReturns = 0;
+            $totalReturnsValue = 0;
+            while ($resReturns = mysqli_fetch_assoc($resultReturns))
+            {
+               $totalReturns = $resReturns['pcs'];
+               $unitPrice = $resSales['unitPrice'];
+
+               $totalReturnsValue = $totalReturns*$unitPrice;
+            }
+            if($totalReturns == NULL)
+            {
+                $totalReturns = 0;
+                $totalReturnsValue = 0;
+            }
+            // Closing calculation
+            $closingPcs = $totalStockOpening+$totalStockToday+$totalReturns-$totalSales;
+
+            // Jhamela
+            $utility = new Utility;
+            $unitPrice = $utility->getBuyPrice($subCatId);
+            // $closingValue = $closingPcs*$unitPrice;
+            // $totalStock += $closingValue;
+
+            $dalReports->cronClosingStock($pcs,$unitPrice,$today,$subCatId);
+        }
     }
 
 }

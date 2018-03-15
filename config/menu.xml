@@ -64,6 +64,11 @@
 		<icon>pe-7s-network</icon>
 	</items>
 	<items>
+		<title>Party</title>
+		<link>party.php</link>
+		<icon>pe-7s-note2</icon>
+	</items>
+	<items>
 		<title>User</title>
 		<link>user.php</link>
 		<icon>pe-7s-user</icon>
