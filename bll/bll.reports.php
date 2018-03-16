@@ -921,8 +921,11 @@ class BLLReports
             $unitPrice = $utility->getBuyPrice($subCatId);
             // $closingValue = $closingPcs*$unitPrice;
             // $totalStock += $closingValue;
+            if($closingPcs>0)
+            {
+                $dalReports->cronClosingStock($closingPcs,$unitPrice,$today,$subCatId);
+            }
 
-            $dalReports->cronClosingStock($pcs,$unitPrice,$today,$subCatId);
         }
     }
 

@@ -215,6 +215,7 @@ class DALReports
 	{
 		$utility = new Utility;
 		$sql = "INSERT INTO `closingstock`(`id`, `pcs`, `unitPrice`, `date`, `subCategoryId`) VALUES ('',$pcs,$unitPrice,'$date',$subCategoryId)";
+		//echo $sql;
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
