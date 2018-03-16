@@ -66,5 +66,4 @@
     // Time zone 
     ini_set('date.timezone', 'Asia/Dhaka');
 
-
 ?>

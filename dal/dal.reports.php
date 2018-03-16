@@ -33,6 +33,14 @@ class DALReports
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
+	public function getSalesReportBySubCategoryId($subCatId,$saleId)
+	{
+		$utility = new Utility;
+		$sql = "SELECT SUM(soldproducts.pcs) as pcs, SUM(soldproducts.unitPrice) as unitPrice FROM soldproducts WHERE soldproducts.subCategoryId =  '$subCatId' && soldproducts.saleId ='$saleId'";
+		$result = $utility->dbQuery($sql);
+		return $result;
+	}
+
 	public function getSalesByCategoryName($dateFrom,$dateTo,$categoryName)
 	{
 		$utility = new Utility;
@@ -200,6 +208,23 @@ class DALReports
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
+	public function getPaymentByPartyId($partyId,$date)
+	{
+		$utility = new Utility;
+		$sql = "SELECT customer.name, payment.amount FROM party,customer,payment WHERE party.customerId = customer.id && customer.id = payment.customerId && payment.date BETWEEN '$dateFrom' AND '$dateTo' GROUP BY customer.name ";
+		$result = $utility->dbQuery($sql);
+		return $result;
+	}
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%S%%%
+# Party Report
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	public function getSales($partyId,$date)
+	{
+		$utility = new Utility;
+		$sql = "SELECT sale.* FROM sale,party WHERE sale.date = '$date' && sale.customerId = party.customerId && party.id = $partyId";
+		$result = $utility->dbQuery($sql);
+		return $result;
+	}
 
 ///////////////////////////
 // CORN JOB
@@ -215,6 +240,7 @@ class DALReports
 	{
 		$utility = new Utility;
 		$sql = "INSERT INTO `closingstock`(`id`, `pcs`, `unitPrice`, `date`, `subCategoryId`) VALUES ('',$pcs,$unitPrice,'$date',$subCategoryId)";
+		//echo $sql;
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}

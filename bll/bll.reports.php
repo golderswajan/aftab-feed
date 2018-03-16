@@ -131,7 +131,7 @@ class BLLReports
 
     public function showChickenReport($dateFrom,$dateTo)
     {
-         $data = "";
+        $data = "";
         $SL = 1;
 
         $data.='<thead>
@@ -243,6 +243,84 @@ class BLLReports
         $data .= '</td></tr></tbody>';
 
         return $data;
+
+    }
+    public function showPartyReport($dateFrom,$dateTo)
+    {
+        $data = "";
+        $data.='<thead>
+                <th>SL.</th>
+                <th>Date</th>
+                <th>Memo</th>
+                <th>Detatils</th>';
+
+        $dalProductCategory = new DALProductCategory;
+        $resultSubCategoryName = $dalProductCategory->getSubCategory();
+        while ($resSubCatName = mysqli_fetch_assoc($resultSubCategoryName))
+        {
+            $data.= '<th>'.$resSubCatName['subCategoryName'].'</th>';
+        }
+        $data.='<th>Total</th><th>Com.</th><th>Net.</th><th>Payment</th><th>Balance</th>
+                </thead>
+                <tbody>';
+
+        $dalReports  = new DALReports;
+
+        // Party loop
+        $partyId = 3; // HardCode... will be changed later
+
+        // Date loop 
+        $SL = 1;
+        $data.='<tr><td>'.$SL++.'</td>';
+
+        $datediff = strtotime($dateTo) - strtotime($dateFrom);
+        $datediff = floor($datediff/(60*60*24));
+        for($i = 0; $i < $datediff + 1; $i++)
+        {
+            $date= date("Y-m-d", strtotime($dateFrom . ' + ' . $i . 'day'));
+
+            /// Sold products list
+            $resultSales = $dalReports->getSales($partyId,$date);
+            while ($resSales = mysqli_fetch_assoc($resultSales))
+            {
+                $memoNo = $resSales['memoNo'];
+                $saleId = $resSales['id'];
+                $com = $resSales['comission'];
+                $net = $resSales['net'];
+                $total = $resSales['total'];
+
+                // 
+                $data.='<td>'.$date.'</td>';
+                $data.='<td>'.$memoNo.'</td>';
+                $data.='<td> N/A </td>';
+
+                $resultSubCategory= $dalProductCategory->getSubCategory();
+                while ($resSubCat = mysqli_fetch_assoc($resultSubCategory))
+                {
+                    $subCatId= $resSubCat['id'];
+
+                    $resultProducts = $dalReports->getSalesReportBySubCategoryId($subCatId,$saleId);
+                    while ($resProd = mysqli_fetch_assoc($resultProducts))
+                    {
+                        $pcs = $resProd['pcs'];
+                        
+                        $data.='<td>'.$pcs.'</td>';
+                    }
+                }
+
+                // Extra
+                $data.='<td>'.$total.'</td>';
+                $data.='<td>'.$com.'</td>';
+                $data.='<td>'.$net.'</td>';
+                $data.='<td> N/A </td>';
+                $data.='<td> N/A </td>';
+            }
+            $payments = $dalReports->getPartyPayment($partyId,$date);
+        }
+        $data.='</tr>'; // End Date loop
+
+        return $data;
+       
 
     }
 // Report Stock 
@@ -921,8 +999,11 @@ class BLLReports
             $unitPrice = $utility->getBuyPrice($subCatId);
             // $closingValue = $closingPcs*$unitPrice;
             // $totalStock += $closingValue;
+            if($closingPcs>0)
+            {
+                $dalReports->cronClosingStock($closingPcs,$unitPrice,$today,$subCatId);
+            }
 
-            $dalReports->cronClosingStock($pcs,$unitPrice,$today,$subCatId);
         }
     }
 
