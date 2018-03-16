@@ -36,6 +36,7 @@ class DALParty
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
+
 	public function getPartyById($id)
 	{
 		$utility = new Utility;

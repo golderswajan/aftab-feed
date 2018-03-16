@@ -245,14 +245,22 @@ class BLLReports
         return $data;
 
     }
-    public function showPartyReport($dateFrom,$dateTo)
+    public function showPartyReport($dateFrom,$dateTo,$partyId)
     {
         $data = "";
+
+        $dalParty = new DALParty;
+        $resultParty = $dalParty->getPartyById($partyId);
+        while ($resParty = mysqli_fetch_assoc($resultParty))
+        {
+            $data.= '<h3 class="text-center">'.$resParty['name'].','.$resParty['address'].'</h3>';
+        }
+
         $data.='<thead>
                 <th>SL.</th>
                 <th>Date</th>
                 <th>Memo</th>
-                <th>Detatils</th>';
+                <th>D.</th>';
 
         $dalProductCategory = new DALProductCategory;
         $resultSubCategoryName = $dalProductCategory->getSubCategory();
@@ -267,32 +275,36 @@ class BLLReports
         $dalReports  = new DALReports;
 
         // Party loop
-        $partyId = 3; // HardCode... will be changed later
+        //$partyId = 2; 
 
         // Date loop 
         $SL = 1;
-        $data.='<tr><td>'.$SL++.'</td>';
+        $tempBalance = 10000;// HardCode... will be changed later
 
         $datediff = strtotime($dateTo) - strtotime($dateFrom);
         $datediff = floor($datediff/(60*60*24));
         for($i = 0; $i < $datediff + 1; $i++)
         {
+
             $date= date("Y-m-d", strtotime($dateFrom . ' + ' . $i . 'day'));
 
             /// Sold products list
             $resultSales = $dalReports->getSales($partyId,$date);
             while ($resSales = mysqli_fetch_assoc($resultSales))
             {
+
                 $memoNo = $resSales['memoNo'];
                 $saleId = $resSales['id'];
                 $com = $resSales['comission'];
                 $net = $resSales['net'];
                 $total = $resSales['total'];
+                $tempBalance += $net;
 
-                // 
+                // Put Data
+                $data.='<tr><td>'.$SL++.'</td>';
                 $data.='<td>'.$date.'</td>';
                 $data.='<td>'.$memoNo.'</td>';
-                $data.='<td> N/A </td>';
+                $data.='<td> - </td>';
 
                 $resultSubCategory= $dalProductCategory->getSubCategory();
                 while ($resSubCat = mysqli_fetch_assoc($resultSubCategory))
@@ -312,12 +324,46 @@ class BLLReports
                 $data.='<td>'.$total.'</td>';
                 $data.='<td>'.$com.'</td>';
                 $data.='<td>'.$net.'</td>';
-                $data.='<td> N/A </td>';
-                $data.='<td> N/A </td>';
+                $data.='<td> - </td>';
+                $data.='<td>'.$tempBalance.'</td>';
+
+                $data.='</tr>'; // End loop
             }
-            $payments = $dalReports->getPartyPayment($partyId,$date);
+           
+            $resultPayments = $dalReports->getPaymentByPartyId($partyId,$date);
+            while ($resPayment = mysqli_fetch_assoc($resultPayments))
+            {
+                $payment = $resPayment['totalPayment'];
+                $memoNo = $resPayment['partyPaymentMemoNo'];
+                $details = $resPayment['details'];
+                $tempBalance -= $payment;
+
+
+                // Put Data
+                $data.='<tr><td>'.$SL++.'</td>';
+                $data.='<td>'.$date.'</td>';
+                $data.='<td>'.$memoNo.'</td>';
+                $data.='<td>'.$details.'</td>';
+
+                $resultSubCategory= $dalProductCategory->getSubCategory();
+                while ($resSubCat = mysqli_fetch_assoc($resultSubCategory))
+                {
+
+                    $data.='<td>  </td>';
+                }
+
+                // Extra
+                $data.='<td> - </td>';
+                $data.='<td> - </td>';
+                $data.='<td> - </td>';
+                $data.='<td>'.$payment.'</td>';
+                $data.='<td>'.$tempBalance.'</td>';
+                
+
+                $data.='</tr>'; // End loop
+            }
         }
-        $data.='</tr>'; // End Date loop
+        
 
         return $data;
        
