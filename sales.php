@@ -97,6 +97,7 @@ include_once './templates/topper-customized.php';
                 $('#memoId').val(data[1]);
             });
         }else{
+            $('.checkboxDiv').html('');
             $('#memoText').html('');
         }
 

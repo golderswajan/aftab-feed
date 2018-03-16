@@ -125,6 +125,10 @@ function db_insert_get_returnsId_autoPayment($total,$categoryId,$memo,$autoPayme
             $query = "update memono set memono.partyPayment = memono.partyPayment + 1";
             db_update($query);
 
+//            decreasing party due payment
+            $query = "update partyduepayment set partyduepayment.amount = partyduepayment.amount - '$total' where partyduepayment.customerId in (select sale.customerId from sale where sale.categoryId='".$categoryId."' && sale.memoNo='".$memo."' )";
+            db_update($query);
+
         }
     }
 
@@ -152,7 +156,7 @@ function db_insert_customer_payment_due($saleId,$payment,$due){
     //    due insert
     $query = "INSERT INTO `due` (`id`, `amount`, `saleId`) VALUES (NULL, '".$due."', '".$saleId."');";
     db_insert($query);
-
+    //customer due payment insert
     $query = "INSERT INTO `customerduepayment` (`id`, `amount`, `saleId`) VALUES (NULL, '".$due."', '".$saleId."');";
     db_insert($query);
 
@@ -177,12 +181,15 @@ function db_insert_party_payment_due($partyId,$payment,$saleId,$due){
     $query = "INSERT INTO `due` (`id`, `amount`, `saleId`) VALUES (NULL, '".$due."', '".$saleId."');";
     db_insert($query);
 
+//    update party due payment
+    $query = "update partyduepayment set partyduepayment.amount = partyduepayment.amount + '$due' where partyduepayment.customerId='$partyId'";
+    db_update($query);
 
 }
 
 //shop details page
 function db_get_sales_details($dateFrom,$dateTo){
-    $query = "select sale.id,customer.name as customer,category.name as category,sale.memoNo as memo,sale.date,sale.total,sale.comission,sale.net,payment.amount as payment,due.amount as due from customer,sale,due,category,payment where sale.customerId=customer.id && sale.categoryId=category.id && sale.id=due.saleId && payment.id=sale.id && payment.date=sale.date && sale.date between '".$dateFrom."' and '".$dateTo."' order by sale.id asc";
+    $query = "select sale.id,customer.name as customer,category.name as category,sale.memoNo as memo,sale.date,sale.total,sale.comission,sale.net,payment.amount as payment,due.amount as due from customer,sale,due,category,payment where sale.customerId=customer.id && sale.categoryId=category.id && sale.id=due.saleId && payment.saleId=sale.id && payment.date=sale.date && sale.date between '".$dateFrom."' and '".$dateTo."' order by sale.id asc";
     $rows = db_select($query);
     $html = '<thead>
                 <tr>
@@ -295,6 +302,132 @@ function db_get_returns($dateFrom,$dateTo){
     }
     return $html;
 }
+
+function db_get_party_product_bought_payment($dateFrom,$dateTo,$customerId){
+//    getting current due
+    $query = "select partyduepayment.amount from partyduepayment where partyduepayment.customerId='$customerId'";
+    $currentDue = db_select($query)[0]['amount'];
+
+    $html = '<div class="col-md-6">
+                    <div class="card ">
+                        <div class="header">
+                            <h4 class="title"><b>Product Bought</b></h4>
+
+                        </div>
+                        <div class="content">
+
+                            <div class="table-responsive table-full-width" style="padding: 10px">
+                                <table id="partyBoughtTable" class="table table-striped table-bordered table-hover table-condensed">';
+
+
+
+    $query = "select sale.id,concat(category.name,'-',sale.memoNo) as memo,sale.date,sale.net from category,sale where sale.categoryId=category.id && sale.customerId='$customerId' && sale.date between '$dateFrom' and '$dateTo'";
+    $rows = db_select($query);
+    $tempHtml = '<thead>
+                <tr>
+                    <th>SL.</th>
+                    <th>Cash Memo</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                   
+                </tr>
+            </thead>';
+    $i=0;
+    $sale = 0;
+    foreach ($rows as $row){
+        $tempHtml .= '<tr>
+                    <td>'.(++$i).'</td>
+                    <td><a target="_blank" href="/cash-memo.php?saleId='.$row['id'].'">'.$row['memo'].'</a></td>
+                    <td>'.$row['date'].'</td>
+                    <td>'.$row['net'].'</td>
+                </tr>';
+        $sale += $row['net'];
+    }
+    $tempHtml .= '<tr>
+                <td></td>
+                <td></td>
+                <td>Total</td>
+                <td>'.$sale.' Tk</td>
+              </tr>';
+
+
+    $html.= $tempHtml;
+    $html .=                   '</table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Column end -->
+                <div class="col-md-6">
+                    <div class="card ">
+                        <div class="header">
+                            <h4 class="title"><b>Money Payment</b></h4>
+
+                        </div>
+                        <div class="content">
+
+                            <div class="table-responsive table-full-width" style="padding: 10px">
+                                <table id="partyBoughtTable" class="table table-striped table-bordered table-hover table-condensed">';
+
+    $query = "select payment.partyPaymentMemoNo as paymentMemo,payment.details,payment.date,payment.amount from payment where payment.customerId='$customerId' && payment.amount!='0' && payment.date between '$dateFrom' and '$dateTo'";
+    $rows = db_select($query);
+    $tempHtml = '<thead>
+                <tr>
+                    <th>SL.</th>
+                    <th>Memo</th>
+                    <th>Details</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                   
+                </tr>
+            </thead>';
+    $i=0;
+    $payment = 0;
+    foreach ($rows as $row){
+        $tempHtml .= '<tr>
+                    <td>'.(++$i).'</td>
+                    <td>'.$row['paymentMemo'].'</td>
+                    <td>'.$row['details'].'</td>
+                    <td>'.$row['date'].'</td>
+                    <td>'.$row['amount'].'</td>
+                </tr>';
+        $payment += $row['amount'];
+    }
+    $tempHtml .= '<tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Total</td>
+                <td>'.$payment.' Tk</td>
+              </tr>';
+
+    $html .= $tempHtml;
+
+    $html.=                    '</table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-12">
+                    <div class="card ">
+                        <div class="header">
+                            <h4 class="title"><b>Due Details</b></h4>
+
+                        </div>
+                        <div class="content">
+                            <h4>Due within this date : '.($sale-$payment).' Tk</h4>
+                            <h4>Present Due : '.$currentDue.' Tk</h4>
+                        </div>
+                    </div>
+                </div>';
+
+    return $html;
+}
+
+
 
 //cash memo page
 function db_getCashMemo($saleId){

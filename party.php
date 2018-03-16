@@ -4,6 +4,43 @@ include('./templates/head.php');
 
 include('./bll/bll.party.php');
 ?>
+<script>
+    $(document).ready(function ($) {
+        var query = "select customer.id,customer.name,customer.address,customer.mobile from customer,party where customer.id=party.customerId";
+        $('#partyTable').editableGrid({
+            primaryTable: "customer",
+            selectQuery: query
+//        columns:[
+//            'SubCategory',
+//            'Date',
+//            'Amount(pcs/kg)',
+//            'Unit Price',
+//            'Product Value'
+//        ],
+//        format:{
+//            date: {
+//                type:'date'
+//            },
+//            pcs:{
+//                type: 'number'
+//            },
+//            name:{
+//                type: 'ddl',
+//                selectQuery:'select * from subcategory'
+//            },
+//
+//        },
+//        editMethods:{
+//            name:"UPDATE `stock` SET `subCategoryId` = '*' WHERE `stock`.`id` = '*'"
+//        },
+//        editAble:{
+//            netAmount:false,
+//            unitPrice:false
+//        }
+        });
+    })
+
+</script>
 <div class="wrapper">
 <!--Sidebar here-->
 <?php
@@ -110,22 +147,22 @@ include('./templates/navbar.php');
                                 <p class="category">Aftab Feed Products</p>
                             </div>
                             <div class="content table-responsive table-full-width">
-                                <table class="table table-hover table-striped">
-                                    <thead>
-                                        <th>SL.</th>
-                                        <th>Name</th>
-                                        <th>Address</th>
-                                        <th>Phone No</th>
-                                        <th>Quota</th>
-                                        <th>Edit</th>
-                                        <th>Delete</th>
-                                    </thead>
-                                    <tbody>
-                                    <?php
-                                        $bllParty = new BLLParty;
-                                        echo $bllParty->showParty();
-                                    ?>
-                                    </tbody>
+                                <table id="partyTable" class="table table-hover table-striped">
+<!--                                    <thead>-->
+<!--                                        <th>SL.</th>-->
+<!--                                        <th>Name</th>-->
+<!--                                        <th>Address</th>-->
+<!--                                        <th>Phone No</th>-->
+<!--                                        <th>Quota</th>-->
+<!--                                        <th>Edit</th>-->
+<!--                                        <th>Delete</th>-->
+<!--                                    </thead>-->
+<!--                                    <tbody>-->
+<!--                                    --><?php
+//                                        $bllParty = new BLLParty;
+//                                        echo $bllParty->showParty();
+//                                    ?>
+<!--                                    </tbody>-->
                                 </table>
 
                             </div>

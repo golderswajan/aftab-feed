@@ -12,7 +12,7 @@ class DALSales
 	}
     public function getParties(){
         $utility = new Utility;
-        $query = "select party.id,customer.name from party,customer where party.customerId=customer.id";
+        $query = "select customer.id,customer.name from party,customer where party.customerId=customer.id";
         return $utility->db_select($query);
     }
     public function getCategory(){

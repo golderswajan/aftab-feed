@@ -18,6 +18,14 @@ include_once './templates/topper-customized.php';
 
         }, 2000);
 
+        $(window).keydown(function (event) {
+            if(event.keyCode == 13){
+                event.preventDefault();
+                return false;
+            }
+
+        })
+
     });
 
     function checkExist(){

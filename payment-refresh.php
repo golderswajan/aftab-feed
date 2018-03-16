@@ -16,10 +16,16 @@ if(isset($_POST['paymentParty'])){
     $time = time();
     $date = date('Y-m-d',$time);
 
+    //payment insert
     $query = "INSERT INTO `payment` (`id`, `details`, `amount`, `date`, `customerId`, `saleId`, `partyPaymentMemoNo`) VALUES (NULL, '".$details."', '$payment', '".$date."', '".$partyId."', NULL, '".$paymentMemoNo."');";
     db_insert($query);
 
+//    payment memo update
     $query = "update memono set memono.partyPayment = memono.partyPayment + 1";
+    db_update($query);
+
+//    decreasing party payment due
+    $query = "update partyduepayment set partyduepayment.amount = partyduepayment.amount - '$payment' where partyduepayment.customerId='$partyId'";
     db_update($query);
 
     $address = "Location: payment.php";

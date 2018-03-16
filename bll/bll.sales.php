@@ -282,7 +282,7 @@ class BLLSales
 
     }
 
-    public function getProductPartiesAsOptions()
+    public function getProductPartiesAsOptions($partyId=0)
     {
         $dalSales = new DALSales;
         $result = $dalSales->getParties();
@@ -290,7 +290,8 @@ class BLLSales
         $data .= "<option value=''>select party</option>";
         foreach ($result as $res)
         {
-            $data .='<option value='.$res['id'].'>';
+            if($res['id']==$partyId) $data .='<option value='.$res['id'].' selected>';
+            else $data .='<option value='.$res['id'].'>';
             $data .=$res['name'];
             $data .='</option>';
         }

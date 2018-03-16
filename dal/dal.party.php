@@ -20,6 +20,10 @@ class DALParty
 		while ($res = mysqli_fetch_assoc($result))
 		{
 			$partyId = $res['id'];
+//			creating empty field for party due
+            $emptyDueSql = "INSERT INTO `partyduepayment` (`id`, `amount`, `customerId`) VALUES (NULL, '0', '$partyId');";
+            $utility->dbQuery($emptyDueSql);
+
 			$partySql = "INSERT INTO `party`(`id`, `quota`, `customerId`) VALUES ('',$quota,'$partyId')";
 			$result = $utility->dbQuery($partySql);
 		}
