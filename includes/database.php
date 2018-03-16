@@ -182,7 +182,7 @@ function db_insert_party_payment_due($partyId,$payment,$saleId,$due){
 
 //shop details page
 function db_get_sales_details($dateFrom,$dateTo){
-    $query = "select sale.id,customer.name as customer,category.name as category,sale.memoNo as memo,sale.date,sale.total,sale.comission,sale.net,payment.amount as payment,due.amount as due from customer,sale,due,category,payment where sale.customerId=customer.id && sale.categoryId=category.id && sale.id=due.saleId && payment.id=sale.id && payment.date=sale.date && sale.date between '".$dateFrom."' and '".$dateTo."' order by sale.id asc";
+    $query = "select sale.id,customer.name as customer,category.name as category,sale.memoNo as memo,sale.date,sale.total,sale.comission,sale.net,payment.amount as payment,due.amount as due from customer,sale,due,category,payment where sale.customerId=customer.id && sale.categoryId=category.id && sale.id=due.saleId && payment.saleId=sale.id && payment.date=sale.date && sale.date between '".$dateFrom."' and '".$dateTo."' order by sale.id asc";
     $rows = db_select($query);
     $html = '<thead>
                 <tr>

@@ -56,6 +56,8 @@ if (isset($_SESSION['message']))
                         <option value="Stock">Stock Report</option>
                         <option value="Final">Final Report</option>
                         <option disabled>------------------</option>
+                        <option value="Party">Party Ledger</option>
+                        <option disabled>------------------</option>
                         <option value="Feed">Feed Sales</option>
                         <option value="Chicken">Chicken Sales</option>
                     </select>
@@ -180,7 +182,7 @@ if (isset($_SESSION['message']))
 <div class="row">
     <div class="col-md-12">  
         <div class="content table-responsive table-full-width">
-            <table class="table table-hover table-striped" id="reportTable">
+            <table class="table table-hover table-bordered" id="reportTable">
 <?php
 $bllReports = new BLLReports;
 if(isset($_GET['loadReports']))
@@ -199,6 +201,10 @@ if(isset($_GET['loadReports']))
     elseif($_GET['report']=='Stock')
     {
         echo $bllReports->showStockReport($dateFrom,$dateTo);
+    }
+    elseif($_GET['report']=='Party')
+    {
+        echo $bllReports->showPartyReport($dateFrom,$dateTo);
     }
     
     elseif($_GET['report']=='Feed')

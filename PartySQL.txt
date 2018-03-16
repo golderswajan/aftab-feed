@@ -1,0 +1,5 @@
+SELECT subcategory.id,subcategory.name,soldproducts.pcs,soldproducts.unitPrice,soldproducts.saleId,sale.total,sale.comission,sale.net,sale.date,sale.customerId,sale.memoNo
+FROM ((((subcategory
+LEFT JOIN soldproducts ON soldproducts.subCategoryId = subcategory.id)
+LEFT JOIN sale ON soldproducts.saleId = sale.id && sale.date='2018-03-15') LEFT JOIN customer ON sale.customerId = customer.id) LEFT JOIN party ON customer.id = party.customerId && party.id = 67)
+ORDER BY subcategory.id
