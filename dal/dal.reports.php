@@ -165,6 +165,14 @@ class DALReports
 		return $result;
 	}
 
+	public function getFeedSales($dateFrom,$dateTo)
+	{
+		$utility = new Utility;
+		$sql = "SELECT sale.*, due.amount, customer.id as customerId, customer.name,customer.address FROM sale,due,customer,category WHERE sale.categoryId = category.id && category.name = 'Feed' && sale.customerId = customer.id && sale.id = due.saleId && sale.date BETWEEN '$dateFrom' AND '$dateTo'";
+		$result = $utility->dbQuery($sql);
+		return $result;
+	}
+
 	public function getFeedCommission($partyId,$dateFrom,$dateTo)
 	{
 		$utility = new Utility;
@@ -176,18 +184,25 @@ class DALReports
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%S%%%
 # Chicken Report
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	public function getChickenReport($partyId,$keyName,$dateFrom,$dateTo)
+	public function getChickenReport($customerId,$keyName,$dateFrom,$dateTo)
 	{
 		$utility = new Utility;
-		$sql = "SELECT SUM(soldproducts.pcs) as pcs,soldproducts.*,sale.comission FROM soldproducts,sale,party,subcategory WHERE soldproducts.saleId = sale.id && sale.customerId= party.customerId && party.id =$partyId && soldproducts.subCategoryId = subcategory.id &&  subcategory.name = '$keyName' && sale.date BETWEEN '$dateFrom' AND '$dateTo'";
+		$sql = "SELECT SUM(soldproducts.pcs) as pcs,soldproducts.*,sale.comission FROM soldproducts,sale,subcategory WHERE soldproducts.saleId = sale.id && sale.customerId =$customerId && soldproducts.subCategoryId = subcategory.id &&  subcategory.name = '$keyName' && sale.date BETWEEN '$dateFrom' AND '$dateTo'";
+		$result = $utility->dbQuery($sql);
+		return $result;
+	}
+	public function getChickenSales($dateFrom,$dateTo)
+	{
+		$utility = new Utility;
+		$sql = "SELECT sale.*, due.amount, customer.id as customerId, customer.name,customer.address FROM sale,due,customer,category WHERE sale.categoryId = category.id && category.name = 'Chicken' && sale.customerId = customer.id && sale.id = due.saleId && sale.date BETWEEN '$dateFrom' AND '$dateTo'";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
 
-	public function getChickenCommission($partyId,$dateFrom,$dateTo)
+	public function getChickenCommission($customerId,$dateFrom,$dateTo)
 	{
 		$utility = new Utility;
-		$sql = "SELECT DISTINCT(sale.id), sale.comission FROM sale,party,soldproducts,subcategory,category WHERE category.name='Chicken' && category.id = subcategory.categoryId && subcategory.id = soldproducts.subCategoryId && soldproducts.saleId = sale.id && sale.customerId = party.customerId && party.id = $partyId && sale.date BETWEEN '$dateFrom' AND '$dateTo'";
+		$sql = "SELECT DISTINCT(sale.id), sale.comission FROM sale,soldproducts,subcategory,category WHERE category.name='Chicken' && category.id = subcategory.categoryId && subcategory.id = soldproducts.subCategoryId && soldproducts.saleId = sale.id && sale.customerId = $customerId && sale.date BETWEEN '$dateFrom' AND '$dateTo'";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
@@ -222,6 +237,13 @@ class DALReports
 	{
 		$utility = new Utility;
 		$sql = "SELECT sale.* FROM sale,party WHERE sale.date = '$date' && sale.customerId = party.customerId && party.id = $partyId";
+		$result = $utility->dbQuery($sql);
+		return $result;
+	}
+	public function getProductSales($saleId,$subCatId)
+	{
+		$utility = new Utility;
+		$sql = "SELECT soldproducts.* FROM soldproducts WHERE soldproducts.subCategoryId = $subCatId && soldproducts.saleId = $saleId ";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
