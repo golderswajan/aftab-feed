@@ -42,7 +42,7 @@ include_once './includes/database.php';
         });
         $('#detailsCategoryDDL').on('change',function () {
             var index = $('#detailsCategoryDDL').val();
-            if(index==5){
+            if(index==6){
                 console.log("HELLO");
                 $('#partyDiv').show();
                 $('#partyDuePaymentDiv').show();
@@ -91,7 +91,8 @@ include_once './includes/database.php';
                                     <option value="2" <?=$category==2?'selected':''?>>Customers Due</option>
                                     <option value="3" <?=$category==3?'selected':''?>>Customer Due Payment</option>
                                     <option value="4" <?=$category==4?'selected':''?>>Product Returns</option>
-                                    <option value="5" <?=$category==5?'selected':''?>>Party Due Payment</option>
+                                    <option value="5" <?=$category==5?'selected':''?>>Party Due</option>
+                                    <option value="6" <?=$category==6?'selected':''?>>Party Due Payment</option>
                                 </select>
                             </div>
                         </div>
@@ -115,7 +116,7 @@ include_once './includes/database.php';
 
                     <div class="row">
                         <div class="col-md-3 col-sm-3 col-lg-3">
-                            <div class="form-group" id="partyDiv" style="<?=($category==5)?"display: block":"display: none"?>">
+                            <div class="form-group" id="partyDiv" style="<?=($category==6)?"display: block":"display: none"?>">
                                 <label>Party</label>
                                 <?php
                                 echo $bllSales->getProductPartiesAsOptions($partyId);
@@ -132,7 +133,7 @@ include_once './includes/database.php';
         </div>
         <form>
 
-            <div class="row" id="detailsDiv" style="<?=($category!=5)?"display: block":"display: none"?>">
+            <div class="row" id="detailsDiv" style="<?=($category!=6)?"display: block":"display: none"?>">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="header">
@@ -154,6 +155,8 @@ include_once './includes/database.php';
                                                 echo db_get_customer_due_payment($dateFrom,$dateTo);
                                             }else if($category==4){
                                                 echo db_get_returns($dateFrom,$dateTo);
+                                            }else if($category==5){
+                                                echo db_get_party_due();
                                             }
 
                                         }else{
@@ -173,12 +176,12 @@ include_once './includes/database.php';
 
             
 
-            <div class="row" id="partyDuePaymentDiv" style="<?=($category==5)?"display: block":"display: none"?>">
+            <div class="row" id="partyDuePaymentDiv" style="<?=($category==6)?"display: block":"display: none"?>">
                 <?php
                 if(isset($_POST['search'])){
                     $dateTo = $_POST['dateTo'];
                     $dateFrom = $_POST['dateFrom'];
-                    if($category==5){
+                    if($category==6){
                         echo db_get_party_product_bought_payment($dateFrom,$dateTo,$partyId);
                     }
                 }

@@ -303,6 +303,31 @@ function db_get_returns($dateFrom,$dateTo){
     return $html;
 }
 
+function db_get_party_due(){
+    $query = "select customer.name ,customer.address,partyduepayment.amount from customer,partyduepayment,party where customer.id=party.customerId && customer.id=partyduepayment.customerId";
+    $rows = db_select($query);
+    $html = '<thead>
+                <tr>
+                    <th>SL.</th>
+                    <th>Customer Name</th>
+                    <th>Address</th>
+                    <th>Due Amount</th>
+                    
+                </tr>
+            </thead>';
+    $i =0;
+    foreach ($rows as $row){
+        $html .= '<tr>
+                    <td>'.(++$i).'</td>
+                    <td>'.$row['name'].'</td>
+                    <td>'.$row['address'].'</td>
+                    <td>'.$row['amount'].'</td>
+                </tr>';
+    }
+
+    return $html;
+}
+
 function db_get_party_product_bought_payment($dateFrom,$dateTo,$customerId){
 //    getting current due
     $query = "select partyduepayment.amount from partyduepayment where partyduepayment.customerId='$customerId'";

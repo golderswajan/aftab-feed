@@ -28,6 +28,13 @@ if(isset($_POST['paymentParty'])){
     $query = "update partyduepayment set partyduepayment.amount = partyduepayment.amount - '$payment' where partyduepayment.customerId='$partyId'";
     db_update($query);
 
+    if(isset($_POST['halkhata'])){
+        $hDetails = $_POST['hDetails'];
+        //    inserting into party halkhata
+        $query = "INSERT INTO `partyhalkhata` (`id`, `details`, `amount`, `date`, `customerId`) VALUES (NULL, '$hDetails', (select amount from partyduepayment where id in (select id from partyduepayment where customerId='$partyId')), '$date', '$partyId');";
+        db_insert($query);
+    }
+
     $address = "Location: payment.php";
     header($address);
 
