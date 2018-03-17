@@ -1,6 +1,7 @@
 <?php
 include('./templates/head.php');
 include('./bll/bll.reports.php');
+include('./bll/bll.party.php');
 
 //include($_SERVER['DOCUMENT_ROOT'].'/includes/permissionadmin.php');
 
@@ -47,7 +48,7 @@ if (isset($_SESSION['message']))
         <div class="content">
         <form  method="GET">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="form-group">
                     <label>Report</label>
                     <select name="report" class="form form-control">
@@ -63,7 +64,7 @@ if (isset($_SESSION['message']))
                     </select>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="form-group">
                     <label>From</label>
                     <input type="date" name="dateFrom" class="form-control" value="<?php
@@ -75,7 +76,17 @@ if (isset($_SESSION['message']))
                     ?>" required>
                 </div>
             </div>
-            <div class="col-md-4">
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Party (Optional)</label>
+                        <?php
+                            echo $bllParty->getPartyAsSelect();
+                        ?>
+                </div>
+            </div>
+            <div class="col-md-6">
                 <div class="form-group">
                     <label>To</label>
                     <input type="date" name="dateTo" class="form-control" value="<?php
@@ -137,7 +148,6 @@ if (isset($_SESSION['message']))
                         $yesterday = date('Y-m-d',$y);
                         echo $date;
                         ?>" style="display: none;">
-
                        
                         <input type="submit" name="closing" value="Close Today" class="btn btn-danger btn-fill btn-block pull-right" >
                     </form>
@@ -189,6 +199,7 @@ if(isset($_GET['loadReports']))
 {
     $dateFrom = $_GET['dateFrom'];
     $dateTo = $_GET['dateTo'];
+    $partyId = $_GET['party'];
 
     if($_GET['report']=='Sales')
     {
@@ -204,7 +215,7 @@ if(isset($_GET['loadReports']))
     }
     elseif($_GET['report']=='Party')
     {
-        echo $bllReports->showPartyReport($dateFrom,$dateTo);
+        echo $bllReports->showPartyReport($dateFrom,$dateTo,$partyId);
     }
     
     elseif($_GET['report']=='Feed')

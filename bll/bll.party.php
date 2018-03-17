@@ -104,6 +104,23 @@ class BllParty
 		return $data;
 
 	}
+	public function getPartyAsSelect($partyId=0)
+    {
+        $dalParty = new DALParty;
+		$result = $dalParty->getParty();
+        $data ='<select id="party" name="party" class="selectpicker form-control" data-live-search="true">';
+        foreach ($result as $res)
+        {
+            if($res['id']==$partyId) $data .='<option value='.$res['id'].' selected>';
+            else $data .='<option value='.$res['id'].'>';
+            $data .=$res['name'];
+            $data .='</option>';
+        }
+        $data .='</select>';
+
+        return $data;
+
+    }
 	public function getPartyById($id)
 	{
 		$dalParty = new DALParty;

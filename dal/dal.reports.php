@@ -100,7 +100,7 @@ class DALReports
 	public function getOpeningVault($yesterday)
 	{
 		$utility = new Utility;
-		$sql = "SELECT * FROM closingvault WHERE closingvault.date = '$yesterday'";
+		$sql = "SELECT * FROM vault WHERE vault.date = '$yesterday'";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
@@ -211,7 +211,7 @@ class DALReports
 	public function getPaymentByPartyId($partyId,$date)
 	{
 		$utility = new Utility;
-		$sql = "SELECT customer.name, payment.amount FROM party,customer,payment WHERE party.customerId = customer.id && customer.id = payment.customerId && payment.date BETWEEN '$dateFrom' AND '$dateTo' GROUP BY customer.name ";
+		$sql = "SELECT payment.amount as totalPayment,payment.partyPaymentMemoNo,payment.details FROM party,customer,payment WHERE party.customerId = customer.id && customer.id = payment.customerId && party.id=$partyId && payment.date ='$date'";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
