@@ -42,6 +42,13 @@ class DALParty
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}
+	public function getCustomer()
+	{
+		$utility = new Utility;
+		$sql = "SELECT customer.* FROM customer WHERE 1";
+		$result = $utility->dbQuery($sql);
+		return $result;
+	}
 
 	public function getPartyById($id)
 	{

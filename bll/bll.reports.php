@@ -1,5 +1,6 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT'].'/dal/dal.reports.php');
+include($_SERVER['DOCUMENT_ROOT'].'/dal/dal.party.php');
 include($_SERVER['DOCUMENT_ROOT'].'/dal/dal.productcategory.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/includes/utility.php');
 
@@ -66,8 +67,9 @@ class BLLReports
         $SL = 1;
 
         $data.='<thead>
-                <th>SL.</th>
-                <th>Client</th>';
+            <th>SL.</th>
+            <th>Customer</th>
+            <th>M.#</th>';
 
         $dalProductCategory = new DALProductCategory;
         $resultSubCategoryName = $dalProductCategory->getFeedSubCategory();
@@ -75,61 +77,132 @@ class BLLReports
         {
             $data.= '<th>'.$resSubCatName['subCategoryName'].'</th>';
         }
-        $data.='<th>Total</th><th>Commission</th><th>Net Total</th>
+        $data.='<th>Total</th><th>Commission</th><th>Net Total</th><th>Remarks</th>
                 </thead>
                 <tbody>';
 
         $dalReports  = new DALReports;
-        // replace after pary crud created
-        $resultParty = $dalReports->getParty();
-        while ($resParty = mysqli_fetch_assoc($resultParty))
+        $resultSales = $dalReports->getFeedSales($dateFrom,$dateTo);
+
+        while ($resSales= mysqli_fetch_assoc($resultSales))
         {
-            $partyId = $resParty['id'];
-            $totalFeed = 0;
-            
-            
-            $data .= '<tr>';
-            $data .= '<td>'.$SL++.'</td>';
-            $data .= '<td>'.$resParty['name'].'</td>';
+            $saleId = $resSales['id'];
+            $customerId = $resSales['customerId'];
+            $customerName = $resSales['name'];
+            $customerAddress = $resSales['address'];
+            $memoNo = $resSales['memoNo'];
+            $total = $resSales['total'];
+            $net = $resSales['net'];
+            $com = $resSales['comission'];
+            $due = $resSales['amount'];
 
-            // Again categorywise all the party sale retrive
-            $resultSubCategoryName = $dalProductCategory->getFeedSubCategory();
-            while ($resSubCatName = mysqli_fetch_assoc($resultSubCategoryName))
+            $data.='<tr>';
+            $data.='<td>'.$SL++.'</td>';
+            $data.='<td>'.$customerName.'('.$customerAddress.')</td>';
+            $data.='<td>'.$memoNo.'</td>';
+
+            $dalProductCategory = new DALProductCategory;
+            $resultChickenSubCat = $dalProductCategory->getFeedSubCategory();
+            while ($resChickenSubCat = mysqli_fetch_assoc($resultChickenSubCat))
             {
-                $keyName = $resSubCatName['subCategoryName'];
-
-
-                $resultFeedReport = $dalReports->getFeedReport($partyId,$keyName,$dateFrom,$dateTo);
-
-                
-                $data .= '<td>';
-                while ($resFeedReport = mysqli_fetch_assoc($resultFeedReport))
+                $subCatId = $resChickenSubCat['id'];
+                $pcs=0;
+                $resultProductSale = $dalReports->getProductSales($saleId,$subCatId);
+                while ($resProductSale = mysqli_fetch_assoc($resultProductSale))
                 {
-                    $total = $resFeedReport['pcs']*$resFeedReport['unitPrice'];
-                    $data .=$resFeedReport['pcs'];
-                    $totalFeed += intval($total);
+                    $pcs += $resProductSale['pcs'];
                 }
-                $data .= '</td>';
-            }
-            /// Commission calculation
-            $resultCom = $dalReports->getFeedCommission($partyId,$dateFrom,$dateTo);
-            $totalCommission = 0;
-            while ($resCom = mysqli_fetch_assoc($resultCom))
-            {
-                $totalCommission += $resCom['comission'];
+
+                $data.='<td>'.$pcs.'</td>';
+
             }
 
-            $data .= '<td>'.$totalFeed.'</td>';
-            $data .= '<td>'.$totalCommission.'</td>';
-            $data .= '<td>'.($totalFeed-$totalCommission).'</td>';
-            $data .= '</tr>';
+            $data.='<td>'.$total.'</td>';
+            $data.='<td>'.$com.'</td>';
+            $data.='<td>'.$net.'</td>';
+            $data.='<td>'.$due.'</td>';
+
+
+            $data.='</tr>';
+
+
         }
-        $data .= '</tbody>';
+
+
+        return $data;
+    }
+    public function showChickenReport($dateFrom,$dateTo)
+    {
+        $data = "";
+        $SL = 1;
+
+        $data.='<thead>
+            <th>SL.</th>
+            <th>Customer</th>
+            <th>M.#</th>';
+
+        $dalProductCategory = new DALProductCategory;
+        $resultSubCategoryName = $dalProductCategory->getChickenSubCategory();
+        while ($resSubCatName = mysqli_fetch_assoc($resultSubCategoryName))
+        {
+            $data.= '<th>'.$resSubCatName['subCategoryName'].'</th>';
+        }
+        $data.='<th>Total</th><th>Commission</th><th>Net Total</th><th>Remarks</th>
+                </thead>
+                <tbody>';
+
+        $dalReports  = new DALReports;
+        $resultSales = $dalReports->getChickenSales($dateFrom,$dateTo);
+
+        while ($resSales= mysqli_fetch_assoc($resultSales))
+        {
+            $saleId = $resSales['id'];
+            $customerId = $resSales['customerId'];
+            $customerName = $resSales['name'];
+            $customerAddress = $resSales['address'];
+            $memoNo = $resSales['memoNo'];
+            $total = $resSales['total'];
+            $net = $resSales['net'];
+            $com = $resSales['comission'];
+            $due = $resSales['amount'];
+
+            $data.='<tr>';
+            $data.='<td>'.$SL++.'</td>';
+            $data.='<td>'.$customerName.'('.$customerAddress.')</td>';
+            $data.='<td>'.$memoNo.'</td>';
+
+            $dalProductCategory = new DALProductCategory;
+            $resultChickenSubCat = $dalProductCategory->getChickenSubCategory();
+            while ($resChickenSubCat = mysqli_fetch_assoc($resultChickenSubCat))
+            {
+                $subCatId = $resChickenSubCat['id'];
+                $pcs=0;
+                $resultProductSale = $dalReports->getProductSales($saleId,$subCatId);
+                while ($resProductSale = mysqli_fetch_assoc($resultProductSale))
+                {
+                    $pcs += $resProductSale['pcs'];
+                }
+
+                $data.='<td>'.$pcs.'</td>';
+
+            }
+
+            $data.='<td>'.$total.'</td>';
+            $data.='<td>'.$com.'</td>';
+            $data.='<td>'.$net.'</td>';
+            $data.='<td>'.$due.'</td>';
+
+
+            $data.='</tr>';
+
+
+        }
+
 
         return $data;
     }
 
-    public function showChickenReport($dateFrom,$dateTo)
+    public function showChickenReport2($dateFrom,$dateTo)
     {
         $data = "";
         $SL = 1;
@@ -149,28 +222,26 @@ class BLLReports
                 <tbody>';
 
         $dalReports  = new DALReports;
+        $dalParty  = new DALParty;
         // replace after pary crud created
-        $resultParty = $dalReports->getParty();
-        while ($resParty = mysqli_fetch_assoc($resultParty))
+        $resultParty = $dalParty->getCustomer();
+        while ($resCustomer = mysqli_fetch_assoc($resultParty))
         {
-            $partyId = $resParty['id'];
+            $customerId = $resCustomer['id'];
             $totalChicken = 0;
             
             
             $data .= '<tr>';
             $data .= '<td>'.$SL++.'</td>';
-            $data .= '<td>'.$resParty['name'].'</td>';
+            $data .= '<td>'.$resCustomer['name'].'</td>';
 
-            // Again categorywise all the party sale retrive
+            // Again categorywise all the Customer sale retrive
             $resultSubCategoryName = $dalProductCategory->getChickenSubCategory();
             while ($resSubCatName = mysqli_fetch_assoc($resultSubCategoryName))
             {
                 $keyName = $resSubCatName['subCategoryName'];
+                $resultChickenReport = $dalReports->getChickenReport($customerId,$keyName,$dateFrom,$dateTo);
 
-
-                $resultChickenReport = $dalReports->getChickenReport($partyId,$keyName,$dateFrom,$dateTo);
-
-                
                 $data .= '<td>';
                 while ($resChickenReport = mysqli_fetch_assoc($resultChickenReport))
                 {
@@ -181,7 +252,7 @@ class BLLReports
                 $data .= '</td>';
             }
             /// Commission calculation
-            $resultCom = $dalReports->getChickenCommission($partyId,$dateFrom,$dateTo);
+            $resultCom = $dalReports->getChickenCommission($customerId,$dateFrom,$dateTo);
             $totalCommission = 0;
             while ($resCom = mysqli_fetch_assoc($resultCom))
             {
