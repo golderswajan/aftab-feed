@@ -24,6 +24,12 @@ class DALParty
             $emptyDueSql = "INSERT INTO `partyduepayment` (`id`, `amount`, `customerId`) VALUES (NULL, '0', '$partyId');";
             $utility->dbQuery($emptyDueSql);
 
+//            creating empty field for halkhata
+            $date = date('Y-m-d',time());
+            $query = "INSERT INTO `partyhalkhata` (`id`, `details`, `amount`, `date`, `customerId`) VALUES (NULL, 'Party Crteated', '0', '$date', '$partyId');";
+            $utility->dbQuery($query);
+
+
 			$partySql = "INSERT INTO `party`(`id`, `quota`, `customerId`) VALUES ('',$quota,'$partyId')";
 			$result = $utility->dbQuery($partySql);
 		}
