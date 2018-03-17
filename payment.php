@@ -85,6 +85,14 @@ include_once './templates/topper-customized.php';
         }
 
     }
+
+    function showHalkhata(cb) {
+        if(cb.checked){
+            $('#halkhataDetailsDiv').show();
+        }else{
+            $('#halkhataDetailsDiv').hide();
+        }
+    }
 </script>
 
 <style>
@@ -142,7 +150,22 @@ include_once './templates/topper-customized.php';
                                 <input class="form-control" id="amountParty" name="amountParty" type="number" min="0" required>
                             </div>
                         </div>
+
                         <div class="col-md-2  col-sm-2 col-lg-2 " >
+                            <div class="form-group" style="margin-top: 26px">
+                                <label><b>Halkhata : </b></label>
+                                <input type="checkbox"  name="halkhata" id="halkhata" onchange="showHalkhata(this)">
+                            </div>
+                        </div>
+
+                        <div class="col-md-4  col-sm-4 col-lg-4 " id="halkhataDetailsDiv" style="display: none">
+                            <div class="form-group" >
+                                <label><b>Details : </b></label>
+                                <input  class="form-control" name="hDetails" value="" >
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 col-md-offset-1  col-sm-2 col-sm-offset-1 col-lg-2 col-lg-offset-1 " >
                             <div class="form-group" style="margin-top: 26px">
                                 <input type="submit" class="form-control btn btn-success" name="paymentParty" onclick="hideCustomerForm()" value="Paid">
                             </div>

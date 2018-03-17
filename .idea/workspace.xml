@@ -6,16 +6,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ab9656ee-e11c-47ca-a330-697bfbcac6f9" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/party-due-payment.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bll/bll.sales.php" afterPath="$PROJECT_DIR$/bll/bll.sales.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dal/dal.party.php" afterPath="$PROJECT_DIR$/dal/dal.party.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dal/dal.sales.php" afterPath="$PROJECT_DIR$/dal/dal.sales.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/includes/database.php" afterPath="$PROJECT_DIR$/includes/database.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/party.php" afterPath="$PROJECT_DIR$/party.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/payment-refresh.php" afterPath="$PROJECT_DIR$/payment-refresh.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/payment.php" afterPath="$PROJECT_DIR$/payment.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sales.php" afterPath="$PROJECT_DIR$/sales.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shop-details.php" afterPath="$PROJECT_DIR$/shop-details.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -37,189 +30,192 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="database.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="database.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/includes/database.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="191" column="334" lean-forward="false" selection-start-line="191" selection-start-column="334" selection-end-line="191" selection-end-column="334" />
+            <state relative-caret-position="349">
+              <caret line="458" column="43" lean-forward="false" selection-start-line="458" selection-start-column="43" selection-end-line="458" selection-end-column="43" />
               <folding>
-                <marker date="1521233877008" expanded="true" signature="1271:1352" ph="INSERT INTO `customer`... " />
-                <marker date="1521233877008" expanded="true" signature="1393:1450" ph="select max(i... customer" />
-                <marker date="1521233877008" expanded="true" signature="1667:1781" ph="INSERT INTO `sale`... " />
-                <marker date="1521233877008" expanded="true" signature="1667:1794" ph="INSERT INTO `sale`... " />
-                <marker date="1521233877008" expanded="true" signature="1667:1811" ph="INSERT INTO `sale`... " />
-                <marker date="1521233877008" expanded="true" signature="1667:1823" ph="INSERT INTO `sale`... " />
-                <marker date="1521233877008" expanded="true" signature="1667:1836" ph="INSERT INTO `sale`... " />
-                <marker date="1521233877008" expanded="true" signature="1667:1854" ph="INSERT INTO `sale`... " />
-                <marker date="1521233877008" expanded="true" signature="1667:1872" ph="INSERT INTO `sale`... " />
-                <marker date="1521233877008" expanded="true" signature="1667:1885" ph="INSERT INTO `sale`... " />
-                <marker date="1521233877008" expanded="true" signature="1925:1990" ph="select max(i... sale" />
-                <marker date="1521233877008" expanded="true" signature="2064:2117" ph="select name category" />
-                <marker date="1521233877008" expanded="true" signature="2180:2229" ph="update memon... " />
-                <marker date="1521233877008" expanded="true" signature="2455:2479" ph="INSERT INTO `returns`... " />
-                <marker date="1521233877008" expanded="true" signature="2455:2610" ph="INSERT INTO `returns`... " />
-                <marker date="1521233877008" expanded="true" signature="2455:2620" ph="INSERT INTO `returns`... " />
-                <marker date="1521233877008" expanded="true" signature="2455:2621" ph="INSERT INTO `returns`... " />
-                <marker date="1521233877008" expanded="true" signature="2504:2519" ph="SELECT sale.... " />
-                <marker date="1521233877008" expanded="true" signature="2504:2531" ph="SELECT sale.... " />
-                <marker date="1521233877008" expanded="true" signature="2504:2576" ph="SELECT sale.... sale" />
-                <marker date="1521233877008" expanded="true" signature="2504:2593" ph="SELECT sale.... sale" />
-                <marker date="1521233877008" expanded="true" signature="2661:2672" ph="select max(i... returns" />
-                <marker date="1521233877008" expanded="true" signature="2661:2776" ph="select max(r... returns" />
-                <marker date="1521233877008" expanded="true" signature="2661:2809" ph="select max(r... returns" />
-                <marker date="1521233877008" expanded="true" signature="2661:2820" ph="select max(i... returns" />
-                <marker date="1521233877008" expanded="true" signature="2896:3036" ph="select custo... customer" />
-                <marker date="1521233877008" expanded="true" signature="3163:3393" ph="insert into payment... " />
-                <marker date="1521233877008" expanded="true" signature="3483:3688" ph="update custo... " />
-                <marker date="1521233877008" expanded="true" signature="3776:3838" ph="select categ... category" />
-                <marker date="1521233877008" expanded="true" signature="3776:3854" ph="select categ... category" />
-                <marker date="1521233877008" expanded="true" signature="3997:4051" ph="select memon... memono" />
-                <marker date="1521233877008" expanded="true" signature="4144:4405" ph="INSERT INTO `payment`... " />
-                <marker date="1521233877008" expanded="true" signature="4144:4432" ph="INSERT INTO `payment`... " />
-                <marker date="1521233877008" expanded="true" signature="4144:4433" ph="INSERT INTO `payment`... " />
-                <marker date="1521233877008" expanded="true" signature="4490:4553" ph="update memon... " />
-                <marker date="1521233877008" expanded="true" signature="4653:4771" ph="update party... " />
-                <marker date="1521233877008" expanded="true" signature="4653:4774" ph="update party... " />
-                <marker date="1521233877008" expanded="true" signature="4653:4877" ph="update party... " />
-                <marker date="1521233877008" expanded="true" signature="5031:5085" ph="select name category" />
-                <marker date="1521233877008" expanded="true" signature="5480:5605" ph="INSERT INTO `payment`... " />
-                <marker date="1521233877008" expanded="true" signature="5480:5636" ph="INSERT INTO `payment`... " />
-                <marker date="1521233877008" expanded="true" signature="5480:5655" ph="INSERT INTO `payment`... " />
-                <marker date="1521233877008" expanded="true" signature="5718:5803" ph="INSERT INTO `due`... " />
-                <marker date="1521233877008" expanded="true" signature="5878:5978" ph="INSERT INTO `customerduepayment`... " />
-                <marker date="1521233877008" expanded="true" signature="6167:6305" ph="select conca... sale" />
-                <marker date="1521233877008" expanded="true" signature="6167:6317" ph="select conca... sale" />
-                <marker date="1521233877008" expanded="true" signature="6382:6420" ph="select memon... memono" />
-                <marker date="1521233877008" expanded="true" signature="6497:6512" ph="INSERT INTO `partypayment`... " />
-                <marker date="1521233877008" expanded="true" signature="6497:6616" ph="INSERT INTO `payment`... " />
-                <marker date="1521233877008" expanded="true" signature="6497:6644" ph="INSERT INTO `payment`... " />
-                <marker date="1521233877008" expanded="true" signature="6497:6708" ph="INSERT INTO `partypayment`... " />
-                <marker date="1521233877008" expanded="true" signature="6497:6709" ph="INSERT INTO `payment`... " />
-                <marker date="1521233877008" expanded="true" signature="6750:6813" ph="update memon... " />
-                <marker date="1521233877008" expanded="true" signature="6871:6931" ph="INSERT INTO `due`... " />
-                <marker date="1521233877008" expanded="true" signature="6871:6943" ph="INSERT INTO `due`... " />
-                <marker date="1521233877008" expanded="true" signature="6871:6956" ph="INSERT INTO `due`... " />
-                <marker date="1521233877008" expanded="true" signature="7029:7156" ph="update party... " />
-                <marker date="1521233877008" expanded="true" signature="7270:7647" ph="select sale.... customer" />
-                <marker date="1521233877008" expanded="true" signature="7270:7667" ph="select sale.... customer" />
-                <marker date="1521233877008" expanded="true" signature="7270:7679" ph="select sale.... customer" />
-                <marker date="1521233877008" expanded="true" signature="7270:7685" ph="select sale.... customer" />
-                <marker date="1521233877008" expanded="true" signature="7270:7700" ph="select sale.... customer" />
-                <marker date="1521233877008" expanded="true" signature="7753:8138" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="7774:8117" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="8192:8217" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="8192:8218" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="8192:8267" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="8192:8268" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="8192:8358" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="8192:8364" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="8192:8365" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="8192:8710" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="8792:9092" ph="select sale.... customer" />
-                <marker date="1521233877008" expanded="true" signature="9138:9345" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="9159:9324" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="9399:9679" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="9783:10245" ph="select sale.... sale" />
-                <marker date="1521233877008" expanded="true" signature="9783:10265" ph="select sale.... sale" />
-                <marker date="1521233877008" expanded="true" signature="9783:10294" ph="select sale.... sale" />
-                <marker date="1521233877008" expanded="true" signature="9922:9990" ph="select sum(p... payment" />
-                <marker date="1521233877008" expanded="true" signature="10347:10710" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="10368:10689" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="10764:11194" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="10764:11218" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="10764:11356" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="11446:11724" ph="select retur... sale" />
-                <marker date="1521233877008" expanded="true" signature="11446:11750" ph="select retur... sale" />
-                <marker date="1521233877008" expanded="true" signature="11446:11778" ph="select retur... sale" />
-                <marker date="1521233877008" expanded="true" signature="11446:11790" ph="select retur... sale" />
-                <marker date="1521233877008" expanded="true" signature="11446:11802" ph="select retur... sale" />
-                <marker date="1521233877008" expanded="true" signature="11855:12105" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="11876:12084" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="12159:12487" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="12159:12508" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="12656:12753" ph="select party... partyduepayment" />
-                <marker date="1521233877008" expanded="true" signature="12841:14561" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="12881:14538" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="12926:13031" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="13077:14511" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="13162:13175" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="13176:13309" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="13176:14479" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="13309:14444" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="13330:13542" ph="select sale.... category" />
-                <marker date="1521233877008" expanded="true" signature="13599:13825" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="13620:13804" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="13908:14174" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="14235:14376" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="14636:16420" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="14676:16397" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="14721:14825" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="14871:16370" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="14956:14969" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="14970:15103" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="14970:16339" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="15103:16304" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="15122:15339" ph="select payme... payment" />
-                <marker date="1521233877008" expanded="true" signature="15396:15654" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="15417:15633" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="15740:15998" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="16065:16235" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="16462:16930" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="16502:16907" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="16547:16649" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="16695:16751" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="16695:16826" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="16695:16880" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="17023:17195" ph="select subca... subcategory" />
-                <marker date="1521233877008" expanded="true" signature="17023:17252" ph="select subca... subcategory" />
-                <marker date="1521233877008" expanded="true" signature="17305:17560" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="17326:17539" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="17632:17657" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="17632:17889" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="18026:18107" ph="select payme... payment" />
-                <marker date="1521233877008" expanded="true" signature="18026:18119" ph="select payme... payment" />
-                <marker date="1521233877008" expanded="true" signature="18172:18340" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="18193:18319" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="18412:18579" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="18689:18948" ph="select subca... returnsproducts" />
-                <marker date="1521233877008" expanded="true" signature="19001:19236" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="19022:19215" ph="..." />
-                <marker date="1521233877008" expanded="true" signature="19308:19564" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="1271:1352" ph="INSERT INTO `customer`... " />
+                <marker date="1521283510005" expanded="true" signature="1393:1450" ph="select max(i... customer" />
+                <marker date="1521283510005" expanded="true" signature="1667:1781" ph="INSERT INTO `sale`... " />
+                <marker date="1521283510005" expanded="true" signature="1667:1794" ph="INSERT INTO `sale`... " />
+                <marker date="1521283510005" expanded="true" signature="1667:1811" ph="INSERT INTO `sale`... " />
+                <marker date="1521283510005" expanded="true" signature="1667:1823" ph="INSERT INTO `sale`... " />
+                <marker date="1521283510005" expanded="true" signature="1667:1836" ph="INSERT INTO `sale`... " />
+                <marker date="1521283510005" expanded="true" signature="1667:1854" ph="INSERT INTO `sale`... " />
+                <marker date="1521283510005" expanded="true" signature="1667:1872" ph="INSERT INTO `sale`... " />
+                <marker date="1521283510005" expanded="true" signature="1667:1885" ph="INSERT INTO `sale`... " />
+                <marker date="1521283510005" expanded="true" signature="1925:1990" ph="select max(i... sale" />
+                <marker date="1521283510005" expanded="true" signature="2064:2117" ph="select name category" />
+                <marker date="1521283510005" expanded="true" signature="2180:2229" ph="update memon... " />
+                <marker date="1521283510005" expanded="true" signature="2455:2479" ph="INSERT INTO `returns`... " />
+                <marker date="1521283510005" expanded="true" signature="2455:2610" ph="INSERT INTO `returns`... " />
+                <marker date="1521283510005" expanded="true" signature="2455:2620" ph="INSERT INTO `returns`... " />
+                <marker date="1521283510005" expanded="true" signature="2455:2621" ph="INSERT INTO `returns`... " />
+                <marker date="1521283510005" expanded="true" signature="2504:2519" ph="SELECT sale.... " />
+                <marker date="1521283510005" expanded="true" signature="2504:2531" ph="SELECT sale.... " />
+                <marker date="1521283510005" expanded="true" signature="2504:2576" ph="SELECT sale.... sale" />
+                <marker date="1521283510005" expanded="true" signature="2504:2593" ph="SELECT sale.... sale" />
+                <marker date="1521283510005" expanded="true" signature="2661:2672" ph="select max(i... returns" />
+                <marker date="1521283510005" expanded="true" signature="2661:2776" ph="select max(r... returns" />
+                <marker date="1521283510005" expanded="true" signature="2661:2809" ph="select max(r... returns" />
+                <marker date="1521283510005" expanded="true" signature="2661:2820" ph="select max(i... returns" />
+                <marker date="1521283510005" expanded="true" signature="2896:3036" ph="select custo... customer" />
+                <marker date="1521283510005" expanded="true" signature="3163:3393" ph="insert into payment... " />
+                <marker date="1521283510005" expanded="true" signature="3483:3688" ph="update custo... " />
+                <marker date="1521283510005" expanded="true" signature="3776:3838" ph="select categ... category" />
+                <marker date="1521283510005" expanded="true" signature="3776:3854" ph="select categ... category" />
+                <marker date="1521283510005" expanded="true" signature="3997:4051" ph="select memon... memono" />
+                <marker date="1521283510005" expanded="true" signature="4144:4405" ph="INSERT INTO `payment`... " />
+                <marker date="1521283510005" expanded="true" signature="4144:4432" ph="INSERT INTO `payment`... " />
+                <marker date="1521283510005" expanded="true" signature="4144:4433" ph="INSERT INTO `payment`... " />
+                <marker date="1521283510005" expanded="true" signature="4490:4553" ph="update memon... " />
+                <marker date="1521283510005" expanded="true" signature="4653:4771" ph="update party... " />
+                <marker date="1521283510005" expanded="true" signature="4653:4774" ph="update party... " />
+                <marker date="1521283510005" expanded="true" signature="4653:4877" ph="update party... " />
+                <marker date="1521283510005" expanded="true" signature="5031:5085" ph="select name category" />
+                <marker date="1521283510005" expanded="true" signature="5480:5605" ph="INSERT INTO `payment`... " />
+                <marker date="1521283510005" expanded="true" signature="5480:5636" ph="INSERT INTO `payment`... " />
+                <marker date="1521283510005" expanded="true" signature="5480:5655" ph="INSERT INTO `payment`... " />
+                <marker date="1521283510005" expanded="true" signature="5718:5803" ph="INSERT INTO `due`... " />
+                <marker date="1521283510005" expanded="true" signature="5878:5978" ph="INSERT INTO `customerduepayment`... " />
+                <marker date="1521283510005" expanded="true" signature="6167:6305" ph="select conca... sale" />
+                <marker date="1521283510005" expanded="true" signature="6167:6317" ph="select conca... sale" />
+                <marker date="1521283510005" expanded="true" signature="6382:6420" ph="select memon... memono" />
+                <marker date="1521283510005" expanded="true" signature="6497:6512" ph="INSERT INTO `partypayment`... " />
+                <marker date="1521283510005" expanded="true" signature="6497:6616" ph="INSERT INTO `payment`... " />
+                <marker date="1521283510005" expanded="true" signature="6497:6644" ph="INSERT INTO `payment`... " />
+                <marker date="1521283510005" expanded="true" signature="6497:6708" ph="INSERT INTO `partypayment`... " />
+                <marker date="1521283510005" expanded="true" signature="6497:6709" ph="INSERT INTO `payment`... " />
+                <marker date="1521283510005" expanded="true" signature="6750:6813" ph="update memon... " />
+                <marker date="1521283510005" expanded="true" signature="6871:6931" ph="INSERT INTO `due`... " />
+                <marker date="1521283510005" expanded="true" signature="6871:6943" ph="INSERT INTO `due`... " />
+                <marker date="1521283510005" expanded="true" signature="6871:6956" ph="INSERT INTO `due`... " />
+                <marker date="1521283510005" expanded="true" signature="7029:7156" ph="update party... " />
+                <marker date="1521283510005" expanded="true" signature="7270:7647" ph="select sale.... customer" />
+                <marker date="1521283510005" expanded="true" signature="7270:7667" ph="select sale.... customer" />
+                <marker date="1521283510005" expanded="true" signature="7270:7679" ph="select sale.... customer" />
+                <marker date="1521283510005" expanded="true" signature="7270:7685" ph="select sale.... customer" />
+                <marker date="1521283510005" expanded="true" signature="7270:7700" ph="select sale.... customer" />
+                <marker date="1521283510005" expanded="true" signature="7753:8138" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="7774:8117" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="8192:8217" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="8192:8218" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="8192:8267" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="8192:8268" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="8192:8358" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="8192:8364" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="8192:8365" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="8192:8710" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="8792:9092" ph="select sale.... customer" />
+                <marker date="1521283510005" expanded="true" signature="9138:9345" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="9159:9324" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="9399:9679" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="9783:10245" ph="select sale.... sale" />
+                <marker date="1521283510005" expanded="true" signature="9783:10265" ph="select sale.... sale" />
+                <marker date="1521283510005" expanded="true" signature="9783:10294" ph="select sale.... sale" />
+                <marker date="1521283510005" expanded="true" signature="9922:9990" ph="select sum(p... payment" />
+                <marker date="1521283510005" expanded="true" signature="10347:10710" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="10368:10689" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="10764:11194" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="10764:11218" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="10764:11356" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="11446:11724" ph="select retur... sale" />
+                <marker date="1521283510005" expanded="true" signature="11446:11750" ph="select retur... sale" />
+                <marker date="1521283510005" expanded="true" signature="11446:11778" ph="select retur... sale" />
+                <marker date="1521283510005" expanded="true" signature="11446:11790" ph="select retur... sale" />
+                <marker date="1521283510005" expanded="true" signature="11446:11802" ph="select retur... sale" />
+                <marker date="1521283510005" expanded="true" signature="11855:12105" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="11876:12084" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="12159:12487" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="12159:12508" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="12582:12768" ph="select sale.... customer" />
+                <marker date="1521283510005" expanded="true" signature="12821:13056" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="12842:13035" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="13121:13405" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="13567:13664" ph="select party... partyduepayment" />
+                <marker date="1521283510005" expanded="true" signature="13752:15472" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="13792:15449" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="13837:13942" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="13988:15422" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="14073:14086" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="14087:14220" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="14087:15390" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="14220:15355" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="14241:14453" ph="select sale.... category" />
+                <marker date="1521283510005" expanded="true" signature="14510:14736" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="14531:14715" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="14819:15085" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="15146:15287" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="15547:17331" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="15587:17308" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="15632:15736" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="15782:17281" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="15867:15880" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="15881:16014" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="15881:17250" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="16014:17215" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="16033:16250" ph="select payme... payment" />
+                <marker date="1521283510005" expanded="true" signature="16307:16565" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="16328:16544" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="16651:16909" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="16976:17146" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="17373:18656" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="17413:18633" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="17458:17560" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="17606:17662" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="17606:17719" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="17606:18606" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="17754:18575" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="17791:17866" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="17791:17867" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="17791:17955" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="17878:17895" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="17992:18152" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="18075:18092" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="18095:18101" ph=" " />
+                <marker date="1521283510005" expanded="true" signature="18189:18345" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="18265:18282" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="18285:18291" ph=" " />
+                <marker date="1521283510005" expanded="true" signature="18382:18538" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="18462:18479" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="18749:18921" ph="select subca... subcategory" />
+                <marker date="1521283510005" expanded="true" signature="18749:18978" ph="select subca... subcategory" />
+                <marker date="1521283510005" expanded="true" signature="19031:19286" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="19052:19265" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="19358:19383" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="19358:19615" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="19752:19833" ph="select payme... payment" />
+                <marker date="1521283510005" expanded="true" signature="19752:19845" ph="select payme... payment" />
+                <marker date="1521283510005" expanded="true" signature="19898:20066" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="19919:20045" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="20138:20305" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="20415:20674" ph="select subca... returnsproducts" />
+                <marker date="1521283510005" expanded="true" signature="20727:20962" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="20748:20941" ph="..." />
+                <marker date="1521283510005" expanded="true" signature="21034:21290" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="returns-refresh.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/returns-refresh.php">
+      <file leaf-file-name="party-due-payment.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/party-due-payment.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="17" column="52" lean-forward="false" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="52" />
+            <state relative-caret-position="327">
+              <caret line="56" column="147" lean-forward="false" selection-start-line="56" selection-start-column="147" selection-end-line="56" selection-end-column="147" />
               <folding>
-                <marker date="1520045308375" expanded="true" signature="479:572" ph="INSERT INTO `returnsproducts`... " />
+                <element signature="n#style#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+                <marker date="1521283563337" expanded="true" signature="276:560" ph="select party... partyhalkhata" />
+                <marker date="1521283563337" expanded="true" signature="277:560" ph="select custo... partyhalkhata" />
+                <marker date="1521283563337" expanded="true" signature="427:519" ph="select max(p... partyhalkhata" />
+                <marker date="1521283563337" expanded="true" signature="3194:3458" ph="..." />
+                <marker date="1521283563337" expanded="true" signature="3255:3271" ph="..." />
+                <marker date="1521283563337" expanded="true" signature="3272:3427" ph="..." />
+                <marker date="1521283563337" expanded="true" signature="3554:3654" ph="..." />
+                <marker date="1521283563337" expanded="true" signature="3606:3654" ph="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="returns.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/returns.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3298">
-              <caret line="194" column="23" lean-forward="false" selection-start-line="194" selection-start-column="23" selection-end-line="194" selection-end-column="23" />
-              <folding>
-                <marker date="1519998150827" expanded="true" signature="7670:7688" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sales.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sales.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="70" column="10" lean-forward="true" selection-start-line="65" selection-start-column="7" selection-end-line="70" selection-end-column="10" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -227,8 +223,8 @@
       <file leaf-file-name="shop-details.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shop-details.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="149" column="73" lean-forward="true" selection-start-line="149" selection-start-column="53" selection-end-line="149" selection-end-column="73" />
+            <state relative-caret-position="2117">
+              <caret line="186" column="17" lean-forward="true" selection-start-line="186" selection-start-column="17" selection-end-line="186" selection-end-column="17" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#form#0;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
@@ -238,11 +234,25 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="shop-details-refresh.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/shop-details-refresh.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="39" />
+              <folding>
+                <marker date="1519783573177" expanded="true" signature="378:549" ph="INSERT INTO `customerdue`... " />
+                <marker date="1519783573177" expanded="true" signature="590:756" ph="update custo... " />
+                <marker date="1519783573177" expanded="true" signature="662:754" ph="select sale.... sale" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="bll.sales.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bll/bll.sales.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="513">
-              <caret line="289" column="58" lean-forward="true" selection-start-line="289" selection-start-column="58" selection-end-line="289" selection-end-column="58" />
+              <caret line="289" column="58" lean-forward="false" selection-start-line="289" selection-start-column="58" selection-end-line="289" selection-end-column="58" />
               <folding />
             </state>
           </provider>
@@ -272,10 +282,13 @@
       <file leaf-file-name="payment.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/payment.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="26" column="10" lean-forward="false" selection-start-line="26" selection-start-column="10" selection-end-line="26" selection-end-column="10" />
+            <state relative-caret-position="196">
+              <caret line="163" column="75" lean-forward="false" selection-start-line="163" selection-start-column="67" selection-end-line="163" selection-end-column="75" />
               <folding>
-                <marker date="1521182883764" expanded="true" signature="3177:3208" ph="select party... memono" />
+                <element signature="n#style#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#4;n#div#0;n#div#1;n#div#0;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#5;n#div#0;n#div#1;n#div#0;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+                <marker date="1521271926510" expanded="true" signature="3355:3386" ph="select party... memono" />
               </folding>
             </state>
           </provider>
@@ -284,14 +297,17 @@
       <file leaf-file-name="payment-refresh.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/payment-refresh.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="28" column="22" lean-forward="false" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
+            <state relative-caret-position="453">
+              <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
               <folding>
-                <marker date="1521184037753" expanded="true" signature="405:607" ph="INSERT INTO `payment`... " />
-                <marker date="1521184037753" expanded="true" signature="675:738" ph="update memon... " />
-                <marker date="1521184037753" expanded="true" signature="814:945" ph="update party... " />
-                <marker date="1521184037753" expanded="true" signature="1291:1520" ph="insert into payment... " />
-                <marker date="1521184037753" expanded="true" signature="1629:1833" ph="update custo... " />
+                <marker date="1521272199834" expanded="true" signature="405:607" ph="INSERT INTO `payment`... " />
+                <marker date="1521272199834" expanded="true" signature="675:738" ph="update memon... " />
+                <marker date="1521272199834" expanded="true" signature="814:945" ph="update party... " />
+                <marker date="1521272199834" expanded="true" signature="1109:1345" ph="INSERT INTO `partyhalkhata`... " />
+                <marker date="1521272199834" expanded="true" signature="1215:1322" ph="select amoun... partyduepayment" />
+                <marker date="1521272199834" expanded="true" signature="1263:1321" ph="select id fr... partyduepayment" />
+                <marker date="1521272199834" expanded="true" signature="1702:1931" ph="insert into payment... " />
+                <marker date="1521272199834" expanded="true" signature="2040:2244" ph="update custo... " />
               </folding>
             </state>
           </provider>
@@ -308,8 +324,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>$bllProductCategory</find>
-      <find>save</find>
       <find>fu</find>
       <find>con</find>
       <find>form</find>
@@ -337,10 +351,13 @@
       <find>db_insert_customer_payment_due</find>
       <find>getParties</find>
       <find>db_insert_get_returnsId_autoPayment</find>
+      <find>5</find>
       <find>db_get_sales_details</find>
+      <find>db_get_party_due</find>
     </findStrings>
     <replaceStrings>
       <replace>expense</replace>
+      <replace>6</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -391,12 +408,13 @@
         <option value="$PROJECT_DIR$/dal/dal.party.php" />
         <option value="$PROJECT_DIR$/party.php" />
         <option value="$PROJECT_DIR$/sales.php" />
-        <option value="$PROJECT_DIR$/payment.php" />
-        <option value="$PROJECT_DIR$/payment-refresh.php" />
         <option value="$PROJECT_DIR$/dal/dal.sales.php" />
         <option value="$PROJECT_DIR$/bll/bll.sales.php" />
-        <option value="$PROJECT_DIR$/includes/database.php" />
         <option value="$PROJECT_DIR$/shop-details.php" />
+        <option value="$PROJECT_DIR$/payment.php" />
+        <option value="$PROJECT_DIR$/payment-refresh.php" />
+        <option value="$PROJECT_DIR$/includes/database.php" />
+        <option value="$PROJECT_DIR$/party-due-payment.php" />
       </list>
     </option>
   </component>
@@ -414,7 +432,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="-7" />
     <option name="y" value="1" />
     <option name="width" value="1370" />
@@ -618,25 +636,25 @@
       <workItem from="1519960212135" duration="33738000" />
       <workItem from="1520141614379" duration="36000" />
       <workItem from="1521137154850" duration="21397000" />
-      <workItem from="1521223176050" duration="7789000" />
+      <workItem from="1521223176050" duration="21442000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="384158000" />
+    <option name="totallyTimeSpent" value="397811000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="1" width="1370" height="744" extended-state="1" />
+    <frame x="-7" y="1" width="1370" height="744" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15801527" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32977098" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.027960526" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.04769737" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -688,13 +706,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dal/dal.productcategory.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
@@ -720,13 +731,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="14" column="17" lean-forward="true" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shop-details-refresh.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="21" lean-forward="true" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -935,6 +939,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
           <caret line="24" column="44" lean-forward="false" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -992,36 +997,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/payment.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="10" lean-forward="false" selection-start-line="26" selection-start-column="10" selection-end-line="26" selection-end-column="10" />
-          <folding>
-            <marker date="1521182883764" expanded="true" signature="3177:3208" ph="select party... memono" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/returns-refresh.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="17" column="52" lean-forward="false" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="52" />
           <folding>
             <marker date="1520045308375" expanded="true" signature="479:572" ph="INSERT INTO `returnsproducts`... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/payment-refresh.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="22" lean-forward="false" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
-          <folding>
-            <marker date="1521184037753" expanded="true" signature="405:607" ph="INSERT INTO `payment`... " />
-            <marker date="1521184037753" expanded="true" signature="675:738" ph="update memon... " />
-            <marker date="1521184037753" expanded="true" signature="814:945" ph="update party... " />
-            <marker date="1521184037753" expanded="true" signature="1291:1520" ph="insert into payment... " />
-            <marker date="1521184037753" expanded="true" signature="1629:1833" ph="update custo... " />
           </folding>
         </state>
       </provider>
@@ -1034,18 +1015,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sales.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="70" column="10" lean-forward="true" selection-start-line="65" selection-start-column="7" selection-end-line="70" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bll/bll.sales.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="513">
-          <caret line="289" column="58" lean-forward="true" selection-start-line="289" selection-start-column="58" selection-end-line="289" selection-end-column="58" />
+          <caret line="289" column="58" lean-forward="false" selection-start-line="289" selection-start-column="58" selection-end-line="289" selection-end-column="58" />
           <folding />
         </state>
       </provider>
@@ -1069,10 +1042,228 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/sales.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="85" column="104" lean-forward="false" selection-start-line="85" selection-start-column="104" selection-end-line="85" selection-end-column="104" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/payment.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="163" column="75" lean-forward="false" selection-start-line="163" selection-start-column="67" selection-end-line="163" selection-end-column="75" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#4;n#div#0;n#div#1;n#div#0;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#5;n#div#0;n#div#1;n#div#0;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+            <marker date="1521271926510" expanded="true" signature="3355:3386" ph="select party... memono" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/payment-refresh.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="453">
+          <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+          <folding>
+            <marker date="1521272199834" expanded="true" signature="405:607" ph="INSERT INTO `payment`... " />
+            <marker date="1521272199834" expanded="true" signature="675:738" ph="update memon... " />
+            <marker date="1521272199834" expanded="true" signature="814:945" ph="update party... " />
+            <marker date="1521272199834" expanded="true" signature="1109:1345" ph="INSERT INTO `partyhalkhata`... " />
+            <marker date="1521272199834" expanded="true" signature="1215:1322" ph="select amoun... partyduepayment" />
+            <marker date="1521272199834" expanded="true" signature="1263:1321" ph="select id fr... partyduepayment" />
+            <marker date="1521272199834" expanded="true" signature="1702:1931" ph="insert into payment... " />
+            <marker date="1521272199834" expanded="true" signature="2040:2244" ph="update custo... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shop-details-refresh.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="39" />
+          <folding>
+            <marker date="1519783573177" expanded="true" signature="378:549" ph="INSERT INTO `customerdue`... " />
+            <marker date="1519783573177" expanded="true" signature="590:756" ph="update custo... " />
+            <marker date="1519783573177" expanded="true" signature="662:754" ph="select sale.... sale" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/database.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="349">
+          <caret line="458" column="43" lean-forward="false" selection-start-line="458" selection-start-column="43" selection-end-line="458" selection-end-column="43" />
+          <folding>
+            <marker date="1521283510005" expanded="true" signature="1271:1352" ph="INSERT INTO `customer`... " />
+            <marker date="1521283510005" expanded="true" signature="1393:1450" ph="select max(i... customer" />
+            <marker date="1521283510005" expanded="true" signature="1667:1781" ph="INSERT INTO `sale`... " />
+            <marker date="1521283510005" expanded="true" signature="1667:1794" ph="INSERT INTO `sale`... " />
+            <marker date="1521283510005" expanded="true" signature="1667:1811" ph="INSERT INTO `sale`... " />
+            <marker date="1521283510005" expanded="true" signature="1667:1823" ph="INSERT INTO `sale`... " />
+            <marker date="1521283510005" expanded="true" signature="1667:1836" ph="INSERT INTO `sale`... " />
+            <marker date="1521283510005" expanded="true" signature="1667:1854" ph="INSERT INTO `sale`... " />
+            <marker date="1521283510005" expanded="true" signature="1667:1872" ph="INSERT INTO `sale`... " />
+            <marker date="1521283510005" expanded="true" signature="1667:1885" ph="INSERT INTO `sale`... " />
+            <marker date="1521283510005" expanded="true" signature="1925:1990" ph="select max(i... sale" />
+            <marker date="1521283510005" expanded="true" signature="2064:2117" ph="select name category" />
+            <marker date="1521283510005" expanded="true" signature="2180:2229" ph="update memon... " />
+            <marker date="1521283510005" expanded="true" signature="2455:2479" ph="INSERT INTO `returns`... " />
+            <marker date="1521283510005" expanded="true" signature="2455:2610" ph="INSERT INTO `returns`... " />
+            <marker date="1521283510005" expanded="true" signature="2455:2620" ph="INSERT INTO `returns`... " />
+            <marker date="1521283510005" expanded="true" signature="2455:2621" ph="INSERT INTO `returns`... " />
+            <marker date="1521283510005" expanded="true" signature="2504:2519" ph="SELECT sale.... " />
+            <marker date="1521283510005" expanded="true" signature="2504:2531" ph="SELECT sale.... " />
+            <marker date="1521283510005" expanded="true" signature="2504:2576" ph="SELECT sale.... sale" />
+            <marker date="1521283510005" expanded="true" signature="2504:2593" ph="SELECT sale.... sale" />
+            <marker date="1521283510005" expanded="true" signature="2661:2672" ph="select max(i... returns" />
+            <marker date="1521283510005" expanded="true" signature="2661:2776" ph="select max(r... returns" />
+            <marker date="1521283510005" expanded="true" signature="2661:2809" ph="select max(r... returns" />
+            <marker date="1521283510005" expanded="true" signature="2661:2820" ph="select max(i... returns" />
+            <marker date="1521283510005" expanded="true" signature="2896:3036" ph="select custo... customer" />
+            <marker date="1521283510005" expanded="true" signature="3163:3393" ph="insert into payment... " />
+            <marker date="1521283510005" expanded="true" signature="3483:3688" ph="update custo... " />
+            <marker date="1521283510005" expanded="true" signature="3776:3838" ph="select categ... category" />
+            <marker date="1521283510005" expanded="true" signature="3776:3854" ph="select categ... category" />
+            <marker date="1521283510005" expanded="true" signature="3997:4051" ph="select memon... memono" />
+            <marker date="1521283510005" expanded="true" signature="4144:4405" ph="INSERT INTO `payment`... " />
+            <marker date="1521283510005" expanded="true" signature="4144:4432" ph="INSERT INTO `payment`... " />
+            <marker date="1521283510005" expanded="true" signature="4144:4433" ph="INSERT INTO `payment`... " />
+            <marker date="1521283510005" expanded="true" signature="4490:4553" ph="update memon... " />
+            <marker date="1521283510005" expanded="true" signature="4653:4771" ph="update party... " />
+            <marker date="1521283510005" expanded="true" signature="4653:4774" ph="update party... " />
+            <marker date="1521283510005" expanded="true" signature="4653:4877" ph="update party... " />
+            <marker date="1521283510005" expanded="true" signature="5031:5085" ph="select name category" />
+            <marker date="1521283510005" expanded="true" signature="5480:5605" ph="INSERT INTO `payment`... " />
+            <marker date="1521283510005" expanded="true" signature="5480:5636" ph="INSERT INTO `payment`... " />
+            <marker date="1521283510005" expanded="true" signature="5480:5655" ph="INSERT INTO `payment`... " />
+            <marker date="1521283510005" expanded="true" signature="5718:5803" ph="INSERT INTO `due`... " />
+            <marker date="1521283510005" expanded="true" signature="5878:5978" ph="INSERT INTO `customerduepayment`... " />
+            <marker date="1521283510005" expanded="true" signature="6167:6305" ph="select conca... sale" />
+            <marker date="1521283510005" expanded="true" signature="6167:6317" ph="select conca... sale" />
+            <marker date="1521283510005" expanded="true" signature="6382:6420" ph="select memon... memono" />
+            <marker date="1521283510005" expanded="true" signature="6497:6512" ph="INSERT INTO `partypayment`... " />
+            <marker date="1521283510005" expanded="true" signature="6497:6616" ph="INSERT INTO `payment`... " />
+            <marker date="1521283510005" expanded="true" signature="6497:6644" ph="INSERT INTO `payment`... " />
+            <marker date="1521283510005" expanded="true" signature="6497:6708" ph="INSERT INTO `partypayment`... " />
+            <marker date="1521283510005" expanded="true" signature="6497:6709" ph="INSERT INTO `payment`... " />
+            <marker date="1521283510005" expanded="true" signature="6750:6813" ph="update memon... " />
+            <marker date="1521283510005" expanded="true" signature="6871:6931" ph="INSERT INTO `due`... " />
+            <marker date="1521283510005" expanded="true" signature="6871:6943" ph="INSERT INTO `due`... " />
+            <marker date="1521283510005" expanded="true" signature="6871:6956" ph="INSERT INTO `due`... " />
+            <marker date="1521283510005" expanded="true" signature="7029:7156" ph="update party... " />
+            <marker date="1521283510005" expanded="true" signature="7270:7647" ph="select sale.... customer" />
+            <marker date="1521283510005" expanded="true" signature="7270:7667" ph="select sale.... customer" />
+            <marker date="1521283510005" expanded="true" signature="7270:7679" ph="select sale.... customer" />
+            <marker date="1521283510005" expanded="true" signature="7270:7685" ph="select sale.... customer" />
+            <marker date="1521283510005" expanded="true" signature="7270:7700" ph="select sale.... customer" />
+            <marker date="1521283510005" expanded="true" signature="7753:8138" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="7774:8117" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="8192:8217" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="8192:8218" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="8192:8267" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="8192:8268" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="8192:8358" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="8192:8364" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="8192:8365" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="8192:8710" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="8792:9092" ph="select sale.... customer" />
+            <marker date="1521283510005" expanded="true" signature="9138:9345" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="9159:9324" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="9399:9679" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="9783:10245" ph="select sale.... sale" />
+            <marker date="1521283510005" expanded="true" signature="9783:10265" ph="select sale.... sale" />
+            <marker date="1521283510005" expanded="true" signature="9783:10294" ph="select sale.... sale" />
+            <marker date="1521283510005" expanded="true" signature="9922:9990" ph="select sum(p... payment" />
+            <marker date="1521283510005" expanded="true" signature="10347:10710" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="10368:10689" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="10764:11194" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="10764:11218" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="10764:11356" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="11446:11724" ph="select retur... sale" />
+            <marker date="1521283510005" expanded="true" signature="11446:11750" ph="select retur... sale" />
+            <marker date="1521283510005" expanded="true" signature="11446:11778" ph="select retur... sale" />
+            <marker date="1521283510005" expanded="true" signature="11446:11790" ph="select retur... sale" />
+            <marker date="1521283510005" expanded="true" signature="11446:11802" ph="select retur... sale" />
+            <marker date="1521283510005" expanded="true" signature="11855:12105" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="11876:12084" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="12159:12487" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="12159:12508" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="12582:12768" ph="select sale.... customer" />
+            <marker date="1521283510005" expanded="true" signature="12821:13056" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="12842:13035" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="13121:13405" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="13567:13664" ph="select party... partyduepayment" />
+            <marker date="1521283510005" expanded="true" signature="13752:15472" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="13792:15449" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="13837:13942" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="13988:15422" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="14073:14086" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="14087:14220" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="14087:15390" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="14220:15355" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="14241:14453" ph="select sale.... category" />
+            <marker date="1521283510005" expanded="true" signature="14510:14736" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="14531:14715" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="14819:15085" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="15146:15287" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="15547:17331" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="15587:17308" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="15632:15736" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="15782:17281" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="15867:15880" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="15881:16014" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="15881:17250" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="16014:17215" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="16033:16250" ph="select payme... payment" />
+            <marker date="1521283510005" expanded="true" signature="16307:16565" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="16328:16544" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="16651:16909" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="16976:17146" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="17373:18656" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="17413:18633" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="17458:17560" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="17606:17662" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="17606:17719" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="17606:18606" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="17754:18575" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="17791:17866" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="17791:17867" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="17791:17955" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="17878:17895" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="17992:18152" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="18075:18092" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="18095:18101" ph=" " />
+            <marker date="1521283510005" expanded="true" signature="18189:18345" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="18265:18282" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="18285:18291" ph=" " />
+            <marker date="1521283510005" expanded="true" signature="18382:18538" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="18462:18479" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="18749:18921" ph="select subca... subcategory" />
+            <marker date="1521283510005" expanded="true" signature="18749:18978" ph="select subca... subcategory" />
+            <marker date="1521283510005" expanded="true" signature="19031:19286" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="19052:19265" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="19358:19383" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="19358:19615" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="19752:19833" ph="select payme... payment" />
+            <marker date="1521283510005" expanded="true" signature="19752:19845" ph="select payme... payment" />
+            <marker date="1521283510005" expanded="true" signature="19898:20066" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="19919:20045" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="20138:20305" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="20415:20674" ph="select subca... returnsproducts" />
+            <marker date="1521283510005" expanded="true" signature="20727:20962" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="20748:20941" ph="..." />
+            <marker date="1521283510005" expanded="true" signature="21034:21290" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/shop-details.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="149" column="73" lean-forward="true" selection-start-line="149" selection-start-column="53" selection-end-line="149" selection-end-column="73" />
+        <state relative-caret-position="2117">
+          <caret line="186" column="17" lean-forward="true" selection-start-line="186" selection-start-column="17" selection-end-line="186" selection-end-column="17" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#form#0;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
@@ -1081,153 +1272,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/includes/database.php">
+    <entry file="file://$PROJECT_DIR$/party-due-payment.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="191" column="334" lean-forward="false" selection-start-line="191" selection-start-column="334" selection-end-line="191" selection-end-column="334" />
+        <state relative-caret-position="327">
+          <caret line="56" column="147" lean-forward="false" selection-start-line="56" selection-start-column="147" selection-end-line="56" selection-end-column="147" />
           <folding>
-            <marker date="1521233877008" expanded="true" signature="1271:1352" ph="INSERT INTO `customer`... " />
-            <marker date="1521233877008" expanded="true" signature="1393:1450" ph="select max(i... customer" />
-            <marker date="1521233877008" expanded="true" signature="1667:1781" ph="INSERT INTO `sale`... " />
-            <marker date="1521233877008" expanded="true" signature="1667:1794" ph="INSERT INTO `sale`... " />
-            <marker date="1521233877008" expanded="true" signature="1667:1811" ph="INSERT INTO `sale`... " />
-            <marker date="1521233877008" expanded="true" signature="1667:1823" ph="INSERT INTO `sale`... " />
-            <marker date="1521233877008" expanded="true" signature="1667:1836" ph="INSERT INTO `sale`... " />
-            <marker date="1521233877008" expanded="true" signature="1667:1854" ph="INSERT INTO `sale`... " />
-            <marker date="1521233877008" expanded="true" signature="1667:1872" ph="INSERT INTO `sale`... " />
-            <marker date="1521233877008" expanded="true" signature="1667:1885" ph="INSERT INTO `sale`... " />
-            <marker date="1521233877008" expanded="true" signature="1925:1990" ph="select max(i... sale" />
-            <marker date="1521233877008" expanded="true" signature="2064:2117" ph="select name category" />
-            <marker date="1521233877008" expanded="true" signature="2180:2229" ph="update memon... " />
-            <marker date="1521233877008" expanded="true" signature="2455:2479" ph="INSERT INTO `returns`... " />
-            <marker date="1521233877008" expanded="true" signature="2455:2610" ph="INSERT INTO `returns`... " />
-            <marker date="1521233877008" expanded="true" signature="2455:2620" ph="INSERT INTO `returns`... " />
-            <marker date="1521233877008" expanded="true" signature="2455:2621" ph="INSERT INTO `returns`... " />
-            <marker date="1521233877008" expanded="true" signature="2504:2519" ph="SELECT sale.... " />
-            <marker date="1521233877008" expanded="true" signature="2504:2531" ph="SELECT sale.... " />
-            <marker date="1521233877008" expanded="true" signature="2504:2576" ph="SELECT sale.... sale" />
-            <marker date="1521233877008" expanded="true" signature="2504:2593" ph="SELECT sale.... sale" />
-            <marker date="1521233877008" expanded="true" signature="2661:2672" ph="select max(i... returns" />
-            <marker date="1521233877008" expanded="true" signature="2661:2776" ph="select max(r... returns" />
-            <marker date="1521233877008" expanded="true" signature="2661:2809" ph="select max(r... returns" />
-            <marker date="1521233877008" expanded="true" signature="2661:2820" ph="select max(i... returns" />
-            <marker date="1521233877008" expanded="true" signature="2896:3036" ph="select custo... customer" />
-            <marker date="1521233877008" expanded="true" signature="3163:3393" ph="insert into payment... " />
-            <marker date="1521233877008" expanded="true" signature="3483:3688" ph="update custo... " />
-            <marker date="1521233877008" expanded="true" signature="3776:3838" ph="select categ... category" />
-            <marker date="1521233877008" expanded="true" signature="3776:3854" ph="select categ... category" />
-            <marker date="1521233877008" expanded="true" signature="3997:4051" ph="select memon... memono" />
-            <marker date="1521233877008" expanded="true" signature="4144:4405" ph="INSERT INTO `payment`... " />
-            <marker date="1521233877008" expanded="true" signature="4144:4432" ph="INSERT INTO `payment`... " />
-            <marker date="1521233877008" expanded="true" signature="4144:4433" ph="INSERT INTO `payment`... " />
-            <marker date="1521233877008" expanded="true" signature="4490:4553" ph="update memon... " />
-            <marker date="1521233877008" expanded="true" signature="4653:4771" ph="update party... " />
-            <marker date="1521233877008" expanded="true" signature="4653:4774" ph="update party... " />
-            <marker date="1521233877008" expanded="true" signature="4653:4877" ph="update party... " />
-            <marker date="1521233877008" expanded="true" signature="5031:5085" ph="select name category" />
-            <marker date="1521233877008" expanded="true" signature="5480:5605" ph="INSERT INTO `payment`... " />
-            <marker date="1521233877008" expanded="true" signature="5480:5636" ph="INSERT INTO `payment`... " />
-            <marker date="1521233877008" expanded="true" signature="5480:5655" ph="INSERT INTO `payment`... " />
-            <marker date="1521233877008" expanded="true" signature="5718:5803" ph="INSERT INTO `due`... " />
-            <marker date="1521233877008" expanded="true" signature="5878:5978" ph="INSERT INTO `customerduepayment`... " />
-            <marker date="1521233877008" expanded="true" signature="6167:6305" ph="select conca... sale" />
-            <marker date="1521233877008" expanded="true" signature="6167:6317" ph="select conca... sale" />
-            <marker date="1521233877008" expanded="true" signature="6382:6420" ph="select memon... memono" />
-            <marker date="1521233877008" expanded="true" signature="6497:6512" ph="INSERT INTO `partypayment`... " />
-            <marker date="1521233877008" expanded="true" signature="6497:6616" ph="INSERT INTO `payment`... " />
-            <marker date="1521233877008" expanded="true" signature="6497:6644" ph="INSERT INTO `payment`... " />
-            <marker date="1521233877008" expanded="true" signature="6497:6708" ph="INSERT INTO `partypayment`... " />
-            <marker date="1521233877008" expanded="true" signature="6497:6709" ph="INSERT INTO `payment`... " />
-            <marker date="1521233877008" expanded="true" signature="6750:6813" ph="update memon... " />
-            <marker date="1521233877008" expanded="true" signature="6871:6931" ph="INSERT INTO `due`... " />
-            <marker date="1521233877008" expanded="true" signature="6871:6943" ph="INSERT INTO `due`... " />
-            <marker date="1521233877008" expanded="true" signature="6871:6956" ph="INSERT INTO `due`... " />
-            <marker date="1521233877008" expanded="true" signature="7029:7156" ph="update party... " />
-            <marker date="1521233877008" expanded="true" signature="7270:7647" ph="select sale.... customer" />
-            <marker date="1521233877008" expanded="true" signature="7270:7667" ph="select sale.... customer" />
-            <marker date="1521233877008" expanded="true" signature="7270:7679" ph="select sale.... customer" />
-            <marker date="1521233877008" expanded="true" signature="7270:7685" ph="select sale.... customer" />
-            <marker date="1521233877008" expanded="true" signature="7270:7700" ph="select sale.... customer" />
-            <marker date="1521233877008" expanded="true" signature="7753:8138" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="7774:8117" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="8192:8217" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="8192:8218" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="8192:8267" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="8192:8268" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="8192:8358" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="8192:8364" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="8192:8365" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="8192:8710" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="8792:9092" ph="select sale.... customer" />
-            <marker date="1521233877008" expanded="true" signature="9138:9345" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="9159:9324" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="9399:9679" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="9783:10245" ph="select sale.... sale" />
-            <marker date="1521233877008" expanded="true" signature="9783:10265" ph="select sale.... sale" />
-            <marker date="1521233877008" expanded="true" signature="9783:10294" ph="select sale.... sale" />
-            <marker date="1521233877008" expanded="true" signature="9922:9990" ph="select sum(p... payment" />
-            <marker date="1521233877008" expanded="true" signature="10347:10710" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="10368:10689" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="10764:11194" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="10764:11218" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="10764:11356" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="11446:11724" ph="select retur... sale" />
-            <marker date="1521233877008" expanded="true" signature="11446:11750" ph="select retur... sale" />
-            <marker date="1521233877008" expanded="true" signature="11446:11778" ph="select retur... sale" />
-            <marker date="1521233877008" expanded="true" signature="11446:11790" ph="select retur... sale" />
-            <marker date="1521233877008" expanded="true" signature="11446:11802" ph="select retur... sale" />
-            <marker date="1521233877008" expanded="true" signature="11855:12105" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="11876:12084" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="12159:12487" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="12159:12508" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="12656:12753" ph="select party... partyduepayment" />
-            <marker date="1521233877008" expanded="true" signature="12841:14561" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="12881:14538" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="12926:13031" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="13077:14511" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="13162:13175" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="13176:13309" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="13176:14479" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="13309:14444" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="13330:13542" ph="select sale.... category" />
-            <marker date="1521233877008" expanded="true" signature="13599:13825" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="13620:13804" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="13908:14174" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="14235:14376" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="14636:16420" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="14676:16397" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="14721:14825" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="14871:16370" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="14956:14969" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="14970:15103" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="14970:16339" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="15103:16304" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="15122:15339" ph="select payme... payment" />
-            <marker date="1521233877008" expanded="true" signature="15396:15654" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="15417:15633" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="15740:15998" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="16065:16235" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="16462:16930" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="16502:16907" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="16547:16649" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="16695:16751" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="16695:16826" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="16695:16880" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="17023:17195" ph="select subca... subcategory" />
-            <marker date="1521233877008" expanded="true" signature="17023:17252" ph="select subca... subcategory" />
-            <marker date="1521233877008" expanded="true" signature="17305:17560" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="17326:17539" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="17632:17657" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="17632:17889" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="18026:18107" ph="select payme... payment" />
-            <marker date="1521233877008" expanded="true" signature="18026:18119" ph="select payme... payment" />
-            <marker date="1521233877008" expanded="true" signature="18172:18340" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="18193:18319" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="18412:18579" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="18689:18948" ph="select subca... returnsproducts" />
-            <marker date="1521233877008" expanded="true" signature="19001:19236" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="19022:19215" ph="..." />
-            <marker date="1521233877008" expanded="true" signature="19308:19564" ph="..." />
+            <element signature="n#style#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+            <marker date="1521283563337" expanded="true" signature="276:560" ph="select party... partyhalkhata" />
+            <marker date="1521283563337" expanded="true" signature="277:560" ph="select custo... partyhalkhata" />
+            <marker date="1521283563337" expanded="true" signature="427:519" ph="select max(p... partyhalkhata" />
+            <marker date="1521283563337" expanded="true" signature="3194:3458" ph="..." />
+            <marker date="1521283563337" expanded="true" signature="3255:3271" ph="..." />
+            <marker date="1521283563337" expanded="true" signature="3272:3427" ph="..." />
+            <marker date="1521283563337" expanded="true" signature="3554:3654" ph="..." />
+            <marker date="1521283563337" expanded="true" signature="3606:3654" ph="..." />
           </folding>
         </state>
       </provider>

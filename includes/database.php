@@ -303,7 +303,32 @@ function db_get_returns($dateFrom,$dateTo){
     return $html;
 }
 
-function db_get_party_product_bought_payment($dateFrom,$dateTo,$customerId){
+function db_get_party_due(){
+    $query = "select customer.id,customer.name ,customer.address,partyduepayment.amount from customer,partyduepayment,party where customer.id=party.customerId && customer.id=partyduepayment.customerId";
+    $rows = db_select($query);
+    $html = '<thead>
+                <tr>
+                    <th>SL.</th>
+                    <th>Party Name</th>
+                    <th>Address</th>
+                    <th>Due Amount</th>
+                    
+                </tr>
+            </thead>';
+    $i =0;
+    foreach ($rows as $row){
+        $html .= '<tr>
+                    <td>'.(++$i).'</td>
+                    <td><a target="_blank" href="/party-due-payment.php?customerId='.$row['id'].'">'.$row['name'].'</a></td>
+                    <td>'.$row['address'].'</td>
+                    <td>'.$row['amount'].'</td>
+                </tr>';
+    }
+
+    return $html;
+}
+
+function db_get_party_product_bought_payment($dateFrom,$dateTo,$customerId,$halkhataDue){
 //    getting current due
     $query = "select partyduepayment.amount from partyduepayment where partyduepayment.customerId='$customerId'";
     $currentDue = db_select($query)[0]['amount'];
@@ -418,8 +443,22 @@ function db_get_party_product_bought_payment($dateFrom,$dateTo,$customerId){
 
                         </div>
                         <div class="content">
-                            <h4>Due within this date : '.($sale-$payment).' Tk</h4>
-                            <h4>Present Due : '.$currentDue.' Tk</h4>
+                            <h5>Due within this date : '.($sale-$payment).' Tk</h5>
+                           
+                            <table>
+                                <tr>
+                                    <td><h6>Due After Halkhata :</h6></td><td style="text-align: right">'.$halkhataDue.'</td>
+                                </tr>
+                                <tr>
+                                    <td><h6>Product Bought :</h6></td><td style="text-align: right">+&nbsp;'.$sale.'</td>
+                                </tr>
+                                <tr>
+                                    <td><h6>Payment :</h6></td><td style="text-align: right">-&nbsp;'.$payment.'</td>
+                                </tr>
+                                <tr>
+                                    <td><h6>Present Due :</h6></td><td style="text-align: right">'.$currentDue.'</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>';
