@@ -100,7 +100,7 @@ class DALReports
 	public function getOpeningVault($yesterday)
 	{
 		$utility = new Utility;
-		$sql = "SELECT * FROM closingvault WHERE closingvault.date = '$yesterday'";
+		$sql = "SELECT * FROM vault WHERE vault.date = '$yesterday'";
 		$result = $utility->dbQuery($sql);
 		return $result;
 	}

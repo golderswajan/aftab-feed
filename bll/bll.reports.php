@@ -504,6 +504,15 @@ class BLLReports
         $dalReports  = new DALReports;
         $data = "";
         
+        // Opening vault
+        $yesterday = strtotime("-1 day", $dateFrom);
+        $resultVault= $dalReports->getOpeningVault($yesterday);
+        $valueVault = 0;
+        while ($resVault = mysqli_fetch_assoc($resultVault))
+        {
+           $valueVault += $resVault['amount'];
+        }
+
         // Total Sales
         $resultSales= $dalReports->getTotalSales($dateFrom,$dateTo);
         $valueSales = 0;
@@ -530,7 +539,7 @@ class BLLReports
         }
 
         // Display section
-        $total = $valueSales-$valueCost-$valueBank;
+        $total = $valueVault+$valueSales-$valueCost-$valueBank;
         
         // Total Sales
         $data.='<tr>';
@@ -590,6 +599,35 @@ class BLLReports
         $data.='<thead>';
         $data.='<th>M.No</th><th>Detatils</th><th>Amount</th>';
         $data.='</thead>';
+
+        // Opening vault
+        
+        $date=date_create($dateFrom);
+        date_sub($date,date_interval_create_from_date_string("1 days"));
+        $yesterday= date_format($date,"Y-m-d");
+
+        $resultVault= $dalReports->getOpeningVault($yesterday);
+        $valueVault = 0;
+        while ($resVault = mysqli_fetch_assoc($resultVault))
+        {
+           $valueVault += $resVault['amount'];
+        }
+        if($valueVault==NULL)
+        {
+            $valueVault = 0;
+        }
+        $data.='<tr>';
+        $data.='<td>';
+        $data.='</td>';
+        $data.='<td>';
+        $data.= 'Previous cash in hand';
+        $data.='</td>';
+        $data.='<td>';
+        $data.=$valueVault;
+        $data.='</td>';
+        $data.='</tr>';
+
+        // Value Sales
 
         $totalValueSales = 0;
         while ($resCatName = mysqli_fetch_assoc($resultCategoryName))
@@ -671,7 +709,7 @@ class BLLReports
         $data.= 'Total Deposite=';
         $data.='</td>';
         $data.='<td>';
-        $data.=$valueParty+$valueSales;
+        $data.=$valueVault+$valueParty+$totalValueSales;
         $data.='</td>';
         $data.='</tr>';
 

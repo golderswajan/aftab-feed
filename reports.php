@@ -148,7 +148,6 @@ if (isset($_SESSION['message']))
                         $yesterday = date('Y-m-d',$y);
                         echo $date;
                         ?>" style="display: none;">
-
                        
                         <input type="submit" name="closing" value="Close Today" class="btn btn-danger btn-fill btn-block pull-right" >
                     </form>
