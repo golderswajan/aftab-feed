@@ -24,5 +24,5 @@ Website: http://fsix.me
 Swajan Golder
 Computer Science and Engineering Discipline
 Khulna University, Khulna - 9208, Bangladesh
-Phone: 015--------
+Phone: 01571777609
 Email: swajan.cse.ku@gmail.com
